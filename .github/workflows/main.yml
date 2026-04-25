@@ -5,25 +5,37 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Instalar Dependencias do Sistema
+
+      - name: Instalar Ferramentas de Compilacao
         run: |
           sudo apt update
-          sudo apt install -y python3-pip build-essential git libncurses5 libncurses5-dev libncursesw5-dev libzip-dev zlib1g-dev libffi-dev libssl-dev openjdk-17-jdk autoconf automake libtool
+          sudo apt install -y python3-pip build-essential git libncurses5 libncurses5-dev libncursesw5-dev libzip-dev zlib1g-dev libffi-dev libssl-dev openjdk-17-jdk autoconf automake libtool pkg-config cmake
           pip install --upgrade pip
-          pip install buildozer cython==0.29.33 kivymd
-      - name: Criar o APK com Ícone
+          pip install "cython<3.0.0" buildozer kivymd
+
+      - name: Criar APK (Sem Imagens Externas)
         run: |
-          if [ ! -f buildozer.spec ]; then buildozer init; fi
+          rm -f buildozer.spec
+          buildozer init
+          
+          # Ajustes Basicos
           sed -i 's/package.name = myapp/package.name = nieliptv/' buildozer.spec
           sed -i 's/title = My Application/title = NIEL IPTV PREMIUM/' buildozer.spec
           sed -i 's/# android.permissions = INTERNET/android.permissions = INTERNET,ACCESS_NETWORK_STATE/' buildozer.spec
+          
+          # Ajuste para Android 11
           sed -i 's/android.api = 31/android.api = 30/' buildozer.spec
-          # Adiciona KivyMD e Jnius nos requisitos
-          sed -i 's/requirements = python3,kivy/requirements = python3,kivy,kivymd,jnius,pillow/' buildozer.spec
+          
+          # REQUISITOS (Apenas o necessario para o app rodar)
+          sed -i 's/requirements = python3,kivy/requirements = python3,kivy==2.2.1,kivymd,jnius,pillow,requests/' buildozer.spec
+          
+          # Aceitar licencas automaticamente
           sed -i 's/# android.accept_sdk_license = False/android.accept_sdk_license = True/' buildozer.spec
+          
           export APP_ALLOW_ROOT=1
           yes | buildozer -v android debug
-      - name: Upload APK
+
+      - name: Salvar o APK Pronto
         uses: actions/upload-artifact@v4
         with:
           name: NIEL-IPTV-APK
