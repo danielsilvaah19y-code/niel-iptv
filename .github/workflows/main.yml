@@ -5,21 +5,22 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Instalar Dependencias
+      - name: Instalar Dependencias do Sistema
         run: |
           sudo apt update
-          sudo apt install -y python3-pip build-essential git libncurses5 libncurses5-dev libncursesw5-dev libzip-dev zlib1g-dev libffi-dev libssl-dev openjdk-17-jdk
+          sudo apt install -y python3-pip build-essential git libncurses5 libncurses5-dev libncursesw5-dev libzip-dev zlib1g-dev libffi-dev libssl-dev openjdk-17-jdk autoconf automake libtool
           pip install --upgrade pip
-          pip install buildozer cython==0.29.33
+          pip install buildozer cython==0.29.33 kivymd
       - name: Criar o APK com Ícone
         run: |
-          buildozer init
+          if [ ! -f buildozer.spec ]; then buildozer init; fi
           sed -i 's/package.name = myapp/package.name = nieliptv/' buildozer.spec
           sed -i 's/title = My Application/title = NIEL IPTV PREMIUM/' buildozer.spec
-          # ATIVA O ÍCONE icon.png
-          sed -i 's/# icon.filename = %(source.dir)s\/data\/icon.png/icon.filename = icon.png/' buildozer.spec
           sed -i 's/# android.permissions = INTERNET/android.permissions = INTERNET,ACCESS_NETWORK_STATE/' buildozer.spec
           sed -i 's/android.api = 31/android.api = 30/' buildozer.spec
+          # Adiciona KivyMD e Jnius nos requisitos
+          sed -i 's/requirements = python3,kivy/requirements = python3,kivy,kivymd,jnius,pillow/' buildozer.spec
+          sed -i 's/# android.accept_sdk_license = False/android.accept_sdk_license = True/' buildozer.spec
           export APP_ALLOW_ROOT=1
           yes | buildozer -v android debug
       - name: Upload APK
