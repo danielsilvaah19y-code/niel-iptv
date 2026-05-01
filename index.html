@@ -1,98 +1,129 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIEL FILMES - OFICIAL</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding-bottom: 50px; }
-        header { background: #000; padding: 20px 5%; display: flex; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
-        .logo-niel { font-size: 32px; font-weight: 900; color: #00d2ff; text-transform: uppercase; text-shadow: 0 0 15px #00d2ff, 0 0 30px #00d2ff; margin-right: 30px; }
-        nav { display: flex; gap: 20px; }
-        .nav-btn { color: #aaa; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 14px; border: none; background: none; }
-        .nav-btn.active { color: #fff; border-bottom: 2px solid #00d2ff; }
-        .container { padding: 20px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .movie-card { background: #111; border-radius: 8px; overflow: hidden; border: 1px solid #333; transition: 0.3s; }
-        .movie-card:hover { border-color: #00d2ff; transform: scale(1.02); }
-        video { width: 100%; aspect-ratio: 16/9; background: #000; display: block; }
-        .card-info { padding: 12px; }
-        .movie-title { font-size: 14px; font-weight: bold; margin-bottom: 5px; }
-        .movie-tag { font-size: 10px; color: #00d2ff; font-weight: bold; text-transform: uppercase; }
-        .section { display: none; }
-        .section.active { display: block; }
-        @media (min-width: 768px) { .grid { grid-template-columns: repeat(5, 1fr); } }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NIEL IPTV</title>
+  <link href="https://zencdn.net" rel="stylesheet" />
+  <style>
+    :root{--red:#ff0000;--bg:#0a0a0a;--card:#151515;--accent:#00d2ff}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#fff;font-family:Arial;padding-bottom:20px}
+    header{padding:15px;background:#000;border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:10;text-align:center}
+    .logo{font-weight:900;color:var(--accent);font-size:22px;margin-bottom:10px}
+    .search-box{width:90%;max-width:400px;margin:5px auto}
+    .search-box input{width:100%;padding:12px;border-radius:25px;border:1px solid #333;background:#111;color:#fff;outline:none}
+    
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:15px}
+    .card{background:var(--card);border-radius:12px;padding:15px;text-align:center;border:1px solid #222;display:flex;flex-direction:column;justify-content:space-between;min-height:150px}
+    .name{font-size:13px;font-weight:bold;margin-bottom:10px;color:var(--accent)}
+    .play{background:var(--red);color:#fff;border:none;padding:10px;border-radius:8px;width:100%;font-weight:800;cursor:pointer}
+    
+    #modal{position:fixed;inset:0;display:none;background:#000;z-index:9999;flex-direction:column}
+    #modal.open{display:flex}
+    .close{padding:15px;background:var(--red);text-align:center;cursor:pointer;font-weight:bold}
+    .video-js{width:100% !important;height:calc(100vh - 50px) !important}
+    @media(min-width:900px){.grid{grid-template-columns:repeat(5,1fr)}}
+  </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-niel">NIEL</div>
-    <nav>
-        <button id="btn-filmes" class="nav-btn active" onclick="show('filmes')">Filmes</button>
-        <button id="btn-series" class="nav-btn" onclick="show('series')">Séries</button>
-    </nav>
+  <div class="logo">NIEL IPTV</div>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="🔍 Buscar canal..." onkeyup="filter()">
+  </div>
 </header>
 
-<div class="container">
-    <div id="filmes" class="section active">
-        <h2 style="font-size: 20px; margin-bottom: 20px; color: #00d2ff;">Lançamentos de Filmes (50)</h2>
-        <div id="grid-filmes" class="grid"></div>
-    </div>
-    <div id="series" class="section">
-        <h2 style="font-size: 20px; margin-bottom: 20px; color: #00d2ff;">Séries Originais (50)</h2>
-        <div id="grid-series" class="grid"></div>
-    </div>
+<main class="grid" id="list">
+  <!-- CANAIS ADICIONADOS DA SUA LISTA -->
+  <script>
+    const canais = [
+      {n: "1001 Noites", u: "https://jmvstream.com"},
+      {n: "Adesso TV", u: "https://jmvstream.com"},
+      {n: "AgroBrasil TV", u: "https://flixtv.com.br"},
+      {n: "Alpha Channel", u: "https://streamlock.net"},
+      {n: "Amazon Sat", u: "https://brasilstream.com.br"},
+      {n: "AWTV", u: "https://nuvemplay.live"},
+      {n: "BDC TV", u: "https://kshost.com.br"},
+      {n: "Boas Novas", u: "https://jmvstream.com"},
+      {n: "Cabo Frio TV", u: "https://streamlock.net"},
+      {n: "Canal 25 Jundiaí", u: "https://msolutionbrasil.com.br"},
+      {n: "Canal 38", u: "https://jmvstream.com"},
+      {n: "Canal do Criador", u: "https://streamlock.net"},
+      {n: "Canal do Inter", u: "https://soultv.com.br"},
+      {n: "Canal Educação", u: "https://ebc.com.br"},
+      {n: "Canal Gov", u: "https://ebc.com.br"},
+      {n: "Canal Libras", u: "https://ebc.com.br"},
+      {n: "Canal Ricos", u: "https://streamlock.net"},
+      {n: "Canal Rural", u: "https://streamlock.net"},
+      {n: "Canal Saúde", u: "https://zoeweb.tv"},
+      {n: "Catve2", u: "https://streamlock.net"},
+      {n: "Chroma TV", u: "https://streamlock.net"},
+      {n: "Classique TV", u: "https://srvif.com"},
+      {n: "ConecTV Brasil", u: "https://msolutionbrasil.com.br"},
+      {n: "Conexão TV", u: "https://streamlock.net"},
+      {n: "CWB TV", u: "https://streamlock.net"},
+      {n: "Demais TV", u: "https://samcast.com.br"},
+      {n: "Despertar TV", u: "https://jmvstream.com"},
+      {n: "Elemental Channel", u: "https://streamlock.net"},
+      {n: "EUTV", u: "https://jmvstream.com"},
+      {n: "Fala Litoral", u: "https://streamlock.net"},
+      {n: "Geekdot", u: "https://ichibantv.com"},
+      {n: "Gloob (Pode falhar no GitHub)", u: "http://45.235.0"},
+      {n: "IMPD TV", u: "https://nuvemplay.live"},
+      {n: "ISTV", u: "https://srvstm.com"},
+      {n: "Jovem Pan News", u: "https://cloudfront.net"},
+      {n: "KpopTV Play", u: "https://bozztv.com"},
+      {n: "Kuriakos Cine", u: "https://manasat.com"},
+      {n: "Kuriakos Kids", u: "https://manasat.com"},
+      {n: "Loading TV", u: "https://srvif.com"},
+      {n: "Novo Tempo", u: "https://novotempo.com"},
+      {n: "Play TV", u: "https://mediastreaming.com.br"},
+      {n: "Plena TV", u: "https://jmvstream.com"},
+      {n: "Record News", u: "https://otteravision.com"}
+    ];
+
+    const list = document.getElementById('list');
+    canais.forEach(c => {
+      list.innerHTML += `
+        <div class="card" data-name="${c.n.toLowerCase()}">
+          <div class="name">${c.n}</div>
+          <button class="play" onclick="play('${c.u}')">ASSISTIR</button>
+        </div>`;
+    });
+  </script>
+</main>
+
+<div id="modal">
+  <div class="close" onclick="closeP()">✕ FECHAR CANAL</div>
+  <video id="v-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"></video>
 </div>
 
+<script src="https://zencdn.net"></script>
 <script>
-    // RECONSTRUÇÃO DOS LINKS QUE VOCÊ MANDOU
-    const pA = "https://googleapis.com"; // Parte fixa
-    const pB = "bucket/sample/"; // Parte fixa 2
+  var player = videojs('v-player', {
+    fluid: true,
+    html5: { vhs: { overrideNative: true } }
+  });
 
-    const fBase = [
-        "BigBuckBunny.mp4", "ElephantsDream.mp4", "Sintel.mp4", 
-        "TearsOfSteel.mp4", "VolkswagenGTIReview.mp4"
-    ];
+  function play(u) {
+    document.getElementById('modal').classList.add('open');
+    player.src({ type: 'application/x-mpegURL', src: u });
+    player.play();
+  }
 
-    const sBase = [
-        "ForBiggerBlazes.mp4", "ForBiggerEscapes.mp4", "ForBiggerFun.mp4", 
-        "ForBiggerJoyrides.mp4", "ForBiggerMeltdowns.mp4"
-    ];
+  function closeP() {
+    player.pause();
+    document.getElementById('modal').classList.remove('open');
+  }
 
-    function render(idGrid, lista, label) {
-        const container = document.getElementById(idGrid);
-        let html = "";
-        for (let i = 1; i <= 50; i++) {
-            // Juntando Parte A + Parte B + Nome do Filme
-            const urlCompleta = pA + pB + lista[i % lista.length];
-            html += `
-            <div class="movie-card">
-                <video controls preload="none" poster="https://placeholder.com{label}+${i}">
-                    <source src="${urlCompleta}" type="video/mp4">
-                </video>
-                <div class="card-info">
-                    <div class="movie-tag">PREMIUM | 4K</div>
-                    <div class="movie-title">${label} Especial #${i}</div>
-                </div>
-            </div>`;
-        }
-        container.innerHTML = html;
-    }
-
-    function show(id) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        document.getElementById('btn-' + id).classList.add('active');
-        document.querySelectorAll('video').forEach(v => v.pause());
-    }
-
-    // Inicializa o catálogo com 50 de cada
-    render('grid-filmes', fBase, 'Filme');
-    render('grid-series', sBase, 'Série');
+  function filter() {
+    let q = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(c => {
+      c.style.display = c.dataset.name.includes(q) ? "" : "none";
+    });
+  }
 </script>
-
 </body>
 </html>
