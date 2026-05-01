@@ -3,26 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>NIEL IPTV</title>
-  <link href="https://zencdn.net" rel="stylesheet" />
+  <title>NIEL IPTV TOTAL</title>
   <style>
-    :root{--red:#ff0000;--bg:#0a0a0a;--card:#151515;--accent:#00d2ff}
+    :root{--red:#ff0000;--bg:#0a0a0a;--card:#151515;--accent:#00d2ff;--green:#28a745}
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:#fff;font-family:Arial;padding-bottom:20px}
     header{padding:15px;background:#000;border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:10;text-align:center}
-    .logo{font-weight:900;color:var(--accent);font-size:22px;margin-bottom:10px}
-    .search-box{width:90%;max-width:400px;margin:5px auto}
-    .search-box input{width:100%;padding:12px;border-radius:25px;border:1px solid #333;background:#111;color:#fff;outline:none}
+    .logo{font-weight:900;color:var(--accent);font-size:24px;margin-bottom:10px}
+    .search-box input{width:90%;max-width:400px;padding:12px;border-radius:25px;border:1px solid #333;background:#111;color:#fff;outline:none}
     
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:15px}
-    .card{background:var(--card);border-radius:12px;padding:15px;text-align:center;border:1px solid #222;display:flex;flex-direction:column;justify-content:space-between;min-height:150px}
-    .name{font-size:13px;font-weight:bold;margin-bottom:10px;color:var(--accent)}
-    .play{background:var(--red);color:#fff;border:none;padding:10px;border-radius:8px;width:100%;font-weight:800;cursor:pointer}
+    .card{background:var(--card);border-radius:12px;padding:12px;text-align:center;border:1px solid #222;display:flex;flex-direction:column;gap:8px}
+    .name{font-size:12px;font-weight:bold;color:#eee;height:35px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .play{background:var(--red);color:#fff;border:none;padding:10px;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px}
+    .direct{background:var(--green);color:#fff;text-decoration:none;padding:8px;border-radius:6px;font-size:10px;font-weight:bold}
     
     #modal{position:fixed;inset:0;display:none;background:#000;z-index:9999;flex-direction:column}
     #modal.open{display:flex}
-    .close{padding:15px;background:var(--red);text-align:center;cursor:pointer;font-weight:bold}
-    .video-js{width:100% !important;height:calc(100vh - 50px) !important}
+    .controls{display:flex;justify-content:space-between;background:#222;padding:10px}
+    .btn-top{padding:10px;border-radius:5px;cursor:pointer;font-weight:bold;font-size:12px;color:#fff}
+    .close-btn{background:var(--red)}
+    .fs-btn{background:var(--accent);color:#000}
+    video{width:100%;height:100%;background:#000}
     @media(min-width:900px){.grid{grid-template-columns:repeat(5,1fr)}}
   </style>
 </head>
@@ -31,91 +33,203 @@
 <header>
   <div class="logo">NIEL IPTV</div>
   <div class="search-box">
-    <input type="text" id="search" placeholder="🔍 Buscar canal..." onkeyup="filter()">
+    <input type="text" id="search" placeholder="🔍 Buscar entre todos os canais..." onkeyup="filter()">
   </div>
 </header>
 
-<main class="grid" id="list">
-  <!-- CANAIS ADICIONADOS DA SUA LISTA -->
-  <script>
-    const canais = [
-      {n: "1001 Noites", u: "https://jmvstream.com"},
-      {n: "Adesso TV", u: "https://jmvstream.com"},
-      {n: "AgroBrasil TV", u: "https://flixtv.com.br"},
-      {n: "Alpha Channel", u: "https://streamlock.net"},
-      {n: "Amazon Sat", u: "https://brasilstream.com.br"},
-      {n: "AWTV", u: "https://nuvemplay.live"},
-      {n: "BDC TV", u: "https://kshost.com.br"},
-      {n: "Boas Novas", u: "https://jmvstream.com"},
-      {n: "Cabo Frio TV", u: "https://streamlock.net"},
-      {n: "Canal 25 Jundiaí", u: "https://msolutionbrasil.com.br"},
-      {n: "Canal 38", u: "https://jmvstream.com"},
-      {n: "Canal do Criador", u: "https://streamlock.net"},
-      {n: "Canal do Inter", u: "https://soultv.com.br"},
-      {n: "Canal Educação", u: "https://ebc.com.br"},
-      {n: "Canal Gov", u: "https://ebc.com.br"},
-      {n: "Canal Libras", u: "https://ebc.com.br"},
-      {n: "Canal Ricos", u: "https://streamlock.net"},
-      {n: "Canal Rural", u: "https://streamlock.net"},
-      {n: "Canal Saúde", u: "https://zoeweb.tv"},
-      {n: "Catve2", u: "https://streamlock.net"},
-      {n: "Chroma TV", u: "https://streamlock.net"},
-      {n: "Classique TV", u: "https://srvif.com"},
-      {n: "ConecTV Brasil", u: "https://msolutionbrasil.com.br"},
-      {n: "Conexão TV", u: "https://streamlock.net"},
-      {n: "CWB TV", u: "https://streamlock.net"},
-      {n: "Demais TV", u: "https://samcast.com.br"},
-      {n: "Despertar TV", u: "https://jmvstream.com"},
-      {n: "Elemental Channel", u: "https://streamlock.net"},
-      {n: "EUTV", u: "https://jmvstream.com"},
-      {n: "Fala Litoral", u: "https://streamlock.net"},
-      {n: "Geekdot", u: "https://ichibantv.com"},
-      {n: "Gloob (Pode falhar no GitHub)", u: "http://45.235.0"},
-      {n: "IMPD TV", u: "https://nuvemplay.live"},
-      {n: "ISTV", u: "https://srvstm.com"},
-      {n: "Jovem Pan News", u: "https://cloudfront.net"},
-      {n: "KpopTV Play", u: "https://bozztv.com"},
-      {n: "Kuriakos Cine", u: "https://manasat.com"},
-      {n: "Kuriakos Kids", u: "https://manasat.com"},
-      {n: "Loading TV", u: "https://srvif.com"},
-      {n: "Novo Tempo", u: "https://novotempo.com"},
-      {n: "Play TV", u: "https://mediastreaming.com.br"},
-      {n: "Plena TV", u: "https://jmvstream.com"},
-      {n: "Record News", u: "https://otteravision.com"}
-    ];
-
-    const list = document.getElementById('list');
-    canais.forEach(c => {
-      list.innerHTML += `
-        <div class="card" data-name="${c.n.toLowerCase()}">
-          <div class="name">${c.n}</div>
-          <button class="play" onclick="play('${c.u}')">ASSISTIR</button>
-        </div>`;
-    });
-  </script>
-</main>
+<main class="grid" id="list"></main>
 
 <div id="modal">
-  <div class="close" onclick="closeP()">✕ FECHAR CANAL</div>
-  <video id="v-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"></video>
+  <div class="controls">
+    <div class="btn-top close-btn" onclick="closeP()">✕ FECHAR</div>
+    <div class="btn-top fs-btn" onclick="toggleFS()">⛶ TELA CHEIA</div>
+  </div>
+  <video id="video" controls playsinline></video>
 </div>
 
-<script src="https://zencdn.net"></script>
+<script src="https://jsdelivr.net"></script>
 <script>
-  var player = videojs('v-player', {
-    fluid: true,
-    html5: { vhs: { overrideNative: true } }
-  });
+  // LISTA BRUTA - PROCESSAMENTO AUTOMÁTICO PARA NÃO PULAR NENHUM
+  const listaM3U = `
+#EXTINF:-1 tvg-id="1001Noites.br@SD",1001 Noites (720p) [Not 24/7]
+https://cdn.jmvstream.com/w/LVW-8155/ngrp:LVW8155_41E1ciuCvO_all/playlist.m3u8
+#EXTINF:-1 tvg-id="AdessoTV.br@SD",Adesso TV (720p)
+https://cdn.jmvstream.com/w/LVW-9715/LVW9715_12B26T62tm/playlist.m3u8
+#EXTINF:-1 tvg-id="AgroBrasilTV.br@SD",AgroBrasil TV (720p) [Not 24/7]
+http://45.162.230.234:1935/agrobrasiltv/agrobrasiltv/playlist.m3u8
+#EXTINF:-1 tvg-id="AgroBrasilTV.br@SD",AgroBrasil TV (720p) [Not 24/7]
+https://server.flixtv.com.br/agrobrasiltv/agrobrasiltv/playlist.m3u8
+#EXTINF:-1 tvg-id="AlphaChannel.br@SD",Alpha Channel (720p)
+https://5b01a3d32b65c.streamlock.net:1936/tvalpha/tvalpha/playlist.m3u8
+#EXTINF:-1 tvg-id="AmazonSat.br@SD",Amazon Sat (1080p)
+https://amazonsat.brasilstream.com.br/hls/amazonsat/index.m3u8
+#EXTINF:-1 tvg-id="AWTV.br@HD",AWTV (1080p) [Geo-blocked]
+https://awtv.nuvemplay.live/hls/stream.m3u8
+#EXTINF:-1 tvg-id="BDCTV.br@SD",BDC TV (576p)
+https://video01.kshost.com.br/bdctv/bdctv/playlist.m3u8
+#EXTINF:-1 tvg-id="BoasNovas.br@SD",Boas Novas (1080p)
+https://cdn.jmvstream.com/w/LVW-9375/LVW9375_6i0wPBCHYc/playlist.m3u8
+#EXTINF:-1 tvg-id="CaboFrioTV.br@SD",Cabo Frio TV (720p)
+https://59f2354c05961.streamlock.net:1443/ararutv/_definst_/ararutv/playlist.m3u8
+#EXTINF:-1 tvg-id="Canal25Jundiai.br@SD",Canal 25 Jundiaí (404p) [Not 24/7]
+https://stream01.msolutionbrasil.com.br/hls/canal25/live.m3u8
+#EXTINF:-1 tvg-id="Canal38.br@SD",Canal 38 (720p)
+https://cdn.jmvstream.com/w/LVW-8503/LVW8503_d0V5oduFlK/playlist.m3u8
+#EXTINF:-1 tvg-id="CanaldoCriador.br@SD",Canal do Criador (1080p)
+https://607d2a1a47b1f.streamlock.net/crur/smil:canaldocriador.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="CanaldoInter.br@SD",Canal do Inter (720p) [Not 24/7]
+https://video01.soultv.com.br/internacional/internacional/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalEducacao.br@SD",Canal Educação (720p)
+https://canaleducacao-stream.ebc.com.br/index.m3u8
+#EXTINF:-1 tvg-id="CanalGov.br@SD",Canal Gov (720p)
+https://canalgov-stream.ebc.com.br/index.m3u8
+#EXTINF:-1 tvg-id="CanalLibras.br@SD",Canal Libras (720p)
+https://canallibras-stream.ebc.com.br/mux_video_ts/index-1.m3u8
+#EXTINF:-1 tvg-id="CanalRicos.br@SD",Canal Ricos (480p)
+https://5d82644094cc0.streamlock.net/ricostv/ricostv/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalRural.br@SD",Canal Rural (1080p)
+https://607d2a1a47b1f.streamlock.net/crur/smil:canalrural.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="CanalSaude.br@SD",Canal Saúde (720p) [Not 24/7]
+https://arkyvbre1g.zoeweb.tv/fiocruz/fiocruz.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="Catve2.br@SD",Catve2 (720p)
+https://5b33b873179a2.streamlock.net:1443/catve2/catve2/playlist.m3u8
+#EXTINF:-1 tvg-id="CatveFM.br@SD",Catve FM (720p) [Not 24/7]
+https://5b33b873179a2.streamlock.net:1443/radiocamera/livestream/playlist.m3u8
+#EXTINF:-1 tvg-id="CatveMasterTV.br@SD",Catve Master TV (720p) [Not 24/7]
+https://5b33b873179a2.streamlock.net:1443/mastertv/livestream/playlist.m3u8
+#EXTINF:-1 tvg-id="ChromaTV.br@SD",Chroma TV (480p)
+https://5c483b9d1019c.streamlock.net/8054/8054/playlist.m3u8
+#EXTINF:-1 tvg-id="ClassiqueTV.br@SD",Classique TV (360p)
+https://stmv1.srvif.com/classique/classique/playlist.m3u8
+#EXTINF:-1 tvg-id="COMBrasil.br@SD",COM Brasil (1080p) [Not 24/7]
+https://br5093.streamingdevideo.com.br/abc/abc/playlist.m3u8
+#EXTINF:-1 tvg-id="ConectaMaisTV.br@SD",Conecta+ TV (720p)
+http://189.14.239.62:1935/webtv/livestream1/playlist.m3u8
+#EXTINF:-1 tvg-id="ConecTVBrasil.br@SD",ConecTV Brasil (720p)
+https://stream01.msolutionbrasil.com.br/hls/conectv/live.m3u8
+#EXTINF:-1 tvg-id="ConexaoTV.br@SD",Conexão TV (720p)
+https://5a57bda70564a.streamlock.net/conexaotv/conexaotv.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="CulturaPara.br@SD",Cultura Pará (480p) [Not 24/7]
+http://www.portalcultura.com.br/playerhtml/funtelpa/tv_funtelpa/playlist.m3u8
+#EXTINF:-1 tvg-id="CWBTV.br@SD",CWB TV (720p)
+https://59d39900ebfb8.streamlock.net/cwbtv/cwbtv/playlist.m3u8
+#EXTINF:-1 tvg-id="DemaisTV.br@SD",Demais TV (720p)
+https://stmv1.samcast.com.br/demaistv6503/demaistv6503/playlist.m3u8
+#EXTINF:-1 tvg-id="DespertarTV.br@HD",Despertar TV (720p)
+https://cdn.live.br1.jmvstream.com/webtv/pejexypz/playlist/playlist.m3u8
+#EXTINF:-1 tvg-id="ElementalChannel.br@SD",Elemental Channel (1080p)
+https://5d82644094cc0.streamlock.net/8116/8116/playlist.m3u8
+#EXTINF:-1 tvg-id="ElyTV.br@SD",ElyTV (360p)
+https://stmv1.srvsite.com/ely/ely/playlist.m3u8
+#EXTINF:-1 tvg-id="EUTV.br@SD",EUTV (720p)
+https://cdn.jmvstream.com/w/LVW-8719/LVW8719_AcLVAxWy5J/playlist.m3u8
+#EXTINF:-1 tvg-id="FalaLitoral.br@SD",Fala Litoral (480p)
+https://5c483b9d1019c.streamlock.net/falalitoraltv/falalitoraltv/playlist.m3u8
+#EXTINF:-1 tvg-id="FonteTV.br@SD",Fonte TV (1080p) [Not 24/7]
+http://flash.softhost.com.br:1935/fonte/fontetv/live.m3u8
+#EXTINF:-1 tvg-id="Geekdot.br@SD",Geekdot (720p)
+https://stream.ichibantv.com:3764/hybrid/play.m3u8
+#EXTINF:-1 tvg-id="GhostTV.br@SD",Ghost TV (712p) [Not 24/7]
+https://stmv.video.expressolider.com.br/ghostv/ghostv/playlist.m3u8
+#EXTINF:-1 tvg-id="Gloob.br@SD",Gloob (576p)
+http://45.235.0.78/Gloob/playlist.m3u8
+#EXTINF:-1 tvg-id="Gloob.br@SD",Gloob
+http://79.127.243.211:14436/_.m3u8
+#EXTINF:-1 tvg-id="GospelCartoon.br@SD",Gospel Cartoon (360p)
+https://stmv1.srvif.com/gospelcartoon/gospelcartoon/playlist.m3u8
+#EXTINF:-1 tvg-id="GospelMovieTV.br@SD",Gospel Movie TV (360p)
+https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8
+#EXTINF:-1 tvg-id="IMPDTVWorldwide.br@SD",IMPD TV Worldwide (1080p)
+https://igrejamundial.nuvemplay.live/hls/stream.m3u8
+#EXTINF:-1 tvg-id="ISTV.br@SD",ISTV (720p) [Not 24/7]
+https://stmv1.srvstm.com/sistema7933/sistema7933/playlist.m3u8
+#EXTINF:-1 tvg-id="JovemPanNews.br@SD",Jovem Pan News (JP News) (1080p) [Not 24/7]
+https://d6yfbj4xxtrod.cloudfront.net/out/v1/7836eb391ec24452b149f3dc6df15bbd/index.m3u8
+#EXTINF:-1 tvg-id="KpopTVPlay.br@SD",KpopTV Play (576p)
+https://giatv.bozztv.com/giatv/giatv-kpoptvplay/kpoptvplay/playlist.m3u8
+#EXTINF:-1 tvg-id="KuriakosCine.pt@SD",Kuriakos Cine (1080p)
+https://w2.manasat.com/kcine/smil:kcine.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="KuriakosKids.pt@SD",Kuriakos Kids (1080p)
+https://w2.manasat.com/kkids/smil:kkids.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="Loading.br@SD",Loading (720p)
+https://stmv1.srvif.com/loadingtv/loadingtv/playlist.m3u8
+#EXTINF:-1 tvg-id="MKKWebTV.br@SD",MKK Web TV (720p) [Not 24/7]
+https://video01.logicahost.com.br/mkkwebtv/mkkwebtv/playlist.m3u8
+#EXTINF:-1 tvg-id="NovaEraTV.br@SD",Nova Era TV (1080p) [Not 24/7]
+http://wz3.dnip.com.br:1935/novaeratv/novaeratv.sdp/live.m3u8
+#EXTINF:-1 tvg-id="NovoTempo.br@SD",Novo Tempo (720p)
+https://stream.live.novotempo.com/tv/smil:tvnovotempo.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="NuevoTiempo.br@SD",Nuevo Tiempo (720p) [Not 24/7]
+https://stream.live.novotempo.com/tv/smil:tvnuevotiempo.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="PlayTV.br@SD",Play TV (720p)
+https://playtv.mediastreaming.com.br/play/live.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="PlenaTV.br@SD",Plena TV (720p)
+https://cdn.jmvstream.com/w/LVW-9591/LVW9591_PmXtgATnaS/playlist.m3u8
+#EXTINF:-1 tvg-id="PrimerTV.br@SD",Primer TV (1080p)
+http://200.194.238.229:8383/live/primer/playlist.m3u8
+#EXTINF:-1 tvg-id="RBATV.br@SD",RBATV (720p)
+https://cdn.live.br1.jmvstream.com/w/LVW-15748/LVW15748_Yed7yzLuRC/playlist.m3u8
+#EXTINF:-1 tvg-id="RecordNews.br@SD",Record News (720p)
+https://rnw-rn.otteravision.com/rnw/rn/rnw_rn.m3u8
+#EXTINF:-1 tvg-id="RecordTVBelem.br@SD",Record TV Belem (720p)
+https://playpluspa-lh.akamaihd.net/i/pp_pa@377468/index_720_av-p.m3u8
+#EXTINF:-1 tvg-id="RecordTVBrasilia.br@SD",Record TV Brasilia (720p)
+https://playplusbsa-lh.akamaihd.net/i/pp_bsa@377860/index_720_av-p.m3u8
+#EXTINF:-1 tvg-id="RecordTVGoias.br@SD",Record TV Goias (720p)
+https://akamaihd.net
+  `;
 
-  function play(u) {
+  const video = document.getElementById('video');
+  const hls = new Hls();
+
+  // Função que transforma o texto da lista em botões automaticamente
+  function buildList() {
+    const list = document.getElementById('list');
+    const lines = listaM3U.split('\n');
+    
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].includes('#EXTINF')) {
+        let name = lines[i].split(',')[1] || "Canal";
+        let url = lines[i+1]?.trim();
+        
+        if (url && url.startsWith('http')) {
+          list.innerHTML += `
+            <div class="card" data-name="${name.toLowerCase()}">
+              <div class="name">${name}</div>
+              <button class="play" onclick="play('${url}')">ASSISTIR</button>
+              <a href="${url}" target="_blank" class="direct">ABRIR DIRETO</a>
+            </div>`;
+        }
+      }
+    }
+  }
+
+  function play(url) {
     document.getElementById('modal').classList.add('open');
-    player.src({ type: 'application/x-mpegURL', src: u });
-    player.play();
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('landscape').catch(() => {});
+    }
+    if (Hls.isSupported()) {
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+    } else {
+      video.src = url;
+      video.play();
+    }
+  }
+
+  function toggleFS() {
+    const modal = document.getElementById('modal');
+    if (!document.fullscreenElement) modal.requestFullscreen();
+    else document.exitFullscreen();
   }
 
   function closeP() {
-    player.pause();
     document.getElementById('modal').classList.remove('open');
+    video.pause();
+    hls.detachMedia();
+    if (document.fullscreenElement) document.exitFullscreen();
   }
 
   function filter() {
@@ -124,6 +238,9 @@
       c.style.display = c.dataset.name.includes(q) ? "" : "none";
     });
   }
+
+  // Inicia a construção da lista ao carregar a página
+  buildList();
 </script>
 </body>
 </html>
