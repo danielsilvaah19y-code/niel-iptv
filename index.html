@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>NIEL IPTV TOTAL</title>
+  <title>NIEL IPTV</title>
   <style>
-    :root{--red:#ff0000;--bg:#0a0a0a;--card:#151515;--accent:#00d2ff;--green:#28a745}
+    :root{--red:#ff0000;--bg:#0a0a0a;--card:#151515;--accent:#00d2ff}
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:#fff;font-family:Arial;padding-bottom:20px}
     header{padding:15px;background:#000;border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:10;text-align:center}
@@ -14,15 +14,12 @@
     
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:15px}
     .card{background:var(--card);border-radius:12px;padding:12px;text-align:center;border:1px solid #222;display:flex;flex-direction:column;gap:8px}
-    .name{font-size:12px;font-weight:bold;color:#eee;height:35px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .play{background:var(--red);color:#fff;border:none;padding:10px;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px}
-    .direct{background:var(--green);color:#fff;text-decoration:none;padding:8px;border-radius:6px;font-size:10px;font-weight:bold}
+    .name{font-size:12px;font-weight:bold;color:#eee;height:35px;display:flex;align-items:center;justify-content:center}
+    .play{background:var(--red);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:800;cursor:pointer}
     
     #modal{position:fixed;inset:0;display:none;background:#000;z-index:9999;flex-direction:column}
     #modal.open{display:flex}
-    .controls{display:flex;justify-content:space-between;background:#222;padding:10px}
-    .btn-top{padding:10px;border-radius:5px;cursor:pointer;font-weight:bold;font-size:12px;color:#fff}
-    .close-btn{background:var(--red)}
+    .close-btn{padding:15px;background:var(--red);text-align:center;cursor:pointer;font-weight:bold}
     video{width:100%;height:100%;background:#000}
     @media(min-width:900px){.grid{grid-template-columns:repeat(5,1fr)}}
   </style>
@@ -39,166 +36,42 @@
 <main class="grid" id="list"></main>
 
 <div id="modal">
-  <div class="controls">
-    <div class="btn-top close-btn" onclick="closeP()">✕ FECHAR</div>
-    <div class="btn-top" style="background:var(--accent);color:#000" onclick="toggleFS()">⛶ TELA CHEIA</div>
-  </div>
+  <div class="close-btn" onclick="closeP()">✕ FECHAR CANAL</div>
   <video id="video" controls playsinline></video>
 </div>
 
 <script src="https://jsdelivr.net"></script>
 <script>
-  const listaM3U = `
-#EXTINF:-1 tvg-id="1001Noites.br@SD",1001 Noites
-https://jmvstream.com
-#EXTINF:-1 tvg-id="AdessoTV.br@SD",Adesso TV
-https://jmvstream.com
-#EXTINF:-1 tvg-id="AgroBrasilTV.br@SD",AgroBrasil TV 1
-http://45.162.230
-#EXTINF:-1 tvg-id="AgroBrasilTV.br@SD",AgroBrasil TV 2
-https://flixtv.com.br
-#EXTINF:-1 tvg-id="AlphaChannel.br@SD",Alpha Channel
-https://streamlock.net
-#EXTINF:-1 tvg-id="AmazonSat.br@SD",Amazon Sat
-https://brasilstream.com.br
-#EXTINF:-1 tvg-id="AWTV.br@HD",AWTV
-https://nuvemplay.live
-#EXTINF:-1 tvg-id="BDCTV.br@SD",BDC TV
-https://kshost.com.br
-#EXTINF:-1 tvg-id="BoasNovas.br@SD",Boas Novas
-https://jmvstream.com
-#EXTINF:-1 tvg-id="CaboFrioTV.br@SD",Cabo Frio TV
-https://streamlock.net
-#EXTINF:-1 tvg-id="Canal25Jundiai.br@SD",Canal 25 Jundiaí
-https://msolutionbrasil.com.br
-#EXTINF:-1 tvg-id="Canal38.br@SD",Canal 38
-https://jmvstream.com
-#EXTINF:-1 tvg-id="CanaldoCriador.br@SD",Canal do Criador
-https://streamlock.net
-#EXTINF:-1 tvg-id="CanaldoInter.br@SD",Canal do Inter
-https://soultv.com.br
-#EXTINF:-1 tvg-id="CanalEducacao.br@SD",Canal Educação
-https://ebc.com.br
-#EXTINF:-1 tvg-id="CanalGov.br@SD",Canal Gov
-https://ebc.com.br
-#EXTINF:-1 tvg-id="CanalLibras.br@SD",Canal Libras
-https://ebc.com.br
-#EXTINF:-1 tvg-id="CanalRicos.br@SD",Canal Ricos
-https://streamlock.net
-#EXTINF:-1 tvg-id="CanalRural.br@SD",Canal Rural
-https://streamlock.net
-#EXTINF:-1 tvg-id="CanalSaude.br@SD",Canal Saúde
-https://zoeweb.tv
-#EXTINF:-1 tvg-id="Catve2.br@SD",Catve2
-https://streamlock.net
-#EXTINF:-1 tvg-id="CatveFM.br@SD",Catve FM
-https://streamlock.net
-#EXTINF:-1 tvg-id="CatveMasterTV.br@SD",Catve Master TV
-https://streamlock.net
-#EXTINF:-1 tvg-id="ChromaTV.br@SD",Chroma TV
-https://streamlock.net
-#EXTINF:-1 tvg-id="ClassiqueTV.br@SD",Classique TV
-https://srvif.com
-#EXTINF:-1 tvg-id="COMBrasil.br@SD",COM Brasil
-https://streamingdevideo.com.br
-#EXTINF:-1 tvg-id="ConectaMaisTV.br@SD",Conecta+ TV
-http://189.14.239
-#EXTINF:-1 tvg-id="ConecTVBrasil.br@SD",ConecTV Brasil
-https://msolutionbrasil.com.br
-#EXTINF:-1 tvg-id="ConexaoTV.br@SD",Conexão TV
-https://streamlock.net
-#EXTINF:-1 tvg-id="CWBTV.br@SD",CWB TV
-https://streamlock.net
-#EXTINF:-1 tvg-id="DemaisTV.br@SD",Demais TV
-https://samcast.com.br
-#EXTINF:-1 tvg-id="DespertarTV.br@HD",Despertar TV
-https://jmvstream.com
-#EXTINF:-1 tvg-id="ElementalChannel.br@SD",Elemental Channel
-https://streamlock.net
-#EXTINF:-1 tvg-id="ElyTV.br@SD",ElyTV
-https://srvsite.com
-#EXTINF:-1 tvg-id="EUTV.br@SD",EUTV
-https://jmvstream.com
-#EXTINF:-1 tvg-id="FalaLitoral.br@SD",Fala Litoral
-https://streamlock.net
-#EXTINF:-1 tvg-id="FonteTV.br@SD",Fonte TV
-http://softhost.com.br
-#EXTINF:-1 tvg-id="Geekdot.br@SD",Geekdot
-https://ichibantv.com
-#EXTINF:-1 tvg-id="GhostTV.br@SD",Ghost TV
-https://expressolider.com.br
-#EXTINF:-1 tvg-id="Gloob.br@SD",Gloob 1
-http://45.235.0
-#EXTINF:-1 tvg-id="Gloob.br@SD",Gloob 2
-http://79.127.243
-#EXTINF:-1 tvg-id="GospelCartoon.br@SD",Gospel Cartoon
-https://srvif.com
-#EXTINF:-1 tvg-id="GospelMovieTV.br@SD",Gospel Movie TV
-https://srvif.com
-#EXTINF:-1 tvg-id="IMPDTVWorldwide.br@SD",IMPD TV
-https://nuvemplay.live
-#EXTINF:-1 tvg-id="ISTV.br@SD",ISTV
-https://srvstm.com
-#EXTINF:-1 tvg-id="JovemPanNews.br@SD",Jovem Pan News
-https://cloudfront.net
-#EXTINF:-1 tvg-id="KpopTVPlay.br@SD",KpopTV Play
-https://bozztv.com
-#EXTINF:-1 tvg-id="KuriakosCine.pt@SD",Kuriakos Cine
-https://manasat.com
-#EXTINF:-1 tvg-id="KuriakosKids.pt@SD",Kuriakos Kids
-https://manasat.com
-#EXTINF:-1 tvg-id="Loading.br@SD",Loading
-https://srvif.com
-#EXTINF:-1 tvg-id="MKKWebTV.br@SD",MKK Web TV
-https://logicahost.com.br
-#EXTINF:-1 tvg-id="NovaEraTV.br@SD",Nova Era TV
-http://dnip.com.br
-#EXTINF:-1 tvg-id="NovoTempo.br@SD",Novo Tempo
-https://novotempo.com
-#EXTINF:-1 tvg-id="NuevoTempo.br@SD",Nuevo Tempo
-https://novotempo.com
-#EXTINF:-1 tvg-id="PlayTV.br@SD",Play TV
-https://mediastreaming.com.br
-#EXTINF:-1 tvg-id="PlenaTV.br@SD",Plena TV
-https://jmvstream.com
-#EXTINF:-1 tvg-id="PrimerTV.br@SD",Primer TV
-http://200.194.238
-#EXTINF:-1 tvg-id="RBATV.br@SD",RBATV
-https://jmvstream.com
-#EXTINF:-1 tvg-id="RecordNews.br@SD",Record News
-https://otteravision.com
-#EXTINF:-1 tvg-id="RecordTVBelem.br@SD",Record TV Belem
-https://akamaihd.net
-#EXTINF:-1 tvg-id="RecordTVBrasilia.br@SD",Record TV Brasilia
-https://akamaihd.net
-#EXTINF:-1 tvg-id="RecordTVGoias.br@SD",Record TV Goias
-https://akamaihd.net
-  `;
+  // LISTA LIMPA E DIRETA
+  const canais = [
+    {n:"Record News", u:"https://otteravision.com"},
+    {n:"Jovem Pan News", u:"https://cloudfront.net"},
+    {n:"Gloob", u:"https://opencaster.com"},
+    {n:"Amazon Sat", u:"https://brasilstream.com.br"},
+    {n:"Cabo Frio TV", u:"https://streamlock.net"},
+    {n:"Canal Educação", u:"https://ebc.com.br"},
+    {n:"Canal Gov", u:"https://ebc.com.br"},
+    {n:"Canal Rural", u:"https://streamlock.net"},
+    {n:"Novo Tempo", u:"https://novotempo.com"},
+    {n:"Play TV", u:"https://mediastreaming.com.br"},
+    {n:"Kuriakos Kids", u:"https://manasat.com"},
+    {n:"IMPD TV", u:"https://nuvemplay.live"},
+    {n:"1001 Noites", u:"https://jmvstream.com"},
+    {n:"Alpha Channel", u:"https://streamlock.net"}
+  ];
 
+  const list = document.getElementById('list');
   const video = document.getElementById('video');
   const hls = new Hls();
 
-  function buildList() {
-    const list = document.getElementById('list');
-    const lines = listaM3U.split('\n');
-    
-    lines.forEach((line, index) => {
-      if (line.includes('#EXTINF')) {
-        // Pega o nome após a última vírgula
-        let name = line.split(',').pop().trim();
-        let url = lines[index + 1]?.trim();
-        
-        if (url && url.startsWith('http')) {
-          list.innerHTML += `
-            <div class="card" data-name="${name.toLowerCase()}">
-              <div class="name">${name}</div>
-              <button class="play" onclick="play('${url}')">ASSISTIR</button>
-              <a href="${url}" target="_blank" class="direct">ABRIR DIRETO</a>
-            </div>`;
-        }
-      }
-    });
-  }
+  // Gera os botões
+  canais.forEach(c => {
+    list.innerHTML += `
+      <div class="card" data-name="${c.n.toLowerCase()}">
+        <div class="name">${c.n}</div>
+        <button class="play" onclick="play('${c.u}')">ASSISTIR</button>
+      </div>`;
+  });
 
   function play(url) {
     document.getElementById('modal').classList.add('open');
@@ -212,17 +85,10 @@ https://akamaihd.net
     }
   }
 
-  function toggleFS() {
-    const m = document.getElementById('modal');
-    if (!document.fullscreenElement) m.requestFullscreen();
-    else document.exitFullscreen();
-  }
-
   function closeP() {
     document.getElementById('modal').classList.remove('open');
     video.pause();
     hls.detachMedia();
-    if (document.fullscreenElement) document.exitFullscreen();
   }
 
   function filter() {
@@ -231,8 +97,6 @@ https://akamaihd.net
       c.style.display = c.dataset.name.includes(q) ? "" : "none";
     });
   }
-
-  buildList();
 </script>
 </body>
 </html>
