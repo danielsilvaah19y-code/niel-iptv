@@ -1,102 +1,355 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>NIEL IPTV</title>
-  <style>
-    :root{--red:#ff0000;--bg:#0a0a0a;--card:#151515;--accent:#00d2ff}
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:#fff;font-family:Arial;padding-bottom:20px}
-    header{padding:15px;background:#000;border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:10;text-align:center}
-    .logo{font-weight:900;color:var(--accent);font-size:24px;margin-bottom:10px}
-    .search-box input{width:90%;max-width:400px;padding:12px;border-radius:25px;border:1px solid #333;background:#111;color:#fff;outline:none}
-    
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:15px}
-    .card{background:var(--card);border-radius:12px;padding:12px;text-align:center;border:1px solid #222;display:flex;flex-direction:column;gap:8px}
-    .name{font-size:12px;font-weight:bold;color:#eee;height:35px;display:flex;align-items:center;justify-content:center}
-    .play{background:var(--red);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:800;cursor:pointer}
-    
-    #modal{position:fixed;inset:0;display:none;background:#000;z-index:9999;flex-direction:column}
-    #modal.open{display:flex}
-    .close-btn{padding:15px;background:var(--red);text-align:center;cursor:pointer;font-weight:bold}
-    video{width:100%;height:100%;background:#000}
-    @media(min-width:900px){.grid{grid-template-columns:repeat(5,1fr)}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EncomendaJá — PADARIA DO PORTO</title>
+<style>
+  :root{
+    --bg:#fff7ef; --accent:#c94f1a; --muted:#6b6b6b; --card:#fff;
+  }
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:var(--bg);color:#222}
+  header{padding:28px 12px 12px;text-align:center}
+  /* Brilhante title */
+  .brand{font-size:28px;font-weight:800;letter-spacing:1px;
+    display:inline-block;padding:8px 16px;border-radius:8px;
+    color:white;
+    background:linear-gradient(90deg,#ffd27a,#fff,#ffd27a);
+    background-size:200% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation: shimmer 2.5s linear infinite;
+    text-transform:uppercase;
+    text-shadow:0 2px 8px rgba(201,79,26,0.15);
+  }
+  @keyframes shimmer{0%{background-position:0% 0%}50%{background-position:100% 0%}100%{background-position:0% 0%}}
+  main{max-width:920px;margin:18px auto;padding:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+  .thumb{height:110px;background:#f3e7dc;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .prod-name{font-weight:700;margin:6px 0}
+  .price{color:var(--accent);font-weight:800}
+  .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;text-decoration:none;border:none;cursor:pointer}
+  .muted{color:var(--muted);font-size:13px}
+  footer{max-width:920px;margin:18px auto;padding:12px;text-align:center;color:var(--muted);font-size:13px}
+  /* Modal */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;padding:12px}
+  .modal.open{display:flex}
+  .modal .box{width:100%;max-width:520px;background:white;padding:14px;border-radius:10px}
+  .row{display:flex;gap:8px}
+  label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+  input[type=text],input[type=tel],input[type=date],input[type=time],select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e3e3e3;margin-bottom:10px;font-size:14px}
+  .admin-toggle{position:fixed;right:12px;bottom:12px}
+  .small{font-size:13px}
+  .status{padding:6px 8px;border-radius:8px;font-weight:700}
+  .st-pendente{background:#fff4e6;color:#b86a2c}
+  .st-confirmado{background:#e8fff0;color:#2c8b4d}
+  .st-pronto{background:#eef6ff;color:#2b59a5}
+  a.ref{font-size:13px;color:#1166cc;text-decoration:underline}
+  .admin-page{max-width:920px;margin:18px auto;padding:12px}
+  .order{border-left:4px solid #eee;padding:10px;margin-bottom:10px;border-radius:6px;background:#fff}
+  .top-row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+  .actions button{margin-left:6px}
+  @media (max-width:520px){.brand{font-size:20px}}
+</style>
 </head>
 <body>
 
 <header>
-  <div class="logo">NIEL IPTV</div>
-  <div class="search-box">
-    <input type="text" id="search" placeholder="🔍 Buscar canal..." onkeyup="filter()">
-  </div>
+  <div class="brand">PADARIA DO PORTO</div>
 </header>
 
-<main class="grid" id="list"></main>
+<main id="app">
+  <section>
+    <div class="card" style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div class="muted">Estabelecimento</div>
+          <div style="font-weight:700">PADARIA DO PORTO</div>
+          <div class="small">Encomendas simples — pagamento na retirada</div>
+        </div>
+        <div>
+          <button class="btn" id="open-admin">Abrir painel comerciante</button>
+        </div>
+      </div>
+    </div>
 
-<div id="modal">
-  <div class="close-btn" onclick="closeP()">✕ FECHAR CANAL</div>
-  <video id="video" controls playsinline></video>
+    <div class="grid" id="products"></div>
+  </section>
+</main>
+
+<!-- Modal pedido -->
+<div class="modal" id="modal">
+  <div class="box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <strong id="modal-title">Encomendar</strong>
+      <button id="close-modal" class="btn" style="background:#aaa">Fechar</button>
+    </div>
+    <div id="product-ref" class="muted small" style="margin-bottom:10px"></div>
+
+    <label>Quantidade</label>
+    <input type="number" id="qty" min="1" value="1" />
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="flex:1">
+        <label>Data de retirada/entrega</label>
+        <input type="date" id="date" />
+      </div>
+      <div style="width:140px">
+        <label>Hora</label>
+        <input type="time" id="time" />
+      </div>
+    </div>
+
+    <label>Retirada ou Entrega (endereço opcional)</label>
+    <input type="text" id="delivery" placeholder="Retirada/Entrega - ex: Retirar no balcão / Entrega Rua X" />
+
+    <label>Nome</label>
+    <input type="text" id="cust-name" placeholder="Seu nome" />
+
+    <label>Telefone</label>
+    <input type="tel" id="cust-phone" placeholder="DDD+telefone" />
+
+    <label>Observações</label>
+    <textarea id="notes" rows="3" placeholder="Ex: sem açúcar, cortar em fatias..."></textarea>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <div class="muted small">Ao enviar será gerado link para abrir no Telegram do comércio.</div>
+      <div>
+        <button class="btn" id="send-order">Enviar encomenda</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script src="https://jsdelivr.net"></script>
+<!-- Admin -->
+<div id="admin" class="admin-page" style="display:none">
+  <div class="card" style="margin-bottom:12px">
+    <div class="top-row">
+      <div>
+        <strong>Painel de encomendas — PADARIA DO PORTO</strong>
+        <div class="muted small">Pedidos salvos no navegador (localStorage) — para produção substitua por backend.</div>
+      </div>
+      <div>
+        <button class="btn" id="close-admin">Fechar painel</button>
+        <button class="btn" id="clear-orders" style="background:#c94f1a">Limpar pedidos</button>
+      </div>
+    </div>
+  </div>
+  <div id="orders-list"></div>
+</div>
+
+<footer>
+  <div class="muted small">Protótipo PWA — EncomendaJá • PADARIA DO PORTO</div>
+</footer>
+
 <script>
-  // LISTA LIMPA E DIRETA
-  const canais = [
-    {n:"Record News", u:"https://otteravision.com"},
-    {n:"Jovem Pan News", u:"https://cloudfront.net"},
-    {n:"Gloob", u:"https://opencaster.com"},
-    {n:"Amazon Sat", u:"https://brasilstream.com.br"},
-    {n:"Cabo Frio TV", u:"https://streamlock.net"},
-    {n:"Canal Educação", u:"https://ebc.com.br"},
-    {n:"Canal Gov", u:"https://ebc.com.br"},
-    {n:"Canal Rural", u:"https://streamlock.net"},
-    {n:"Novo Tempo", u:"https://novotempo.com"},
-    {n:"Play TV", u:"https://mediastreaming.com.br"},
-    {n:"Kuriakos Kids", u:"https://manasat.com"},
-    {n:"IMPD TV", u:"https://nuvemplay.live"},
-    {n:"1001 Noites", u:"https://jmvstream.com"},
-    {n:"Alpha Channel", u:"https://streamlock.net"}
-  ];
+/* ====== Dados de produtos com links de referência ======
+   Preços variam 1.00 a 30.00. Imagens placeholder. Referências: Wikipedia ou receitas.
+*/
+const PRODUCTS = [
+  {id:'p01',name:'Pão Francês',price:1.50, img:'https://images.unsplash.com/photo-1542831371-d531d36971e6?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_franc%C3%AAs'},
+  {id:'p02',name:'Pão Integral',price:3.50, img:'https://images.unsplash.com/photo-1604908177522-8f5aa0b2b9c0?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_integral'},
+  {id:'p03',name:'Pão de Milho',price:4.00, img:'https://images.unsplash.com/photo-1546549030-3710d1b0b8f6?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_de_milho'},
+  {id:'p04',name:'Pão de Queijo',price:2.50, img:'https://images.unsplash.com/photo-1589308078050-4c7d4a7d1b88?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_de_queijo'},
+  {id:'p05',name:'Ciabatta',price:8.00, img:'https://images.unsplash.com/photo-1604908176947-0b1a5b6e3d16?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Ciabatta'},
+  {id:'p06',name:'Baguete',price:5.00, img:'https://images.unsplash.com/photo-1604908177053-54c2db1f0e8f?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Baguete'},
+  {id:'p07',name:'Pão Australiano',price:12.00, img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=60', ref:'https://en.wikipedia.org/wiki/Australian_bread'},
+  {id:'p08',name:'Pão de Centeio',price:6.50, img:'https://images.unsplash.com/photo-1606755962775-3f6b2b1e6f9a?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_de_centeio'},
+  {id:'p09',name:'Pão Doce (Rosca)',price:9.00, img:'https://images.unsplash.com/photo-1548943487-a2e4e9f0b4f3?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_doce'},
+  {id:'p10',name:'Focaccia',price:10.00, img:'https://images.unsplash.com/photo-1542444459-db1b6b7f3e6e?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Focaccia'},
+  {id:'p11',name:'Brioche',price:15.00, img:'https://images.unsplash.com/photo-1542551860-ec7b2b91f1a6?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Brioche'},
+  {id:'p12',name:'Pão de Leite',price:2.00, img:'https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_de_leite'},
+  {id:'p13',name:'Rosquinha',price:3.00, img:'https://images.unsplash.com/photo-1512058564366-c9e3f8b4f4c2?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Rosquinha'},
+  {id:'p14',name:'Pão de Batata',price:4.50, img:'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_de_batata'},
+  {id:'p15',name:'Pão de Alho',price:6.00, img:'https://images.unsplash.com/photo-1542199875-1e3b8f0b3c1f?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_de_alho'},
+  {id:'p16',name:'Pão Sírio',price:5.50, img:'https://images.unsplash.com/photo-1604908177132-5f9a7b2b7c2b?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_s%C3%ADrio'},
+  {id:'p17',name:'Pão de Forma',price:7.00, img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_de_forma'},
+  {id:'p18',name:'Croissant',price:4.00, img:'https://images.unsplash.com/photo-1544025162-4c1f1b6b8b3c?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Croissant'},
+  {id:'p19',name:'Pão de Ervas',price:6.20, img:'https://images.unsplash.com/photo-1604908177200-8d3b4b6a5a8c?w=800&q=60', ref:'https://en.wikipedia.org/wiki/Herb_bread'},
+  {id:'p20',name:'Pão Caseiro',price:3.20, img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/P%C3%A3o_caseiro'},
+  {id:'p21',name:'Bolo Simples (fatia)',price:8.50, img:'https://images.unsplash.com/photo-1549237513-5a79b9b5b7d6?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Bolo'},
+  {id:'p22',name:'Bolo de Chocolate (fatia)',price:12.00, img:'https://images.unsplash.com/photo-1544312151-1b9f6d6a1f4f?w=800&q=60', ref:'https://pt.wikipedia.org/wiki/Bolo_de_chocolate'},
+  {id:'p23',name:'Biscoitos Caseiros',price:3.80, img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=60', ref:'https://en.wikipedia.org/wiki/Cookie'},
+  {id:'p24',name:'Pão Especial (sazonal)',price:25.00, img:'https://images.unsplash.com/photo-1544025162-d9a3b0b1c0d2?w=800&q=60', ref:'https://en.wikipedia.org/wiki/Artisan_bread'},
+  {id:'p25',name:'Pão Decorado/Confeitado',price:30.00, img:'https://images.unsplash.com/photo-1544025162-7f9d5b1a2c3b?w=800&q=60', ref:'https://en.wikipedia.org/wiki/Cake'},
+];
 
-  const list = document.getElementById('list');
-  const video = document.getElementById('video');
-  const hls = new Hls();
+const TELEGRAM_NUMBER = '55XXXXXXXXX'; // substitua pelo número do comércio (formato internacional, sem +)
+const MERCHANT_NAME = 'PADARIA DO PORTO';
 
-  // Gera os botões
-  canais.forEach(c => {
-    list.innerHTML += `
-      <div class="card" data-name="${c.n.toLowerCase()}">
-        <div class="name">${c.n}</div>
-        <button class="play" onclick="play('${c.u}')">ASSISTIR</button>
-      </div>`;
-  });
+/* ====== Render produtos ====== */
+const productsEl = document.getElementById('products');
+PRODUCTS.forEach(p=>{
+  const div = document.createElement('div');
+  div.className='card';
+  div.innerHTML = `
+    <div class="thumb"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+    <div class="prod-name">${p.name}</div>
+    <div><span class="price">R$ ${p.price.toFixed(2)}</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+      <a class="ref" href="${p.ref}" target="_blank" rel="noopener">Ver referência</a>
+      <button class="btn" data-id="${p.id}">Encomendar</button>
+    </div>
+  `;
+  productsEl.appendChild(div);
+});
 
-  function play(url) {
+/* ====== Modal e pedido ====== */
+let selectedProduct = null;
+document.querySelectorAll('.btn[data-id]').forEach(b=>{
+  b.addEventListener('click',e=>{
+    const id = e.currentTarget.getAttribute('data-id');
+    selectedProduct = PRODUCTS.find(x=>x.id===id);
+    document.getElementById('modal-title').textContent = `Encomendar — ${selectedProduct.name} (R$ ${selectedProduct.price.toFixed(2)})`;
+    document.getElementById('product-ref').innerHTML = `Referencia: <a class="ref" href="${selectedProduct.ref}" target="_blank">${selectedProduct.ref}</a>`;
+    document.getElementById('qty').value = 1;
+    document.getElementById('cust-name').value='';
+    document.getElementById('cust-phone').value='';
+    document.getElementById('notes').value='';
+    document.getElementById('delivery').value='Retirar no balcão';
+    // default date = tomorrow
+    const dt = new Date(); dt.setDate(dt.getDate()+1);
+    document.getElementById('date').value = dt.toISOString().slice(0,10);
+    document.getElementById('time').value = '09:00';
     document.getElementById('modal').classList.add('open');
-    if (Hls.isSupported()) {
-      hls.loadSource(url);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-    } else {
-      video.src = url;
-      video.play();
-    }
-  }
+  });
+});
+document.getElementById('close-modal').addEventListener('click',()=>document.getElementById('modal').classList.remove('open'));
 
-  function closeP() {
-    document.getElementById('modal').classList.remove('open');
-    video.pause();
-    hls.detachMedia();
-  }
+/* ====== Orders storage ====== */
+function loadOrders(){ try{ return JSON.parse(localStorage.getItem('orders_v1')||'[]') }catch(e){return[]} }
+function saveOrders(arr){ localStorage.setItem('orders_v1',JSON.stringify(arr)) }
 
-  function filter() {
-    let q = document.getElementById('search').value.toLowerCase();
-    document.querySelectorAll('.card').forEach(c => {
-      c.style.display = c.dataset.name.includes(q) ? "" : "none";
+/* ====== Send order (generate Telegram link and store) ====== */
+document.getElementById('send-order').addEventListener('click',()=>{
+  const name = document.getElementById('cust-name').value.trim() || 'Cliente';
+  const phone = document.getElementById('cust-phone').value.trim();
+  const qty = parseInt(document.getElementById('qty').value)||1;
+  const date = document.getElementById('date').value;
+  const time = document.getElementById('time').value;
+  const delivery = document.getElementById('delivery').value.trim();
+  const notes = document.getElementById('notes').value.trim();
+  if(!selectedProduct){ alert('Produto não selecionado'); return; }
+  if(!phone){ if(!confirm('Telefone vazio. Continuar?')) return; }
+  const order = {
+    id: 'o'+Date.now(),
+    productId: selectedProduct.id,
+    productName: selectedProduct.name,
+    price: selectedProduct.price,
+    qty, date, time, delivery, name, phone, notes,
+    status: 'Pendente', createdAt: new Date().toISOString()
+  };
+  const orders = loadOrders();
+  orders.unshift(order);
+  saveOrders(orders);
+  // Telegram text
+  const text = encodeURIComponent(`Nova encomenda - ${MERCHANT_NAME}%0AProduto: ${order.productName} (x${order.qty})%0AData: ${order.date} ${order.time}%0ATipo: ${order.delivery}%0ANome: ${order.name}%0ATelefone: ${order.phone}%0AObs: ${order.notes}`);
+  // open telegram link in new tab (uses t.me link to chat by number)
+  const tel = TELEGRAM_NUMBER || '';
+  const tgUrl = tel ? `https://t.me/+${tel}` : `https://t.me/`; // if merchant sets number, better handling needed
+  // fallback: open mailto as well
+  const mailto = `mailto:?subject=Nova encomenda - ${encodeURIComponent(MERCHANT_NAME)}&body=${text}`;
+  // Notify user
+  alert('Encomenda salva. Será aberto o Telegram/Email para notificar o comércio.');
+  // open mailto and telegram in new tabs
+  window.open(mailto, '_blank');
+  if(tel) window.open(tgUrl, '_blank');
+  document.getElementById('modal').classList.remove('open');
+});
+
+/* ====== Admin view ====== */
+const adminEl = document.getElementById('admin');
+const ordersListEl = document.getElementById('orders-list');
+function renderAdmin(){
+  const orders = loadOrders();
+  if(orders.length===0){ ordersListEl.innerHTML = '<div class="muted">Nenhuma encomenda por enquanto.</div>'; return; }
+  ordersListEl.innerHTML = '';
+  orders.forEach(o=>{
+    const div = document.createElement('div');
+    div.className = 'order card';
+    const prod = PRODUCTS.find(p=>p.id===o.productId) || {};
+    div.innerHTML = `
+      <div class="top-row" style="margin-bottom:6px">
+        <div>
+          <div style="font-weight:800">${o.productName} <span class="muted small">x${o.qty}</span></div>
+          <div class="muted small">${o.date} ${o.time} • ${o.delivery}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="small">R$ ${(o.price*o.qty).toFixed(2)}</div>
+          <div style="margin-top:6px"><span class="status ${o.status==='Pendente'?'st-pendente':o.status==='Confirmado'?'st-confirmado':'st-pronto'}">${o.status}</span></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+        <div>
+          <div><strong>${o.name}</strong> • <a href="tel:${o.phone}">${o.phone||'--'}</a></div>
+          <div class="muted small">${o.notes || ''}</div>
+          <div class="muted small">Criado: ${new Date(o.createdAt).toLocaleString()}</div>
+          <div style="margin-top:6px"><a class="ref" href="${prod.ref||'#'}" target="_blank">Referência do produto</a></div>
+        </div>
+        <div class="actions">
+          <button class="btn" data-act="confirm" data-id="${o.id}">Confirmar</button>
+          <button class="btn" data-act="ready" data-id="${o.id}" style="background:#2b59a5">Pronto</button>
+          <button class="btn" data-act="reject" data-id="${o.id}" style="background:#aaa">Recusar</button>
+        </div>
+      </div>
+    `;
+    ordersListEl.appendChild(div);
+  });
+  // attach handlers
+  document.querySelectorAll('.actions button').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      const act = e.currentTarget.getAttribute('data-act');
+      const id = e.currentTarget.getAttribute('data-id');
+      const orders = loadOrders();
+      const idx = orders.findIndex(x=>x.id===id);
+      if(idx===-1) return;
+      if(act==='confirm') orders[idx].status='Confirmado';
+      if(act==='reject') orders[idx].status='Recusado';
+      if(act==='ready') orders[idx].status='Pronto';
+      saveOrders(orders);
+      renderAdmin();
+      // open telegram/mailto to notify customer optionally
+      const o = orders[idx];
+      const notify = confirm('Deseja abrir email para notificar o cliente?');
+      if(notify){
+        const subj = encodeURIComponent('Status da sua encomenda - ' + MERCHANT_NAME);
+        const body = encodeURIComponent(`Olá ${o.name},%0ASua encomenda (${o.productName} x${o.qty}) está: ${o.status}.%0AData/hora: ${o.date} ${o.time}%0AObrigado.`);
+        window.open(`mailto:${o.phone?'' : ''}?subject=${subj}&body=${body}`, '_blank');
+      }
     });
-  }
+  });
+}
+
+/* UI toggles */
+document.getElementById('open-admin').addEventListener('click',()=>{
+  document.getElementById('app').style.display='none';
+  adminEl.style.display='block';
+  renderAdmin();
+});
+document.getElementById('close-admin').addEventListener('click',()=>{
+  adminEl.style.display='none';
+  document.getElementById('app').style.display='block';
+});
+document.getElementById('clear-orders').addEventListener('click',()=>{
+  if(confirm('Remover todos os pedidos do navegador?')){ localStorage.removeItem('orders_v1'); renderAdmin(); }
+});
+
+/* Open admin via param ?admin=1 */
+if(location.search.includes('admin=1')){ document.getElementById('app').style.display='none'; adminEl.style.display='block'; renderAdmin(); }
+
+/* Service worker registration (basic PWA) */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').catch(()=>{ /* ignore */ });
+}
+
+/* create simple sw file on demand (only for demo) */
+(function ensureSW(){
+  // try to register content if sw.js not present when served; this block does nothing if file exists
+  const swContent = `self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('fetch',e=>{});`;
+  // cannot write files from browser; include sw.js separately for full PWA features when deploying.
+})();
 </script>
 </body>
 </html>
