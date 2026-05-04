@@ -10,12 +10,15 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #050505;
-            /* CAMADA ESCURA + SUA FOTO NO FUNDO */
-            background-image: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.8)), url('icon.png');
+            
+            /* LINK DA SUA IMAGEM HOSPEDADA NA INTERNET */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                              url('https://ibb.co');
+            
             background-attachment: fixed;
-            background-position: center;
+            background-position: center top;
             background-repeat: no-repeat;
-            background-size: 85%;
+            background-size: cover; /* PREENCHE A TELA TODA */
             color: white;
             min-height: 100vh;
             display: flex;
@@ -25,25 +28,23 @@
         }
 
         .container {
-            background: rgba(13, 13, 13, 0.9);
+            background: rgba(10, 10, 10, 0.85);
             border-radius: 25px;
-            box-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
-            max-width: 480px;
+            box-shadow: 0 0 35px rgba(138, 43, 226, 0.3);
+            max-width: 420px;
             width: 100%;
-            padding: 30px;
-            border: 1px solid #222;
+            padding: 25px;
+            border: 1px solid rgba(138, 43, 226, 0.2);
             text-align: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .neon-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
             margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px #8a2be2, 0 0 20px #ff00ff;
+            text-shadow: 0 0 10px #8a2be2;
+            text-transform: uppercase;
         }
 
         .section { margin-bottom: 15px; text-align: left; }
@@ -56,7 +57,6 @@
             border: 1px solid #333;
             border-radius: 10px;
             color: white;
-            font-size: 14px;
             outline: none;
         }
 
@@ -70,13 +70,14 @@
             font-weight: 900;
             cursor: pointer;
             text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         .result-box {
-            background: #151515;
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 15px;
             padding: 20px;
-            margin-top: 25px;
+            margin-top: 20px;
             border: 1px solid #8a2be2;
             display: none;
         }
@@ -87,17 +88,16 @@
             padding: 10px 0;
             border-bottom: 1px solid #222;
         }
-        .s-name { color: #aaa; font-size: 13px; }
         .s-val { color: #00ff00; font-weight: 900; font-size: 18px; }
 
         .dpi-card {
-            background: #222;
+            background: rgba(138, 43, 226, 0.2);
             color: #ff00ff;
             padding: 12px;
             border-radius: 10px;
             margin-top: 15px;
-            font-size: 14px;
             font-weight: 900;
+            border: 1px dashed #ff00ff;
         }
 
         .timer-info { font-size: 10px; color: #ffcc00; margin-top: 10px; font-weight: bold; }
@@ -108,9 +108,10 @@
             background: #333;
             border-radius: 10px;
             color: white;
-            margin-top: 15px;
+            margin-top: 12px;
             cursor: pointer;
             font-weight: 800;
+            border: none;
         }
     </style>
 </head>
@@ -120,7 +121,7 @@
     <div class="neon-title">NIEL REALSENSI VIP</div>
     
     <div class="section">
-        <label>Marca</label>
+        <label>Marca do Aparelho</label>
         <select id="brand" onchange="loadModels()">
             <option value="">Escolha...</option>
             <option value="samsung">SAMSUNG</option>
@@ -131,26 +132,26 @@
     </div>
 
     <div class="section">
-        <label>Modelo</label>
-        <select id="model"><option>Aguardando...</option></select>
+        <label>Modelo do Celular</label>
+        <select id="model"><option>Aguardando marca...</option></select>
     </div>
 
-    <button class="btn-generate" onclick="generateSensi()">GERAR SENSI VIP</button>
+    <button class="btn-generate" onclick="generateSensi()">GERAR SENSIBILIDADE</button>
 
     <div id="resultBox" class="result-box">
-        <div class="sensi-item"><span class="s-name">GERAL</span><span class="s-val" id="res-g">0</span></div>
-        <div class="sensi-item"><span class="s-name">RED DOT</span><span class="s-val" id="res-r">0</span></div>
-        <div class="sensi-item"><span class="s-name">MIRA 2X</span><span class="s-val" id="res-2">0</span></div>
-        <div class="sensi-item"><span class="s-name">MIRA 4X</span><span class="s-val" id="res-4">0</span></div>
+        <div class="sensi-item"><span>GERAL</span><span class="s-val" id="res-g">0</span></div>
+        <div class="sensi-item"><span>RED DOT</span><span class="s-val" id="res-r">0</span></div>
+        <div class="sensi-item"><span>MIRA 2X</span><span class="s-val" id="res-2">0</span></div>
+        <div class="sensi-item"><span>MIRA 4X</span><span class="s-val" id="res-4">0</span></div>
         <div class="dpi-card" id="res-dpi">DPI: 0</div>
         <div id="timer" class="timer-info"></div>
-        <button class="btn-copy" onclick="copyConfig()">📋 COPIAR CONFIG</button>
+        <button class="btn-copy" onclick="copyConfig()">📋 COPIAR CONFIGURAÇÃO</button>
     </div>
 </div>
 
 <script>
     const database = {
-        samsung: ["Galaxy A10s", "Galaxy A20s", "Galaxy A30s", "Galaxy A51", "Galaxy S23 Ultra"],
+        samsung: ["Galaxy A10s", "Galaxy A20s", "Galaxy A30s", "Galaxy A51", "Galaxy S21", "Galaxy S23 Ultra"],
         motorola: ["Moto G22", "Moto G60", "Moto Edge 30"],
         xiaomi: ["Redmi Note 11", "Poco X5 Pro"],
         apple: ["iPhone 11", "iPhone 15 Pro Max"]
@@ -159,14 +160,13 @@
     function loadModels() {
         const b = document.getElementById('brand').value;
         const m = document.getElementById('model');
-        m.innerHTML = b ? '' : '<option>Aguardando...</option>';
+        m.innerHTML = b ? '' : '<option>Aguardando marca...</option>';
         if(b) database[b].forEach(item => m.innerHTML += `<option value="${item}">${item}</option>`);
     }
 
     function generateSensi() {
         const model = document.getElementById('model').value;
-        if(!model || model.includes("Aguardando")) return alert("Selecione o modelo!");
-
+        if(!model || model.includes("Aguardando")) return alert("⚠️ Selecione um modelo!");
         const agora = new Date().getTime();
         const tempo = 8 * 60 * 60 * 1000;
         let registro = JSON.parse(localStorage.getItem('sensi_' + model));
@@ -177,18 +177,13 @@
             document.getElementById('timer').innerText = `⏳ ATUALIZA EM: ${Math.floor(falta/(1000*60*60))}h ${Math.floor((falta%(1000*60*60))/(1000*60))}min`;
         } else {
             let seed = 0;
-            for (let i = 0; i < model.length; i++) { seed += model.charCodeAt(i); }
+            for (let i = 0; i < model.length; i++) seed += model.charCodeAt(i);
             seed += Math.floor(agora / tempo);
             const getV = (min, max, off) => ((seed * off) % (max - min + 1)) + min;
-
-            let novos = {
-                g: getV(188, 200, 3), r: getV(182, 196, 7),
-                m2: getV(192, 200, 4), m4: getV(188, 200, 2),
-                dpi: (seed % 2 === 0) ? "720" : "600"
-            };
+            let novos = { g: getV(188, 200, 3), r: getV(182, 196, 7), m2: getV(192, 200, 4), m4: getV(188, 200, 2), dpi: (seed % 2 === 0) ? "720" : "600" };
             localStorage.setItem('sensi_' + model, JSON.stringify({dataGerada: agora, valores: novos}));
             aplicar(novos);
-            document.getElementById('timer').innerText = "🔥 SENSI ATUALIZADA!";
+            document.getElementById('timer').innerText = "🔥 SENSI VIP ATUALIZADA!";
         }
         document.getElementById('resultBox').style.display = 'block';
     }
@@ -204,7 +199,7 @@
     function copyConfig() {
         const t = `💎 NIEL REALSENSI VIP 💎\nGERAL: ${document.getElementById('res-g').innerText}\nRED DOT: ${document.getElementById('res-r').innerText}\nDPI: ${document.getElementById('res-dpi').innerText}\nBOTÃO: 47%`;
         navigator.clipboard.writeText(t);
-        alert("✅ Copiado!");
+        alert("✅ Configuração Copiada!");
     }
 </script>
 </body>
