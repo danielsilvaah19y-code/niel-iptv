@@ -6,7 +6,6 @@
     <title>NIEL REALSENSI - OFICIAL</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #050505;
@@ -17,7 +16,6 @@
             align-items: center;
             padding: 20px;
         }
-
         .container {
             background: #0d0d0d;
             border-radius: 25px;
@@ -28,7 +26,6 @@
             border: 1px solid #222;
             text-align: center;
         }
-
         .neon-title {
             font-size: 34px;
             font-weight: 900;
@@ -39,15 +36,12 @@
             text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #8a2be2;
             animation: glow 1.5s ease-in-out infinite alternate;
         }
-
         @keyframes glow {
             from { text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 30px #8a2be2; }
             to { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff; }
         }
-
         .section { margin-bottom: 20px; text-align: left; }
         label { display: block; font-size: 11px; color: #888; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; }
-
         select {
             width: 100%;
             padding: 14px;
@@ -61,7 +55,6 @@
             transition: 0.3s;
         }
         select:focus { border-color: #8a2be2; }
-
         .btn-generate {
             width: 100%;
             padding: 18px;
@@ -75,9 +68,7 @@
             margin-top: 10px;
             text-transform: uppercase;
             transition: 0.3s;
-            letter-spacing: 1px;
         }
-
         .result-box {
             background: #151515;
             border-radius: 20px;
@@ -86,7 +77,6 @@
             border: 1px solid #8a2be2;
             display: none;
         }
-
         .sensi-item {
             display: flex;
             justify-content: space-between;
@@ -95,7 +85,6 @@
         }
         .s-name { color: #aaa; font-size: 14px; font-weight: 600; }
         .s-val { color: #00ff00; font-weight: 900; font-size: 20px; }
-
         .dpi-card {
             background: #222;
             color: #ff00ff;
@@ -104,8 +93,14 @@
             margin-top: 20px;
             font-size: 14px;
             font-weight: 900;
+            border: 1px dashed #ff00ff;
         }
-
+        .timer-info {
+            font-size: 11px;
+            color: #ffcc00;
+            margin-top: 10px;
+            font-weight: bold;
+        }
         .btn-copy {
             width: 100%;
             padding: 15px;
@@ -155,26 +150,20 @@
         <div class="sensi-item"><span class="s-name">CÂMERA LIVRE</span><span class="s-val" id="res-c">0</span></div>
         
         <div class="dpi-card" id="res-dpi">DPI RECOMENDADA: 0</div>
+        <div id="timer" class="timer-info"></div>
         
         <button class="btn-copy" onclick="copyConfig()">📋 COPIAR CONFIGURAÇÃO</button>
     </div>
 </div>
 
 <script>
-    // Banco de Dados com os modelos "s" incluídos
     const database = {
-        samsung: [
-            "Galaxy A01", "Galaxy A01 Core", "Galaxy A10", "Galaxy A10s", "Galaxy A11", "Galaxy A12", 
-            "Galaxy A20", "Galaxy A20s", "Galaxy A21s", "Galaxy A22", "Galaxy A30", "Galaxy A30s", 
-            "Galaxy A31", "Galaxy A32", "Galaxy A50", "Galaxy A50s", "Galaxy A51", "Galaxy A52", 
-            "Galaxy A53", "Galaxy A54", "Galaxy A70", "Galaxy A70s", "Galaxy A71", "Galaxy A73", 
-            "Galaxy S20 FE", "Galaxy S21", "Galaxy S23 Ultra", "Galaxy M54"
-        ],
-        motorola: ["Moto E7", "Moto G6 Play", "Moto G8 Power", "Moto G9 Plus", "Moto G22", "Moto G30", "Moto G60", "Moto G73", "Moto Edge 30", "Moto G200"],
-        xiaomi: ["Redmi 9", "Redmi 10", "Redmi 12", "Redmi Note 8", "Redmi Note 10", "Redmi Note 11", "Redmi Note 12", "Redmi Note 13", "Poco X3 Pro", "Poco X5 Pro", "Poco X6 Pro", "Poco F5"],
-        apple: ["iPhone 7 Plus", "iPhone 8 Plus", "iPhone X", "iPhone XR", "iPhone 11", "iPhone 12 Pro Max", "iPhone 13 Pro Max", "iPhone 14 Pro Max", "iPhone 15 Pro Max"],
-        infinix: ["Hot 11", "Hot 20i", "Hot 30i", "Note 30 5G"],
-        realme: ["Realme 7", "Realme 8 Pro", "Realme 9i", "Realme C55", "Realme GT Edition"]
+        samsung: ["Galaxy A01", "Galaxy A10s", "Galaxy A11", "Galaxy A12", "Galaxy A20s", "Galaxy A21s", "Galaxy A22", "Galaxy A30s", "Galaxy A31", "Galaxy A32", "Galaxy A50", "Galaxy A51", "Galaxy A52", "Galaxy A53", "Galaxy A54", "Galaxy S20 FE", "Galaxy S21", "Galaxy S23 Ultra"],
+        motorola: ["Moto E7", "Moto G8 Play", "Moto G9 Plus", "Moto G22", "Moto G30", "Moto G60", "Moto G73", "Moto Edge 30"],
+        xiaomi: ["Redmi 9", "Redmi 10", "Redmi 12", "Redmi Note 10", "Redmi Note 11", "Redmi Note 12", "Poco X3 Pro", "Poco X5 Pro", "Poco F5"],
+        apple: ["iPhone 8 Plus", "iPhone X", "iPhone 11", "iPhone 12", "iPhone 13", "iPhone 14", "iPhone 15 Pro Max"],
+        infinix: ["Hot 11", "Hot 20i", "Hot 30i", "Note 30"],
+        realme: ["Realme 7", "Realme 8 Pro", "Realme 9i", "Realme C55"]
     };
 
     function loadModels() {
@@ -191,41 +180,74 @@
 
     function generateSensi() {
         const model = document.getElementById('model').value;
-        if(!model || model.includes("Aguardando")) return alert("Selecione um modelo!");
+        if(!model || model.includes("Aguardando")) return alert("⚠️ Selecione um modelo!");
 
-        // Gerador de valores aleatórios dentro de uma faixa ideal (Escala 200)
-        let g = Math.floor(Math.random() * (198 - 180 + 1)) + 180;
-        let r = g - 8;
-        let m2 = Math.min(g + 5, 200);
+        const agora = new Date().getTime();
+        const tempoEspera = 8 * 60 * 60 * 1000; // 8 Horas
         
-        document.getElementById('res-g').innerText = g;
-        document.getElementById('res-r').innerText = r;
-        document.getElementById('res-2').innerText = m2;
-        document.getElementById('res-4').innerText = g - 3;
-        document.getElementById('res-a').innerText = Math.floor(Math.random() * (50 - 35 + 1)) + 35;
-        document.getElementById('res-c').innerText = Math.floor(Math.random() * (200 - 160 + 1)) + 160;
-        document.getElementById('res-dpi').innerText = "DPI RECOMENDADA: " + (g > 185 ? "720" : "580");
+        let registro = JSON.parse(localStorage.getItem('sensi_' + model));
 
+        // Se já gerou e não passou 8 horas, mantém a mesma
+        if (registro && (agora - registro.dataGerada < tempoEspera)) {
+            exibirSensi(registro.valores);
+            const falta = tempoEspera - (agora - registro.dataGerada);
+            const horasFalta = Math.floor(falta / (1000 * 60 * 60));
+            const minutosFalta = Math.floor((falta % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('timer').innerText = `⏳ Próxima atualização em: ${horasFalta}h ${minutosFalta}min`;
+        } else {
+            // Gera novos valores baseados no modelo + janela de tempo
+            let seed = 0;
+            for (let i = 0; i < model.length; i++) { seed += model.charCodeAt(i); }
+            seed += Math.floor(agora / tempoEspera); // Muda a cada 8h
+
+            const getVal = (min, max, offset) => ((seed * offset) % (max - min + 1)) + min;
+
+            let novosValores = {
+                g: getVal(188, 200, 3),
+                r: getVal(182, 196, 7),
+                m2: getVal(192, 200, 4),
+                m4: getVal(188, 200, 2),
+                awm: getVal(40, 60, 9),
+                cam: getVal(160, 200, 5),
+                dpi: (seed % 2 === 0) ? "720" : "600"
+            };
+
+            if(model.toLowerCase().includes("s") || model.toLowerCase().includes("pro")) {
+                novosValores.dpi = (parseInt(novosValores.dpi) + 100).toString();
+            }
+
+            localStorage.setItem('sensi_' + model, JSON.stringify({
+                dataGerada: agora,
+                valores: novosValores
+            }));
+
+            exibirSensi(novosValores);
+            document.getElementById('timer').innerText = "🔥 SENSIBILIDADE ATUALIZADA AGORA!";
+            alert("✅ Nova Sensibilidade Gerada!");
+        }
+    }
+
+    function exibirSensi(v) {
+        document.getElementById('res-g').innerText = v.g;
+        document.getElementById('res-r').innerText = v.r;
+        document.getElementById('res-2').innerText = v.m2;
+        document.getElementById('res-4').innerText = v.m4;
+        document.getElementById('res-a').innerText = v.awm;
+        document.getElementById('res-c').innerText = v.cam;
+        document.getElementById('res-dpi').innerText = "DPI RECOMENDADA: " + v.dpi;
         document.getElementById('resultBox').style.display = 'block';
     }
 
-    function copyConfig() {
-        const g = document.getElementById('res-g').innerText;
-        const texto = `💎 NIEL REALSENSI 💎\n\nGERAL: ${g}\nRED DOT: ${document.getElementById('res-r').innerText}\nMira 2x: ${document.getElementById('res-2').innerText}\nMira 4x: ${document.getElementById('res-4').innerText}\n${document.getElementById('res-dpi').innerText}\nBOTÃO: 47%`;
-
-        const area = document.createElement("textarea");
-        area.value = texto;
-        area.style.position = "fixed";
-        document.body.appendChild(area);
-        area.select();
+    async function copyConfig() {
+        const model = document.getElementById('model').value;
+        const texto = `💎 NIEL REALSENSI 💎\n📱 DISPOSITIVO: ${model}\n\nGERAL: ${document.getElementById('res-g').innerText}\nRED DOT: ${document.getElementById('res-r').innerText}\nMIRA 2X: ${document.getElementById('res-2').innerText}\nMIRA 4X: ${document.getElementById('res-4').innerText}\n${document.getElementById('res-dpi').innerText}\nBOTÃO: 47%`;
         
         try {
-            document.execCommand("copy");
+            await navigator.clipboard.writeText(texto);
             alert("✅ Configuração Copiada!");
         } catch (err) {
             alert("Erro ao copiar.");
         }
-        document.body.removeChild(area);
     }
 </script>
 
