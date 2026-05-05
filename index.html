@@ -313,13 +313,13 @@
         return;
       }
 
-      generateBtn.disabled = true;
+            generateBtn.disabled = true;
       generateBtn.textContent = "⚡ Gerando...";
 
       setTimeout(() => {
         const agora = Date.now();
-        const cooldown = 5 *  60 * 1000; // 5 minutos 
-        const key = "sensi_v2" + model;
+        const cooldown = 5 * 60 * 1000; // Tempo ajustado para 5 minutos 
+        const key = "sensi_v2" + model; // Chave v2 para resetar o cache antigo
         const registro = JSON.parse(localStorage.getItem(key));
 
         let valores;
@@ -346,14 +346,12 @@
 
           localStorage.setItem(key, JSON.stringify({ dataGerada: agora, valores }));
           cooldownEndTime = agora + cooldown;
-          showToast("✅ Nova sensibilidade gerada com sucesso!");
+          showToast("✅ Nova sensibilidade gerada!");
         }
 
         exibirResultados(valores, model);
-        startRealTimeTimer();
+        startRealTimeTimer(); // Chama o cronômetro que controla o botão
         
-        generateBtn.disabled = false;
-        generateBtn.textContent = "⚡ Gerar Novamente";
       }, 1100);
     }
 
@@ -381,17 +379,22 @@
 
         if (restante <= 0) {
           timerEl.innerHTML = "✅ Você pode gerar novamente!";
+          generateBtn.disabled = false; // DESTRAVA O BOTÃO
+          generateBtn.textContent = "⚡ Gerar Novamente";
           clearInterval(timerInterval);
           return;
         }
 
-        const horas = Math.floor(restante / (1000 * 60 * 60));
+        // Enquanto o tempo corre, o botão fica travado com o tempo
+        generateBtn.disabled = true;
         const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
         const segundos = Math.floor((restante % (1000 * 60)) / 1000);
 
-        timerEl.innerHTML = `⏰ Próxima geração em: <strong>${horas}h ${minutos}m ${segundos}s</strong>`;
+        timerEl.innerHTML = `⏰ Aguarde: <strong>${minutos}m ${segundos}s</strong>`;
+        generateBtn.textContent = `Aguarde ${minutos}m ${segundos}s`;
       }, 1000);
     }
+
 
     // ==================== COPIAR CONFIG ====================
     function copyConfig() {
