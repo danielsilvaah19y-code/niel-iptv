@@ -8,10 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Link da imagem do mundo com camada escura para leitura */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://ibb.co') no-repeat center center fixed;
-            background-size: cover;
+            background: #050505;
             color: white;
             min-height: 100vh;
             display: flex;
@@ -20,8 +17,9 @@
             padding: 20px;
         }
         .container {
-            /* Deixei o fundo levemente transparente para ver a imagem atrás */
-            background: rgba(13, 13, 13, 0.9);
+            background: 
+                linear-gradient(135deg, rgba(13, 13, 13, 0.92), rgba(13, 13, 13, 0.92)),
+                url('https://i.ibb.co/ym3t7Jpf/fundo-vip.png') center/cover no-repeat;
             border-radius: 25px;
             box-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
             max-width: 480px;
@@ -29,7 +27,22 @@
             padding: 35px;
             border: 1px solid #222;
             text-align: center;
-            backdrop-filter: blur(5px); /* Efeito de vidro embaçado */
+        }
+        .top-image {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+        }
+        .bottom-image {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin: 25px auto 0;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
         }
         .neon-title {
             font-size: 34px;
@@ -122,6 +135,9 @@
 <body>
 
 <div class="container">
+    <!-- IMAGEM DO TOPO -->
+    <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="NIEL VIP" class="top-image">
+    
     <div class="neon-title">NIEL REALSENSI</div>
     
     <div class="section">
@@ -158,6 +174,9 @@
         <div id="timer" class="timer-info"></div>
         
         <button class="btn-copy" onclick="copyConfig()">📋 COPIAR CONFIGURAÇÃO</button>
+        
+        <!-- IMAGEM DO RODAPÉ -->
+        <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="NIEL VIP" class="bottom-image">
     </div>
 </div>
 
@@ -192,6 +211,7 @@
         
         let registro = JSON.parse(localStorage.getItem('sensi_' + model));
 
+        // Se já gerou e não passou 8 horas, mantém a mesma
         if (registro && (agora - registro.dataGerada < tempoEspera)) {
             exibirSensi(registro.valores);
             const falta = tempoEspera - (agora - registro.dataGerada);
@@ -199,9 +219,10 @@
             const minutosFalta = Math.floor((falta % (1000 * 60 * 60)) / (1000 * 60));
             document.getElementById('timer').innerText = `⏳ Próxima atualização em: ${horasFalta}h ${minutosFalta}min`;
         } else {
+            // Gera novos valores baseados no modelo + janela de tempo
             let seed = 0;
             for (let i = 0; i < model.length; i++) { seed += model.charCodeAt(i); }
-            seed += Math.floor(agora / tempoEspera);
+            seed += Math.floor(agora / tempoEspera); // Muda a cada 8h
 
             const getVal = (min, max, offset) => ((seed * offset) % (max - min + 1)) + min;
 
