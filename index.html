@@ -25,17 +25,24 @@
       --glow: rgba(138, 43, 226, 0.5);
     }
 
+    /* FIX SCROLL MOBILE - CORRIGIDO */
+    html, body {
+      overflow-x: hidden;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: "Inter", sans-serif;
       background: #0a0a0a;
       color: white;
-      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       padding: 20px;
       position: relative;
-      overflow: hidden;
     }
 
     /* Partículas animadas */
@@ -109,12 +116,33 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
       max-width: 520px;
       width: 100%;
-      padding: 48px 40px;
+      max-height: 90vh !important;
+      padding: 48px 40px 80px;
       border: 1px solid var(--glass-border);
       position: relative;
       animation: containerRise 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
       transition: all 0.4s ease;
-      overflow: hidden;
+      overflow-y: auto !important;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar customizada PREMIUM */
+    .container::-webkit-scrollbar {
+      width: 5px;
+    }
+    .container::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+    .container::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #4facfe, #667eea);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .container::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #667eea, #4facfe);
+      box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
     }
 
     .container::before {
@@ -554,11 +582,15 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Responsividade Premium */
+    /* Responsividade PREMIUM */
     @media (max-width: 520px) {
+      body {
+        padding: 12px;
+      }
       .container {
-        padding: 40px 28px;
-        margin: 10px;
+        max-height: 95vh !important;
+        padding: 40px 28px 60px !important;
+        margin: 0;
         border-radius: 24px;
       }
       .title {
@@ -571,7 +603,7 @@
 
     @media (max-width: 400px) {
       .container {
-        padding: 32px 20px;
+        padding: 32px 20px 60px !important;
       }
       .title {
         font-size: 28px;
@@ -586,11 +618,6 @@
       body {
         padding: 12px;
       }
-    }
-
-    /* Scroll suave */
-    html {
-      scroll-behavior: smooth;
     }
   </style>
 </head>
@@ -873,4 +900,4 @@ ${document.getElementById("res-dpi").innerText}
     updateGenerateButton();
   </script>
 </body>
-            </html>
+  </html>
