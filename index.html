@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NIEL REALSENSI PRO - OFICIAL</title>
-  <meta name="description" content="Gerador oficial de sensibilidade PRO para Free Fire Max" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 
   <style>
@@ -30,13 +29,22 @@
       box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.7);
       max-width: 520px;
       width: 100%;
-      padding: 48px 40px 80px;
+      padding: 48px 40px 40px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       position: relative;
     }
 
     .header { text-align: center; margin-bottom: 40px; }
     .logo { width: 100%; max-width: 200px; margin: 0 auto 24px; border-radius: 20px; filter: drop-shadow(0 20px 40px rgba(102, 126, 234, 0.4)); }
+
+    .eagle-logo {
+      display: block;
+      width: 100%;
+      max-width: 380px;
+      margin: 45px auto 20px;
+      border-radius: 20px;
+      filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.7));
+    }
 
     .title { font-family: "Orbitron", monospace; font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .subtitle { font-size: 16px; color: #a0a0cc; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
@@ -85,28 +93,6 @@
     }
 
     .timer { text-align: center; margin: 20px 0; color: #10b981; font-weight: 700; font-size: 15px; }
-
-    #nameModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 3000; justify-content: center; align-items: center; }
-
-    #historyModal { 
-      display: none; 
-      position: fixed; 
-      top: 0; left: 0; 
-      width: 100%; height: 100%; 
-      background: rgba(0,0,0,0.92); 
-      z-index: 3000; 
-      justify-content: center; 
-      align-items: center; 
-    }
-    .modal-content {
-      background: #1a1a2e;
-      width: 90%;
-      max-width: 480px;
-      border-radius: 24px;
-      padding: 30px;
-      max-height: 85vh;
-      overflow-y: auto;
-    }
   </style>
 </head>
 <body>
@@ -145,45 +131,46 @@
     </select>
 
     <label class="label">📱 Modelo do Aparelho</label>
-    <select id="model" disabled><option value="">Aguardando marca...</option></select>
+    <select id="model" disabled><option value="">Selecione o modelo...</option></select>
 
     <button class="btn btn-generate" id="generateBtn">⚡ Gerar Sensibilidade PRO</button>
 
     <div id="resultBox" class="result-box">
       <h2 id="res-model" style="text-align:center; margin-bottom:24px; color:#67e8f9;">📱</h2>
-
       <div class="sensi-item"><span class="s-name">GERAL</span><span class="s-val" id="res-g">0</span></div>
       <div class="sensi-item"><span class="s-name">PONTO VERMELHO</span><span class="s-val" id="res-r">0</span></div>
       <div class="sensi-item"><span class="s-name">MIRA 2X</span><span class="s-val" id="res-2">0</span></div>
       <div class="sensi-item"><span class="s-name">MIRA 4X</span><span class="s-val" id="res-4">0</span></div>
       <div class="sensi-item"><span class="s-name">MIRA AWM</span><span class="s-val" id="res-a">0</span></div>
       <div class="sensi-item"><span class="s-name">CÂMERA LIVRE</span><span class="s-val" id="res-c">0</span></div>
-
       <div class="dpi-card" id="res-dpi">DPI RECOMENDADA: 0</div>
       <div id="timer" class="timer">⏳ Aguarde...</div>
 
       <button class="btn btn-save" onclick="openSaveModal()">💾 Salvar no Histórico</button>
       <button class="btn btn-copy" onclick="copyConfig()">📋 Copiar Configuração PRO</button>
     </div>
+
+    <!-- Águia abaixo -->
+    <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="NIEL REALSENSI VIP" class="eagle-logo" />
   </div>
 
-  <!-- Modal Nome -->
-  <div id="nameModal">
-    <div class="name-modal-content">
+  <!-- Modal Salvar -->
+  <div id="nameModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 3000; justify-content: center; align-items: center;">
+    <div style="background: #1a1a2e; padding: 30px; border-radius: 24px; width: 90%; max-width: 420px; text-align: center;">
       <h2>Salvar Sensibilidade</h2>
-      <p style="margin:15px 0; color:#ccc;">Dê um nome para esta sensi:</p>
-      <input type="text" id="sensiName" placeholder="Ex: Headshot A15" style="margin-bottom:20px;">
-      <button onclick="saveWithName()" style="background:#22c55e; padding:14px; width:48%; border:none; border-radius:12px; color:white;">Salvar</button>
-      <button onclick="closeNameModal()" style="background:#666; padding:14px; width:48%; border:none; border-radius:12px; color:white;">Cancelar</button>
+      <p style="margin: 15px 0; color: #ccc;">Dê um nome para esta sensi:</p>
+      <input type="text" id="sensiName" placeholder="Ex: Headshot Nubia V60" style="width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: none; font-size: 16px;">
+      <button onclick="saveWithName()" style="background:#22c55e; padding:14px; width:48%; border:none; border-radius:12px; color:white; margin:5px;">Salvar</button>
+      <button onclick="closeNameModal()" style="background:#666; padding:14px; width:48%; border:none; border-radius:12px; color:white; margin:5px;">Cancelar</button>
     </div>
   </div>
 
   <!-- Modal Histórico -->
-  <div id="historyModal" class="modal">
-    <div class="modal-content">
+  <div id="historyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 3000; justify-content: center; align-items: center;">
+    <div style="background: #1a1a2e; width: 90%; max-width: 480px; border-radius: 24px; padding: 25px; max-height: 85vh; overflow-y: auto;">
       <h2 style="text-align:center; margin-bottom:20px;">📜 Histórico de Sensibilidades</h2>
       <button onclick="clearAllHistory()" style="background:#ef4444; width:100%; padding:12px; border:none; border-radius:12px; color:white; margin-bottom:15px;">🗑️ Limpar Todo Histórico</button>
-      <div id="historyList"></div>
+      <div id="historyList" style="margin-top:10px;"></div>
       <button onclick="closeHistory()" style="margin-top:20px; background:#555; width:100%; padding:14px; border:none; border-radius:12px; color:white;">Fechar</button>
     </div>
   </div>
@@ -193,31 +180,20 @@
   <script>
     // ==================== DATABASE ====================
     const database = {
-      samsung: { modelos: ["Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A04","Galaxy A05","Galaxy A06","Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15","Galaxy A16","Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A50","Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy S20 FE","Galaxy S21","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra","Galaxy S25","Galaxy A36","Galaxy A56","Galaxy Z Fold6","Galaxy Z Flip6"], base: { g: 175, r: 170, m2: 168, m4: 165, awm: 45, cam: 155, dpi: 720 }},
-      
+      samsung: { modelos: ["Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A04","Galaxy A05","Galaxy A06","Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15","Galaxy A16","Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A50","Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy S20 FE","Galaxy S21","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra","Galaxy S25","Galaxy A36","Galaxy A56"], base: { g: 175, r: 170, m2: 168, m4: 165, awm: 45, cam: 155, dpi: 720 }},
       motorola: { modelos: ["Moto E7","Moto E13","Moto E22","Moto G05","Moto G06","Moto G8 Play","Moto G9 Play","Moto G10","Moto G15","Moto G20","Moto G22","Moto G23","Moto G24","Moto G30","Moto G32","Moto G35","Moto G42","Moto G52","Moto G54","Moto G55","Moto G56","Moto G60","Moto G73","Moto G75","Moto G84","Moto G85","Moto G86","Moto Edge 30","Moto Edge 40","Moto Edge 50","Moto Edge 50 Pro"], base: { g: 170, r: 165, m2: 162, m4: 160, awm: 42, cam: 150, dpi: 700 }},
-      
-      xiaomi: { modelos: ["Redmi 9","Redmi 9A","Redmi 10","Redmi 12","Redmi 12C","Redmi 13C","Redmi 14C","Redmi 15C","Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 14","Redmi Note 14 Pro","Poco X3 Pro","Poco X5 Pro","Poco X6 Pro","Poco X7 Pro","Poco F5","Poco F6","Poco F7","Redmi K80","Redmi Turbo 4"], base: { g: 180, r: 175, m2: 172, m4: 170, awm: 48, cam: 160, dpi: 800 }},
-      
-      realme: { modelos: ["Realme 7","Realme 7 Pro","Realme 8","Realme 8 Pro","Realme 9","Realme 9i","Realme 10","Realme 11","Realme 14 Pro+","Realme 15T","Realme C11","Realme C21","Realme C33","Realme C35","Realme C53","Realme C55","Realme C61","Realme C63","Realme C71","Realme C75","Realme Narzo 50","Realme Narzo 60","Realme GT 7 Pro","Realme 14 Pro"], base: { g: 178, r: 172, m2: 170, m4: 168, awm: 46, cam: 158, dpi: 780 }},
-      
+      xiaomi: { modelos: ["Redmi 9","Redmi 9A","Redmi 10","Redmi 12","Redmi 12C","Redmi 13C","Redmi 14C","Redmi 15C","Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 14","Redmi Note 14 Pro","Poco X3 Pro","Poco X5 Pro","Poco X6 Pro","Poco X7 Pro","Poco F5","Poco F6","Poco F7"], base: { g: 180, r: 175, m2: 172, m4: 170, awm: 48, cam: 160, dpi: 800 }},
+      realme: { modelos: ["Realme 7","Realme 7 Pro","Realme 8","Realme 8 Pro","Realme 9","Realme 9i","Realme 10","Realme 11","Realme 14 Pro+","Realme 15T","Realme C11","Realme C21","Realme C33","Realme C35","Realme C53","Realme C55","Realme C61","Realme C63","Realme C71","Realme C75","Realme Narzo 50","Realme Narzo 60","Realme GT 7 Pro"], base: { g: 178, r: 172, m2: 170, m4: 168, awm: 46, cam: 158, dpi: 780 }},
       infinix: { modelos: ["Hot 10","Hot 11","Hot 12","Hot 20i","Hot 30i","Hot 40i","Note 12","Note 30","Note 30 Pro","Zero 5G","Zero 30","Hot 50","Note 40 Pro"], base: { g: 172, r: 168, m2: 165, m4: 162, awm: 44, cam: 152, dpi: 760 }},
-      
       lg: { modelos: ["LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31","LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61","LG Stylo 6","LG Velvet","LG Wing"], base: { g: 168, r: 163, m2: 160, m4: 158, awm: 40, cam: 148, dpi: 650 }},
-      
-      apple: { modelos: ["iPhone 8","iPhone 8 Plus","iPhone X","iPhone 11","iPhone 12","iPhone 13","iPhone 14","iPhone 15","iPhone 15 Pro Max","iPhone 16","iPhone 16 Pro Max","iPhone 16e"], base: { g: 185, r: 180, m2: 178, m4: 175, awm: 50, cam: 165, dpi: 880 }},
-      
-      zte: { modelos: ["Nubia Z60","Nubia Z60 Ultra","Nubia V60","Nubia V60 Design","Nubia Red Magic 9 Pro","Nubia Red Magic 10","ZTE Axon 60","ZTE Blade V40","ZTE Blade A73","Nubia Flip","Nubia Z50","Nubia Neo 2"], base: { g: 182, r: 177, m2: 174, m4: 171, awm: 47, cam: 162, dpi: 810 }},
-      
+      apple: { modelos: ["iPhone 8","iPhone 8 Plus","iPhone X","iPhone 11","iPhone 12","iPhone 13","iPhone 14","iPhone 15","iPhone 15 Pro Max","iPhone 16","iPhone 16 Pro Max"], base: { g: 185, r: 180, m2: 178, m4: 175, awm: 50, cam: 165, dpi: 880 }},
+      zte: { modelos: ["Nubia Z60","Nubia Z60 Ultra","Nubia V60","Nubia V60 Design","Nubia Red Magic 9 Pro","Nubia Red Magic 10","ZTE Axon 60","ZTE Blade V40","ZTE Blade A73","Nubia Flip","Nubia Z50","Nubia Neo 2","Nubia Red Magic 9S Pro"], base: { g: 182, r: 177, m2: 174, m4: 171, awm: 47, cam: 162, dpi: 810 }},
       oppo: { modelos: ["Oppo A15","Oppo A16","Oppo A17","Oppo A31","Oppo A53","Oppo A54","Oppo A74","Oppo A76","Oppo A77","Oppo A78","Oppo Reno 12","Oppo Reno 13"], base: { g: 176, r: 171, m2: 169, m4: 166, awm: 44, cam: 156, dpi: 800 }},
-      
       vivo: { modelos: ["Vivo Y11","Vivo Y12","Vivo Y15","Vivo Y20","Vivo Y21","Vivo Y22","Vivo Y33","Vivo Y35","Vivo Y55","Vivo V30","Vivo Y200","Vivo S19"], base: { g: 173, r: 168, m2: 165, m4: 163, awm: 42, cam: 153, dpi: 780 }},
-      
       huawei: { modelos: ["Huawei P30","Huawei P40","Huawei P50","Huawei P60","Huawei Mate 20","Huawei Mate 40","Huawei Nova 12","Honor Magic 6","Honor 200"], base: { g: 177, r: 172, m2: 170, m4: 167, awm: 45, cam: 157, dpi: 850 }}
     };
 
-    // ... (Todo o resto do script permanece exatamente igual)
-
+    // Elementos
     const brandSelect = document.getElementById('brand');
     const modelSelect = document.getElementById('model');
     const generateBtn = document.getElementById('generateBtn');
@@ -227,7 +203,7 @@
 
     let timerInterval = null;
     let cooldownEndTime = null;
-    const MAX_HISTORY = 40;
+    const MAX_HISTORY = 30;
 
     function showToast(message) {
       toastEl.textContent = message;
@@ -236,18 +212,15 @@
       setTimeout(() => { toastEl.style.opacity = "0"; setTimeout(() => toastEl.style.display = "none", 400); }, 2800);
     }
 
-    // ==================== COOLDOWN MELHORADO ====================
     function checkCooldown(model) {
       if (!model) return false;
       const stored = JSON.parse(localStorage.getItem(`cooldown_${model}`));
       if (!stored || !stored.end) return false;
-
       const agora = Date.now();
       if (agora >= stored.end) {
         localStorage.removeItem(`cooldown_${model}`);
         return false;
       }
-
       cooldownEndTime = stored.end;
       startRealTimeTimer();
       return true;
@@ -255,7 +228,6 @@
 
     function startRealTimeTimer() {
       if (timerInterval) clearInterval(timerInterval);
-
       timerInterval = setInterval(() => {
         const restante = cooldownEndTime - Date.now();
         if (restante <= 0) {
@@ -273,7 +245,6 @@
       }, 1000);
     }
 
-    // ==================== MODAL NOME ====================
     function openSaveModal() {
       if (!modelSelect.value) return showToast("❌ Selecione marca e modelo primeiro");
       document.getElementById('sensiName').value = `Sensi ${modelSelect.value}`;
@@ -306,27 +277,29 @@
       history.unshift(sensi);
       if (history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
       localStorage.setItem('sensiHistory', JSON.stringify(history));
-      showToast(`✅ "${name}" salva!`);
+      showToast(`✅ "${name}" salva no histórico!`);
     }
 
-    // ==================== HISTÓRICO ====================
     function showHistory() {
       const history = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
       const list = document.getElementById('historyList');
-      list.innerHTML = history.length === 0 ? '<p style="text-align:center;padding:40px;color:#777;">Nenhuma sensibilidade salva ainda.</p>' : '';
+      list.innerHTML = '';
 
-      history.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'history-item';
-        div.innerHTML = `
-          <div style="font-size:13px;color:#aaa;">${item.date}</div>
-          <strong>${item.name}</strong> <small>(${item.model})</small><br>
-          <small>G:${item.g} | R:${item.r} | 2X:${item.m2} | DPI:${item.dpi}</small><br><br>
-          <button onclick="loadFromHistory(${item.id})" style="background:#22c55e;padding:8px 14px;border:none;border-radius:8px;margin-right:8px;">Carregar</button>
-          <button onclick="deleteHistoryItem(${item.id})" style="background:#ef4444;padding:8px 14px;border:none;border-radius:8px;">Excluir</button>
-        `;
-        list.appendChild(div);
-      });
+      if (history.length === 0) {
+        list.innerHTML = '<p style="text-align:center; padding:40px; color:#777;">Nenhuma sensibilidade salva ainda.</p>';
+      } else {
+        history.forEach(item => {
+          const div = document.createElement('div');
+          div.style.cssText = 'background:rgba(255,255,255,0.05); padding:15px; border-radius:16px; margin-bottom:12px;';
+          div.innerHTML = `
+            <div style="font-size:13px;color:#aaa;">${item.date}</div>
+            <strong>${item.name}</strong> <small>(${item.model})</small><br>
+            <small>G:${item.g} | R:${item.r} | 2X:${item.m2} | DPI:${item.dpi}</small><br><br>
+            <button onclick="loadFromHistory(${item.id}); closeHistory()" style="background:#22c55e;padding:8px 14px;border:none;border-radius:8px;margin-right:8px;">Carregar</button>
+          `;
+          list.appendChild(div);
+        });
+      }
       document.getElementById('historyModal').style.display = 'flex';
     }
 
@@ -344,14 +317,6 @@
         document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${item.dpi}`;
         resultBox.classList.add("show");
       }
-      closeHistory();
-    }
-
-    function deleteHistoryItem(id) {
-      let history = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
-      history = history.filter(item => item.id !== id);
-      localStorage.setItem('sensiHistory', JSON.stringify(history));
-      showHistory();
     }
 
     function clearAllHistory() {
@@ -365,24 +330,18 @@
       document.getElementById('historyModal').style.display = 'none';
     }
 
-    // ==================== GERAÇÃO ====================
     function generateSensi() {
       const brand = brandSelect.value;
       const model = modelSelect.value;
       if (!brand || !model) return showToast("❌ Selecione marca e modelo!");
 
-      if (checkCooldown(model)) {
-        showToast("⏳ Ainda em cooldown!");
-        return;
-      }
+      if (checkCooldown(model)) return showToast("⏳ Ainda em cooldown!");
 
-      const originalText = generateBtn.textContent;
-      generateBtn.innerHTML = `⚡ Gerando...`;
+      generateBtn.textContent = "⚡ Gerando...";
       generateBtn.disabled = true;
 
       const agora = Date.now();
       cooldownEndTime = agora + (5 * 60 * 1000);
-
       startRealTimeTimer();
 
       setTimeout(() => {
@@ -390,42 +349,31 @@
         const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
         const v = {
-          g: base.g + rand(-13,13),
-          r: base.r + rand(-13,13),
-          m2: base.m2 + rand(-15,14),
-          m4: base.m4 + rand(-15,14),
-          awm: base.awm + rand(-8,9),
-          cam: base.cam + rand(-12,13),
-          dpi: base.dpi + rand(-40,45)
+          g: Math.max(158, Math.min(208, base.g + rand(-13,13))),
+          r: Math.max(152, Math.min(200, base.r + rand(-13,13))),
+          m2: Math.max(145, Math.min(200, base.m2 + rand(-15,14))),
+          m4: Math.max(142, Math.min(198, base.m4 + rand(-15,14))),
+          awm: Math.max(30, Math.min(75, base.awm + rand(-8,9))),
+          cam: Math.max(132, Math.min(188, base.cam + rand(-12,13))),
+          dpi: Math.round((base.dpi + rand(-40,45)) / 10) * 10
         };
 
-        v.g = Math.max(158, Math.min(208, v.g));
-        v.r = Math.max(152, Math.min(200, v.r));
-        v.m2 = Math.max(145, Math.min(200, v.m2));
-        v.m4 = Math.max(142, Math.min(198, v.m4));
-        v.awm = Math.max(30, Math.min(75, v.awm));
-        v.cam = Math.max(132, Math.min(188, v.cam));
-        v.dpi = Math.round(v.dpi / 10) * 10;
+        document.getElementById("res-model").innerText = "📱 " + model;
+        document.getElementById("res-g").innerText = v.g;
+        document.getElementById("res-r").innerText = v.r;
+        document.getElementById("res-2").innerText = v.m2;
+        document.getElementById("res-4").innerText = v.m4;
+        document.getElementById("res-a").innerText = v.awm;
+        document.getElementById("res-c").innerText = v.cam;
+        document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
 
-        exibirResultados(v, model);
+        resultBox.classList.add("show");
         localStorage.setItem(`cooldown_${model}`, JSON.stringify({ end: cooldownEndTime }));
         showToast("✅ Sensibilidade gerada!");
 
         generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
         generateBtn.disabled = false;
       }, 1300);
-    }
-
-    function exibirResultados(v, model) {
-      document.getElementById("res-model").innerText = "📱 " + model;
-      document.getElementById("res-g").innerText = v.g;
-      document.getElementById("res-r").innerText = v.r;
-      document.getElementById("res-2").innerText = v.m2;
-      document.getElementById("res-4").innerText = v.m4;
-      document.getElementById("res-a").innerText = v.awm;
-      document.getElementById("res-c").innerText = v.cam;
-      document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
-      resultBox.classList.add("show");
     }
 
     function copyConfig() {
@@ -449,12 +397,6 @@
     // Inicialização
     brandSelect.addEventListener("change", loadModels);
     generateBtn.addEventListener("click", generateSensi);
-
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        if (modelSelect.value) checkCooldown(modelSelect.value);
-      }, 600);
-    });
 
     setTimeout(() => showToast("👋 Selecione marca e modelo para começar!"), 800);
   </script>
