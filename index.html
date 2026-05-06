@@ -86,9 +86,27 @@
 
     .timer { text-align: center; margin: 20px 0; color: #10b981; font-weight: 700; font-size: 15px; }
 
-    /* Modal Nome */
     #nameModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 3000; justify-content: center; align-items: center; }
-    .name-modal-content { background: #1a1a2e; width: 90%; max-width: 420px; border-radius: 24px; padding: 30px; text-align: center; }
+
+    #historyModal { 
+      display: none; 
+      position: fixed; 
+      top: 0; left: 0; 
+      width: 100%; height: 100%; 
+      background: rgba(0,0,0,0.92); 
+      z-index: 3000; 
+      justify-content: center; 
+      align-items: center; 
+    }
+    .modal-content {
+      background: #1a1a2e;
+      width: 90%;
+      max-width: 480px;
+      border-radius: 24px;
+      padding: 30px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
@@ -164,10 +182,6 @@
   <div id="historyModal" class="modal">
     <div class="modal-content">
       <h2 style="text-align:center; margin-bottom:20px;">📜 Histórico de Sensibilidades</h2>
-      <button onclick="exportHistory()" style="background:#3b82f6; width:100%; padding:12px; margin-bottom:8px;">📤 Exportar Histórico</button>
-      <button onclick="document.getElementById('importInput').click()" style="background:#64748b; width:100%; padding:12px; margin-bottom:15px;">📥 Importar Histórico</button>
-      <input type="file" id="importInput" accept=".json" style="display:none;" onchange="importHistory(event)">
-      
       <button onclick="clearAllHistory()" style="background:#ef4444; width:100%; padding:12px; border:none; border-radius:12px; color:white; margin-bottom:15px;">🗑️ Limpar Todo Histórico</button>
       <div id="historyList"></div>
       <button onclick="closeHistory()" style="margin-top:20px; background:#555; width:100%; padding:14px; border:none; border-radius:12px; color:white;">Fechar</button>
@@ -207,6 +221,43 @@
       toastEl.style.display = "block";
       toastEl.style.opacity = "1";
       setTimeout(() => { toastEl.style.opacity = "0"; setTimeout(() => toastEl.style.display = "none", 400); }, 2800);
+    }
+
+    // ==================== COOLDOWN MELHORADO ====================
+    function checkCooldown(model) {
+      if (!model) return false;
+      const stored = JSON.parse(localStorage.getItem(`cooldown_${model}`));
+      if (!stored || !stored.end) return false;
+
+      const agora = Date.now();
+      if (agora >= stored.end) {
+        localStorage.removeItem(`cooldown_${model}`);
+        return false;
+      }
+
+      cooldownEndTime = stored.end;
+      startRealTimeTimer();
+      return true;
+    }
+
+    function startRealTimeTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        const restante = cooldownEndTime - Date.now();
+        if (restante <= 0) {
+          timerEl.innerHTML = "✅ Pode gerar novamente!";
+          generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+          generateBtn.disabled = false;
+          clearInterval(timerInterval);
+          return;
+        }
+        const minutos = Math.floor((restante % 3600000) / 60000);
+        const segundos = Math.floor((restante % 60000) / 1000);
+        timerEl.innerHTML = `⏰ Aguarde: <strong>${minutos}m ${segundos}s</strong>`;
+        generateBtn.textContent = `Aguarde ${minutos}m ${segundos}s`;
+        generateBtn.disabled = true;
+      }, 1000);
     }
 
     // ==================== MODAL NOME ====================
@@ -301,29 +352,24 @@
       document.getElementById('historyModal').style.display = 'none';
     }
 
-    // ==================== GERAÇÃO COM CARREGAMENTO ====================
+    // ==================== GERAÇÃO ====================
     function generateSensi() {
       const brand = brandSelect.value;
       const model = modelSelect.value;
       if (!brand || !model) return showToast("❌ Selecione marca e modelo!");
 
-      // Carregamento visual
+      if (checkCooldown(model)) {
+        showToast("⏳ Ainda em cooldown!");
+        return;
+      }
+
       const originalText = generateBtn.textContent;
       generateBtn.innerHTML = `⚡ Gerando...`;
       generateBtn.disabled = true;
 
       const agora = Date.now();
-      const stored = JSON.parse(localStorage.getItem(`cooldown_${model}`));
-      if (stored && agora < stored.end) {
-        cooldownEndTime = stored.end;
-        startRealTimeTimer();
-        generateBtn.textContent = originalText;
-        generateBtn.disabled = false;
-        showToast("⏳ Ainda em cooldown!");
-        return;
-      }
-
       cooldownEndTime = agora + (5 * 60 * 1000);
+
       startRealTimeTimer();
 
       setTimeout(() => {
@@ -369,24 +415,6 @@
       resultBox.classList.add("show");
     }
 
-    function startRealTimeTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        const restante = cooldownEndTime - Date.now();
-        if (restante <= 0) {
-          timerEl.innerHTML = "✅ Pode gerar novamente!";
-          generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
-          generateBtn.disabled = false;
-          clearInterval(timerInterval);
-          return;
-        }
-        const minutos = Math.floor((restante % 3600000) / 60000);
-        const segundos = Math.floor((restante % 60000) / 1000);
-        timerEl.innerHTML = `⏰ Aguarde: <strong>${minutos}m ${segundos}s</strong>`;
-        generateBtn.textContent = `Aguarde ${minutos}m ${segundos}s`;
-      }, 1000);
-    }
-
     function copyConfig() {
       const model = modelSelect.value;
       const texto = `⚡ NIEL REALSENSI PRO\n📱 ${model}\n\nGERAL: ${document.getElementById("res-g").innerText}\nRED DOT: ${document.getElementById("res-r").innerText}\n2X: ${document.getElementById("res-2").innerText}\n4X: ${document.getElementById("res-4").innerText}\nAWM: ${document.getElementById("res-a").innerText}\nCÂMERA: ${document.getElementById("res-c").innerText}\n${document.getElementById("res-dpi").innerText}`;
@@ -403,13 +431,23 @@
         });
       }
       resultBox.classList.remove('show');
+
+      // Verifica cooldown ao mudar de modelo
+      if (brand) checkCooldown(modelSelect.value);
     }
 
     // Inicialização
     brandSelect.addEventListener("change", loadModels);
     generateBtn.addEventListener("click", generateSensi);
 
+    // Verifica cooldown ao carregar a página
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (modelSelect.value) checkCooldown(modelSelect.value);
+      }, 600);
+    });
+
     setTimeout(() => showToast("👋 Selecione marca e modelo para começar!"), 800);
   </script>
 </body>
-</html>
+                                                                 </html>
