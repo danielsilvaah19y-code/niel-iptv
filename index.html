@@ -13,12 +13,6 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-      --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      --purple: linear-gradient(135deg, #8b5cf6, #c026d3);
-    }
-
     body {
       font-family: "Inter", sans-serif;
       background: #0a0a0a;
@@ -27,7 +21,6 @@
       display: flex;
       justify-content: center;
       padding: 20px 15px;
-      overflow-x: hidden;
     }
 
     .container {
@@ -39,155 +32,65 @@
       width: 100%;
       padding: 48px 40px 80px;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
     }
 
     .header { text-align: center; margin-bottom: 40px; }
-    .logo { 
-      width: 100%; 
-      max-width: 200px; 
-      margin: 0 auto 24px; 
-      border-radius: 20px; 
-      filter: drop-shadow(0 20px 40px rgba(102, 126, 234, 0.4)); 
+    .logo { width: 100%; max-width: 200px; margin: 0 auto 24px; border-radius: 20px; filter: drop-shadow(0 20px 40px rgba(102, 126, 234, 0.4)); }
+
+    .title { font-family: "Orbitron", monospace; font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { font-size: 16px; color: #a0a0cc; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+
+    .history-btn {
+      position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.15);
+      border: none; color: white; font-size: 24px; width: 50px; height: 50px;
+      border-radius: 50%; cursor: pointer;
     }
 
-    .title {
-      font-family: "Orbitron", monospace;
-      font-size: 36px;
-      font-weight: 900;
-      background: var(--accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle { 
-      font-size: 16px; 
-      color: #a0a0cc; 
-      font-weight: 500; 
-      letter-spacing: 2px; 
-      text-transform: uppercase; 
-    }
-
-    .label { 
-      font-size: 14px; 
-      color: #b0b0d0; 
-      margin-bottom: 12px; 
-      font-weight: 600; 
-      text-transform: uppercase; 
-      display: block;
-    }
+    .label { font-size: 14px; color: #b0b0d0; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; display: block; }
 
     select {
-      width: 100%; 
-      padding: 20px 24px; 
-      background: rgba(30,30,50,0.8); 
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 20px; 
-      color: white; 
-      font-size: 16px; 
-      font-weight: 600; 
-      cursor: pointer;
-      margin-bottom: 24px;
+      width: 100%; padding: 20px 24px; background: rgba(30,30,50,0.8); 
+      border: 2px solid rgba(255,255,255,0.1); border-radius: 20px; 
+      color: white; font-size: 16px; font-weight: 600; margin-bottom: 24px;
     }
 
     .btn {
-      width: 100%; 
-      padding: 22px; 
-      border: none; 
-      border-radius: 24px;
-      color: white; 
-      font-family: "Orbitron", monospace; 
-      font-weight: 800; 
-      font-size: 18px; 
-      cursor: pointer; 
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-      margin-top: 12px;
+      width: 100%; padding: 22px; border: none; border-radius: 24px;
+      color: white; font-family: "Orbitron", monospace; font-weight: 800; 
+      font-size: 18px; cursor: pointer; text-transform: uppercase; margin-top: 12px;
+      transition: all 0.3s;
     }
 
-    .btn-generate {
-      background: var(--primary);
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
-    }
-
-    .btn-generate:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(102, 126, 234, 0.7); }
-
-    .btn-copy {
-      background: var(--purple);
-      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
-      font-size: 17px;
-    }
-
-    .btn-copy:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(139, 92, 246, 0.7); }
+    .btn-generate { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .btn-save { background: linear-gradient(135deg, #10b981, #34d399); }
+    .btn-copy { background: linear-gradient(135deg, #8b5cf6, #c026d3); }
 
     .result-box {
-      background: rgba(25,25,45,0.95); 
-      border-radius: 24px; 
-      padding: 36px; 
-      margin-top: 36px;
-      border: 2px solid #4facfe; 
-      display: none;
-      animation: fadeIn 0.6s ease;
+      background: rgba(25,25,45,0.95); border-radius: 24px; padding: 36px; 
+      margin-top: 36px; border: 2px solid #4facfe; display: none;
     }
-
     .result-box.show { display: block; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .sensi-item { 
-      display: flex; 
-      justify-content: space-between; 
-      padding: 18px 0; 
-      border-bottom: 1px solid rgba(255,255,255,0.08); 
-    }
-
+    .sensi-item { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .s-name { color: #b0b0d0; font-weight: 600; }
-    .s-val { 
-      color: #00f2fe; 
-      font-family: "Orbitron", monospace; 
-      font-weight: 900; 
-      font-size: 28px; 
-    }
+    .s-val { color: #00f2fe; font-family: "Orbitron", monospace; font-weight: 900; font-size: 28px; }
 
-    .dpi-card { 
-      background: rgba(79,172,254,0.15); 
-      padding: 24px; 
-      border-radius: 20px; 
-      margin-top: 28px; 
-      text-align: center; 
-      border: 1px solid #4facfe; 
-      font-weight: 700;
-      font-size: 18px;
-    }
+    .dpi-card { background: rgba(79,172,254,0.15); padding: 24px; border-radius: 20px; margin-top: 28px; text-align: center; border: 1px solid #4facfe; font-weight: 700; font-size: 18px; }
 
     .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1f2937;
-      color: white;
-      padding: 14px 24px;
-      border-radius: 9999px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      z-index: 1000;
-      opacity: 0;
-      transition: all 0.4s ease;
-      display: none;
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: #1f2937; color: white; padding: 14px 24px; border-radius: 9999px;
+      z-index: 1000; opacity: 0; transition: all 0.4s; display: none;
     }
 
-    .timer {
-      text-align: center;
-      margin: 20px 0;
-      color: #10b981;
-      font-weight: 700;
-      font-size: 15px;
-    }
+    .timer { text-align: center; margin: 20px 0; color: #10b981; font-weight: 700; font-size: 15px; }
+
+    /* Modal Nome */
+    #nameModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 3000; justify-content: center; align-items: center; }
+    .name-modal-content { background: #1a1a2e; width: 90%; max-width: 420px; border-radius: 24px; padding: 30px; text-align: center; }
   </style>
 </head>
-
 <body>
   <div class="container">
     <div class="header">
@@ -195,6 +98,8 @@
       <h1 class="title">NIEL REALSENSI</h1>
       <div class="subtitle">VERSÃO PRO • OFICIAL</div>
     </div>
+
+    <button class="history-btn" onclick="showHistory()">📜</button>
 
     <label class="label">🔥 Selecione a Marca</label>
     <select id="brand">
@@ -207,7 +112,6 @@
       <option value="infinix">INFINIX</option>
       <option value="lg">LG</option>
       <option value="zte">ZTE / NUBIA</option>
-      <!-- NOVAS MARCAS -->
       <option value="oppo">OPPO</option>
       <option value="vivo">VIVO</option>
       <option value="huawei">HUAWEI / HONOR</option>
@@ -223,13 +127,9 @@
     </select>
 
     <label class="label">📱 Modelo do Aparelho</label>
-    <select id="model" disabled>
-      <option value="">Aguardando marca...</option>
-    </select>
+    <select id="model" disabled><option value="">Aguardando marca...</option></select>
 
-    <button class="btn btn-generate" id="generateBtn">
-      ⚡ Gerar Sensibilidade PRO
-    </button>
+    <button class="btn btn-generate" id="generateBtn">⚡ Gerar Sensibilidade PRO</button>
 
     <div id="resultBox" class="result-box">
       <h2 id="res-model" style="text-align:center; margin-bottom:24px; color:#67e8f9;">📱</h2>
@@ -242,184 +142,55 @@
       <div class="sensi-item"><span class="s-name">CÂMERA LIVRE</span><span class="s-val" id="res-c">0</span></div>
 
       <div class="dpi-card" id="res-dpi">DPI RECOMENDADA: 0</div>
-      
       <div id="timer" class="timer">⏳ Aguarde...</div>
 
+      <button class="btn btn-save" onclick="openSaveModal()">💾 Salvar no Histórico</button>
       <button class="btn btn-copy" onclick="copyConfig()">📋 Copiar Configuração PRO</button>
+    </div>
+  </div>
+
+  <!-- Modal Nome -->
+  <div id="nameModal">
+    <div class="name-modal-content">
+      <h2>Salvar Sensibilidade</h2>
+      <p style="margin:15px 0; color:#ccc;">Dê um nome para esta sensi:</p>
+      <input type="text" id="sensiName" placeholder="Ex: Headshot A15" style="margin-bottom:20px;">
+      <button onclick="saveWithName()" style="background:#22c55e; padding:14px; width:48%; border:none; border-radius:12px; color:white;">Salvar</button>
+      <button onclick="closeNameModal()" style="background:#666; padding:14px; width:48%; border:none; border-radius:12px; color:white;">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal Histórico -->
+  <div id="historyModal" class="modal">
+    <div class="modal-content">
+      <h2 style="text-align:center; margin-bottom:20px;">📜 Histórico de Sensibilidades</h2>
+      <button onclick="exportHistory()" style="background:#3b82f6; width:100%; padding:12px; margin-bottom:8px;">📤 Exportar Histórico</button>
+      <button onclick="document.getElementById('importInput').click()" style="background:#64748b; width:100%; padding:12px; margin-bottom:15px;">📥 Importar Histórico</button>
+      <input type="file" id="importInput" accept=".json" style="display:none;" onchange="importHistory(event)">
+      
+      <button onclick="clearAllHistory()" style="background:#ef4444; width:100%; padding:12px; border:none; border-radius:12px; color:white; margin-bottom:15px;">🗑️ Limpar Todo Histórico</button>
+      <div id="historyList"></div>
+      <button onclick="closeHistory()" style="margin-top:20px; background:#555; width:100%; padding:14px; border:none; border-radius:12px; color:white;">Fechar</button>
     </div>
   </div>
 
   <div id="toast" class="toast"></div>
 
   <script>
-    // ==================== DATABASE REAL ====================
+    // ==================== DATABASE ====================
     const database = {
-      samsung: {
-        modelos: [
-          "Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A04","Galaxy A05","Galaxy A06",
-          "Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14",
-          "Galaxy A15","Galaxy A16","Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s",
-          "Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s",
-          "Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A50",
-          "Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy S20 FE",
-          "Galaxy S21","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra"
-        ],
-        base: { g: 175, r: 170, m2: 168, m4: 165, awm: 45, cam: 155, dpi: 720 }
-      },
-      motorola: {
-        modelos: [
-          "Moto E7","Moto E13","Moto E22","Moto G05","Moto G06","Moto G8 Play","Moto G9 Play",
-          "Moto G10","Moto G15","Moto G20","Moto G22","Moto G23","Moto G24","Moto G30",
-          "Moto G32","Moto G35","Moto G42","Moto G52","Moto G54","Moto G55","Moto G56",
-          "Moto G60","Moto G73","Moto G75","Moto G84","Moto G85","Moto G86","Moto Edge 30",
-          "Moto Edge 40"
-        ],
-        base: { g: 170, r: 165, m2: 162, m4: 160, awm: 42, cam: 150, dpi: 720 }
-      },
-      xiaomi: {
-        modelos: [
-          "Redmi 9","Redmi 9A","Redmi 10","Redmi 12","Redmi 12C","Redmi 13C","Redmi 14C",
-          "Redmi 15C","Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11",
-          "Redmi Note 12","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 14",
-          "Redmi Note 14 Pro","Poco X3 Pro","Poco X5 Pro","Poco X6 Pro","Poco X7 Pro",
-          "Poco F5","Poco F6"
-        ],
-        base: { g: 180, r: 175, m2: 172, m4: 170, awm: 48, cam: 160, dpi: 800 }
-      },
-      realme: {
-        modelos: [
-          "Realme 7","Realme 7 Pro","Realme 8","Realme 8 Pro","Realme 9","Realme 9i",
-          "Realme 10","Realme 11","Realme 14 Pro+","Realme 15T","Realme C11","Realme C21",
-          "Realme C33","Realme C35","Realme C53","Realme C55","Realme C61","Realme C63",
-          "Realme C71","Realme C75","Realme Narzo 50","Realme Narzo 60"
-        ],
-        base: { g: 178, r: 172, m2: 170, m4: 168, awm: 46, cam: 158, dpi: 800 }
-      },
-      infinix: {
-        modelos: [
-          "Hot 10","Hot 11","Hot 12","Hot 20i","Hot 30i","Hot 40i","Note 12","Note 30",
-          "Note 30 Pro","Zero 5G","Zero 30"
-        ],
-        base: { g: 172, r: 168, m2: 165, m4: 162, awm: 44, cam: 152, dpi: 760 }
-      },
-      lg: {
-        modelos: [
-          "LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31",
-          "LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61",
-          "LG Stylo 6","LG Velvet","LG Wing"
-        ],
-        base: { g: 168, r: 163, m2: 160, m4: 158, awm: 40, cam: 148, dpi: 600 }
-      },
-      apple: {
-        modelos: [
-          "iPhone 8","iPhone 8 Plus","iPhone X","iPhone 11","iPhone 12","iPhone 13",
-          "iPhone 14","iPhone 15","iPhone 15 Pro Max","iPhone 16","iPhone 16 Pro Max"
-        ],
-        base: { g: 185, r: 180, m2: 178, m4: 175, awm: 50, cam: 165, dpi: 880 }
-      },
-      zte: {
-        modelos: [
-          "Nubia V60", "Nubia Red Magic 9 Pro", "Nubia Red Magic 8 Pro", "Nubia Red Magic 7",
-          "Nubia Z60", "ZTE Axon 40 Ultra", "Nubia V50"
-        ],
-        base: { g: 174, r: 169, m2: 166, m4: 164, awm: 43, cam: 154, dpi: 800 }
-      },
-      oppo: {
-        modelos: [
-          "Oppo A15", "Oppo A16", "Oppo A17", "Oppo A31", "Oppo A53", "Oppo A54", "Oppo A74",
-          "Oppo A76", "Oppo A77", "Oppo A78", "Oppo A95", "Oppo Find X3", "Oppo Find X5",
-          "Oppo Reno 4", "Oppo Reno 5", "Oppo Reno 6", "Oppo Reno 7", "Oppo Reno 8", "Oppo Reno 10"
-        ],
-        base: { g: 176, r: 171, m2: 169, m4: 166, awm: 44, cam: 156, dpi: 800 }
-      },
-      vivo: {
-        modelos: [
-          "Vivo Y11", "Vivo Y12", "Vivo Y15", "Vivo Y20", "Vivo Y21", "Vivo Y22", "Vivo Y33",
-          "Vivo Y35", "Vivo Y55", "Vivo Y75", "Vivo V21", "Vivo V23", "Vivo V25", "Vivo X60",
-          "Vivo X70", "Vivo X80", "Vivo iQOO Neo 6"
-        ],
-        base: { g: 173, r: 168, m2: 165, m4: 163, awm: 42, cam: 153, dpi: 780 }
-      },
-      huawei: {
-        modelos: [
-          "Huawei P30", "Huawei P40", "Huawei P50", "Huawei P60", "Huawei Mate 20",
-          "Huawei Mate 40", "Huawei Mate 50", "Huawei Nova 8", "Huawei Nova 9",
-          "Huawei Nova 10", "Huawei Nova Y90", "Huawei Y9 2019", "Huawei Y7a",
-          "Honor 8X", "Honor 9X", "Honor 10", "Honor 50", "Honor 70", "Honor X8", "Honor X9a"
-        ],
-        base: { g: 177, r: 172, m2: 170, m4: 167, awm: 45, cam: 157, dpi: 850 }
-      },
-      asus: {
-        modelos: [
-          "Asus Zenfone 8", "Asus Zenfone 9", "Asus Zenfone 10", "Asus Zenfone Max M2",
-          "Asus Zenfone Max Pro M2", "Asus ROG Phone 5", "Asus ROG Phone 6", "Asus ROG Phone 7"
-        ],
-        base: { g: 179, r: 174, m2: 171, m4: 169, awm: 47, cam: 159, dpi: 800 }
-      },
-      google: {
-        modelos: [
-          "Google Pixel 4", "Google Pixel 4a", "Google Pixel 5", "Google Pixel 5a",
-          "Google Pixel 6", "Google Pixel 6 Pro", "Google Pixel 6a", "Google Pixel 7",
-          "Google Pixel 7 Pro", "Google Pixel 7a", "Google Pixel 8", "Google Pixel 8 Pro",
-          "Google Pixel 8a"
-        ],
-        base: { g: 182, r: 177, m2: 174, m4: 172, awm: 49, cam: 162, dpi: 830 }
-      },
-      oneplus: {
-        modelos: [
-          "OnePlus 7", "OnePlus 7 Pro", "OnePlus 8", "OnePlus 8 Pro", "OnePlus 9",
-          "OnePlus 9 Pro", "OnePlus 10 Pro", "OnePlus 11", "OnePlus 12",
-          "OnePlus Nord", "OnePlus Nord 2", "OnePlus Nord CE"
-        ],
-        base: { g: 183, r: 178, m2: 175, m4: 173, awm: 48, cam: 163, dpi: 850 }
-      },
-      sony: {
-        modelos: [
-          "Sony Xperia 1 III", "Sony Xperia 1 IV", "Sony Xperia 5 III", "Sony Xperia 5 IV",
-          "Sony Xperia 10 III", "Sony Xperia 10 IV"
-        ],
-        base: { g: 171, r: 166, m2: 163, m4: 161, awm: 41, cam: 151, dpi: 700 }
-      },
-      tecno: {
-        modelos: [
-          "Tecno Spark 7", "Tecno Spark 8", "Tecno Spark 9", "Tecno Spark 10",
-          "Tecno Camon 17", "Tecno Camon 18", "Tecno Camon 19", "Tecno Camon 20",
-          "Tecno Pova 3", "Tecno Pova 4"
-        ],
-        base: { g: 172, r: 167, m2: 164, m4: 162, awm: 43, cam: 152, dpi: 760 }
-      },
-      lenovo: {
-        modelos: [
-          "Lenovo K10 Note", "Lenovo K12", "Lenovo K12 Pro", "Lenovo Legion Phone Duel",
-          "Lenovo Legion 2 Pro"
-        ],
-        base: { g: 169, r: 164, m2: 161, m4: 159, awm: 41, cam: 149, dpi: 720 }
-      },
-      nokia: {
-        modelos: [
-          "Nokia 2.3", "Nokia 2.4", "Nokia 3.4", "Nokia 5.3", "Nokia 5.4",
-          "Nokia 6.2", "Nokia 7.2", "Nokia 8.3", "Nokia XR20", "Nokia G20",
-          "Nokia G21", "Nokia G22"
-        ],
-        base: { g: 170, r: 165, m2: 162, m4: 160, awm: 42, cam: 150, dpi: 740 }
-      },
-      positivo: {
-        modelos: [
-          "Positivo Q20", "Positivo Q30", "Positivo Q40", "Positivo Q60", "Positivo Q70",
-          "Positivo Twist 4", "Positivo S330"
-        ],
-        base: { g: 165, r: 160, m2: 157, m4: 155, awm: 38, cam: 145, dpi: 680 }
-      },
-      multilaser: {
-        modelos: [
-          "Multilaser E", "Multilaser G", "Multilaser H", "Multilaser MS80",
-          "Multilaser MS60", "Multilaser MS45"
-        ],
-        base: { g: 163, r: 158, m2: 155, m4: 153, awm: 37, cam: 143, dpi: 650 }
-      }
+      samsung: { modelos: ["Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A04","Galaxy A05","Galaxy A06","Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15","Galaxy A16","Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A50","Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy S20 FE","Galaxy S21","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra"], base: { g: 175, r: 170, m2: 168, m4: 165, awm: 45, cam: 155, dpi: 720 }},
+      motorola: { modelos: ["Moto E7","Moto E13","Moto E22","Moto G05","Moto G06","Moto G8 Play","Moto G9 Play","Moto G10","Moto G15","Moto G20","Moto G22","Moto G23","Moto G24","Moto G30","Moto G32","Moto G35","Moto G42","Moto G52","Moto G54","Moto G55","Moto G56","Moto G60","Moto G73","Moto G75","Moto G84","Moto G85","Moto G86","Moto Edge 30","Moto Edge 40"], base: { g: 170, r: 165, m2: 162, m4: 160, awm: 42, cam: 150, dpi: 700 }},
+      xiaomi: { modelos: ["Redmi 9","Redmi 9A","Redmi 10","Redmi 12","Redmi 12C","Redmi 13C","Redmi 14C","Redmi 15C","Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 14","Redmi Note 14 Pro","Poco X3 Pro","Poco X5 Pro","Poco X6 Pro","Poco X7 Pro","Poco F5","Poco F6"], base: { g: 180, r: 175, m2: 172, m4: 170, awm: 48, cam: 160, dpi: 800 }},
+      realme: { modelos: ["Realme 7","Realme 7 Pro","Realme 8","Realme 8 Pro","Realme 9","Realme 9i","Realme 10","Realme 11","Realme 14 Pro+","Realme 15T","Realme C11","Realme C21","Realme C33","Realme C35","Realme C53","Realme C55","Realme C61","Realme C63","Realme C71","Realme C75","Realme Narzo 50","Realme Narzo 60"], base: { g: 178, r: 172, m2: 170, m4: 168, awm: 46, cam: 158, dpi: 780 }},
+      infinix: { modelos: ["Hot 10","Hot 11","Hot 12","Hot 20i","Hot 30i","Hot 40i","Note 12","Note 30","Note 30 Pro","Zero 5G","Zero 30"], base: { g: 172, r: 168, m2: 165, m4: 162, awm: 44, cam: 152, dpi: 760 }},
+      lg: { modelos: ["LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31","LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61","LG Stylo 6","LG Velvet","LG Wing"], base: { g: 168, r: 163, m2: 160, m4: 158, awm: 40, cam: 148, dpi: 650 }},
+      apple: { modelos: ["iPhone 8","iPhone 8 Plus","iPhone X","iPhone 11","iPhone 12","iPhone 13","iPhone 14","iPhone 15","iPhone 15 Pro Max","iPhone 16","iPhone 16 Pro Max"], base: { g: 185, r: 180, m2: 178, m4: 175, awm: 50, cam: 165, dpi: 880 }},
+      oppo: { modelos: ["Oppo A15","Oppo A16","Oppo A17","Oppo A31","Oppo A53","Oppo A54","Oppo A74","Oppo A76","Oppo A77","Oppo A78"], base: { g: 176, r: 171, m2: 169, m4: 166, awm: 44, cam: 156, dpi: 800 }},
+      vivo: { modelos: ["Vivo Y11","Vivo Y12","Vivo Y15","Vivo Y20","Vivo Y21","Vivo Y22","Vivo Y33","Vivo Y35","Vivo Y55"], base: { g: 173, r: 168, m2: 165, m4: 163, awm: 42, cam: 153, dpi: 780 }},
+      huawei: { modelos: ["Huawei P30","Huawei P40","Huawei P50","Huawei P60","Huawei Mate 20","Huawei Mate 40"], base: { g: 177, r: 172, m2: 170, m4: 167, awm: 45, cam: 157, dpi: 850 }}
     };
 
-    // ==================== ELEMENTOS ====================
     const brandSelect = document.getElementById('brand');
     const modelSelect = document.getElementById('model');
     const generateBtn = document.getElementById('generateBtn');
@@ -429,25 +200,203 @@
 
     let timerInterval = null;
     let cooldownEndTime = null;
+    const MAX_HISTORY = 40;
 
-    // ==================== TOAST ====================
-    function showToast(message, type = "success") {
+    function showToast(message) {
       toastEl.textContent = message;
       toastEl.style.display = "block";
       toastEl.style.opacity = "1";
-      
-      setTimeout(() => {
-        toastEl.style.opacity = "0";
-        setTimeout(() => toastEl.style.display = "none", 400);
-      }, 3000);
+      setTimeout(() => { toastEl.style.opacity = "0"; setTimeout(() => toastEl.style.display = "none", 400); }, 2800);
     }
 
-    // ==================== CARREGAR MODELOS ====================
+    // ==================== MODAL NOME ====================
+    function openSaveModal() {
+      if (!modelSelect.value) return showToast("❌ Selecione marca e modelo primeiro");
+      document.getElementById('sensiName').value = `Sensi ${modelSelect.value}`;
+      document.getElementById('nameModal').style.display = 'flex';
+    }
+
+    function closeNameModal() {
+      document.getElementById('nameModal').style.display = 'none';
+    }
+
+    function saveWithName() {
+      const name = document.getElementById('sensiName').value.trim() || `Sensi ${modelSelect.value}`;
+      closeNameModal();
+
+      const sensi = {
+        id: Date.now(),
+        name: name,
+        date: new Date().toLocaleString('pt-BR'),
+        model: modelSelect.value,
+        g: document.getElementById("res-g").innerText,
+        r: document.getElementById("res-r").innerText,
+        m2: document.getElementById("res-2").innerText,
+        m4: document.getElementById("res-4").innerText,
+        awm: document.getElementById("res-a").innerText,
+        cam: document.getElementById("res-c").innerText,
+        dpi: document.getElementById("res-dpi").innerText.replace('DPI RECOMENDADA: ', '')
+      };
+
+      let history = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
+      history.unshift(sensi);
+      if (history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
+      localStorage.setItem('sensiHistory', JSON.stringify(history));
+      showToast(`✅ "${name}" salva!`);
+    }
+
+    // ==================== HISTÓRICO ====================
+    function showHistory() {
+      const history = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
+      const list = document.getElementById('historyList');
+      list.innerHTML = history.length === 0 ? '<p style="text-align:center;padding:40px;color:#777;">Nenhuma sensibilidade salva ainda.</p>' : '';
+
+      history.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML = `
+          <div style="font-size:13px;color:#aaa;">${item.date}</div>
+          <strong>${item.name}</strong> <small>(${item.model})</small><br>
+          <small>G:${item.g} | R:${item.r} | 2X:${item.m2} | DPI:${item.dpi}</small><br><br>
+          <button onclick="loadFromHistory(${item.id})" style="background:#22c55e;padding:8px 14px;border:none;border-radius:8px;margin-right:8px;">Carregar</button>
+          <button onclick="deleteHistoryItem(${item.id})" style="background:#ef4444;padding:8px 14px;border:none;border-radius:8px;">Excluir</button>
+        `;
+        list.appendChild(div);
+      });
+      document.getElementById('historyModal').style.display = 'flex';
+    }
+
+    function loadFromHistory(id) {
+      const history = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
+      const item = history.find(h => h.id === id);
+      if (item) {
+        document.getElementById("res-model").innerText = "📱 " + item.model;
+        document.getElementById("res-g").innerText = item.g;
+        document.getElementById("res-r").innerText = item.r;
+        document.getElementById("res-2").innerText = item.m2;
+        document.getElementById("res-4").innerText = item.m4;
+        document.getElementById("res-a").innerText = item.awm;
+        document.getElementById("res-c").innerText = item.cam;
+        document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${item.dpi}`;
+        resultBox.classList.add("show");
+      }
+      closeHistory();
+    }
+
+    function deleteHistoryItem(id) {
+      let history = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
+      history = history.filter(item => item.id !== id);
+      localStorage.setItem('sensiHistory', JSON.stringify(history));
+      showHistory();
+    }
+
+    function clearAllHistory() {
+      if (confirm("Apagar todo o histórico?")) {
+        localStorage.removeItem('sensiHistory');
+        showHistory();
+      }
+    }
+
+    function closeHistory() {
+      document.getElementById('historyModal').style.display = 'none';
+    }
+
+    // ==================== GERAÇÃO COM CARREGAMENTO ====================
+    function generateSensi() {
+      const brand = brandSelect.value;
+      const model = modelSelect.value;
+      if (!brand || !model) return showToast("❌ Selecione marca e modelo!");
+
+      // Carregamento visual
+      const originalText = generateBtn.textContent;
+      generateBtn.innerHTML = `⚡ Gerando...`;
+      generateBtn.disabled = true;
+
+      const agora = Date.now();
+      const stored = JSON.parse(localStorage.getItem(`cooldown_${model}`));
+      if (stored && agora < stored.end) {
+        cooldownEndTime = stored.end;
+        startRealTimeTimer();
+        generateBtn.textContent = originalText;
+        generateBtn.disabled = false;
+        showToast("⏳ Ainda em cooldown!");
+        return;
+      }
+
+      cooldownEndTime = agora + (5 * 60 * 1000);
+      startRealTimeTimer();
+
+      setTimeout(() => {
+        const base = database[brand].base;
+        const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+        const v = {
+          g: base.g + rand(-13,13),
+          r: base.r + rand(-13,13),
+          m2: base.m2 + rand(-15,14),
+          m4: base.m4 + rand(-15,14),
+          awm: base.awm + rand(-8,9),
+          cam: base.cam + rand(-12,13),
+          dpi: base.dpi + rand(-40,45)
+        };
+
+        v.g = Math.max(158, Math.min(208, v.g));
+        v.r = Math.max(152, Math.min(200, v.r));
+        v.m2 = Math.max(145, Math.min(200, v.m2));
+        v.m4 = Math.max(142, Math.min(198, v.m4));
+        v.awm = Math.max(30, Math.min(75, v.awm));
+        v.cam = Math.max(132, Math.min(188, v.cam));
+        v.dpi = Math.round(v.dpi / 10) * 10;
+
+        exibirResultados(v, model);
+        localStorage.setItem(`cooldown_${model}`, JSON.stringify({ end: cooldownEndTime }));
+        showToast("✅ Sensibilidade gerada!");
+
+        generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+        generateBtn.disabled = false;
+      }, 1300);
+    }
+
+    function exibirResultados(v, model) {
+      document.getElementById("res-model").innerText = "📱 " + model;
+      document.getElementById("res-g").innerText = v.g;
+      document.getElementById("res-r").innerText = v.r;
+      document.getElementById("res-2").innerText = v.m2;
+      document.getElementById("res-4").innerText = v.m4;
+      document.getElementById("res-a").innerText = v.awm;
+      document.getElementById("res-c").innerText = v.cam;
+      document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
+      resultBox.classList.add("show");
+    }
+
+    function startRealTimeTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const restante = cooldownEndTime - Date.now();
+        if (restante <= 0) {
+          timerEl.innerHTML = "✅ Pode gerar novamente!";
+          generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+          generateBtn.disabled = false;
+          clearInterval(timerInterval);
+          return;
+        }
+        const minutos = Math.floor((restante % 3600000) / 60000);
+        const segundos = Math.floor((restante % 60000) / 1000);
+        timerEl.innerHTML = `⏰ Aguarde: <strong>${minutos}m ${segundos}s</strong>`;
+        generateBtn.textContent = `Aguarde ${minutos}m ${segundos}s`;
+      }, 1000);
+    }
+
+    function copyConfig() {
+      const model = modelSelect.value;
+      const texto = `⚡ NIEL REALSENSI PRO\n📱 ${model}\n\nGERAL: ${document.getElementById("res-g").innerText}\nRED DOT: ${document.getElementById("res-r").innerText}\n2X: ${document.getElementById("res-2").innerText}\n4X: ${document.getElementById("res-4").innerText}\nAWM: ${document.getElementById("res-a").innerText}\nCÂMERA: ${document.getElementById("res-c").innerText}\n${document.getElementById("res-dpi").innerText}`;
+      navigator.clipboard.writeText(texto).then(() => showToast("✅ Copiado!"));
+    }
+
     function loadModels() {
       const brand = brandSelect.value;
       modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
       modelSelect.disabled = !brand;
-
       if (brand && database[brand]) {
         database[brand].modelos.sort().forEach(m => {
           modelSelect.innerHTML += `<option value="${m}">${m}</option>`;
@@ -456,188 +405,11 @@
       resultBox.classList.remove('show');
     }
 
-    // ==================== GERAR SENSIBILIDADE REAL ====================
-    function generateSensi() {
-      const brand = brandSelect.value;
-      const model = modelSelect.value;
-
-      if (!brand || !model) {
-        showToast("❌ Selecione marca e modelo!", "error");
-        return;
-      }
-
-      // Verificar cooldown
-      const agora = Date.now();
-      const stored = JSON.parse(localStorage.getItem(`cooldown_${model}`));
-      if (stored && agora < stored.end) {
-        showToast("⏳ Aguarde o tempo de cooldown!", "error");
-        cooldownEndTime = stored.end;
-        startRealTimeTimer();
-        return;
-      }
-
-      generateBtn.disabled = true;
-      generateBtn.textContent = "⚡ Gerando...";
-
-      setTimeout(() => {
-        const brandData = database[brand];
-        if (!brandData) {
-          showToast("❌ Marca não encontrada!", "error");
-          generateBtn.disabled = false;
-          generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
-          return;
-        }
-
-        // Pega valores base da marca
-        const base = brandData.base;
-        
-        // Gera pequena variação para não repetir (+/- até 5)
-        const seed = Math.floor(agora / 1000);
-        const variacao = (offset) => Math.floor(((seed * (7 + offset)) % 11) - 5); // -5 a +5
-        
-        const v = {
-          g: base.g + variacao(1),
-          r: base.r + variacao(2),
-          m2: base.m2 + variacao(3),
-          m4: base.m4 + variacao(4),
-          awm: base.awm + variacao(5),
-          cam: base.cam + variacao(6),
-          dpi: base.dpi
-        };
-
-        // Garantir que valores fiquem dentro de limites razoáveis
-        const limitar = (val, min, max) => Math.min(max, Math.max(min, val));
-        v.g = limitar(v.g, 160, 200);
-        v.r = limitar(v.r, 155, 195);
-        v.m2 = limitar(v.m2, 150, 195);
-        v.m4 = limitar(v.m4, 148, 192);
-        v.awm = limitar(v.awm, 35, 65);
-        v.cam = limitar(v.cam, 138, 180);
-
-        // Salvar cooldown e resultado
-        const cooldown = 5 * 60 * 1000; // 5 minutos
-        cooldownEndTime = agora + cooldown;
-        
-        localStorage.setItem(`cooldown_${model}`, JSON.stringify({ end: cooldownEndTime }));
-        localStorage.setItem(`result_${model}`, JSON.stringify({ valores: v, modelo: model }));
-        
-        exibirResultados(v, model);
-        startRealTimeTimer();
-        
-        showToast("✅ Sensibilidade gerada com sucesso!");
-      }, 1100);
-    }
-
-    // ==================== EXIBIR RESULTADOS ====================
-    function exibirResultados(v, model) {
-      document.getElementById("res-model").innerText = "📱 " + model;
-
-      document.getElementById("res-g").innerText = v.g;
-      document.getElementById("res-r").innerText = v.r;
-      document.getElementById("res-2").innerText = v.m2;
-      document.getElementById("res-4").innerText = v.m4;
-      document.getElementById("res-a").innerText = v.awm;
-      document.getElementById("res-c").innerText = v.cam;
-      document.getElementById("res-dpi").innerText = `⚡ DPI RECOMENDADA: ${v.dpi}`;
-
-      resultBox.classList.add("show");
-    }
-
-    // ==================== RESTAURAR ESTADO ANTERIOR ====================
-    function restorePreviousState() {
-      const model = modelSelect.value;
-      if (!model) return;
-      
-      const storedResult = JSON.parse(localStorage.getItem(`result_${model}`));
-      const storedCooldown = JSON.parse(localStorage.getItem(`cooldown_${model}`));
-      const agora = Date.now();
-      
-      if (storedCooldown && agora < storedCooldown.end) {
-        cooldownEndTime = storedCooldown.end;
-        startRealTimeTimer();
-        
-        if (storedResult) {
-          exibirResultados(storedResult.valores, storedResult.modelo);
-        }
-      }
-    }
-
-    // ==================== CRONÔMETRO EM TEMPO REAL ====================
-    function startRealTimeTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-
-      timerInterval = setInterval(() => {
-        if (!cooldownEndTime) return;
-
-        const agora = Date.now();
-        const restante = cooldownEndTime - agora;
-
-        if (restante <= 0) {
-          timerEl.innerHTML = "✅ Você pode gerar novamente!";
-          generateBtn.disabled = false;
-          generateBtn.textContent = "⚡ Gerar Novamente";
-          clearInterval(timerInterval);
-          return;
-        }
-
-        generateBtn.disabled = true;
-        const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((restante % (1000 * 60)) / 1000);
-
-        timerEl.innerHTML = `⏰ Aguarde: <strong>${minutos}m ${segundos}s</strong>`;
-        generateBtn.textContent = `Aguarde ${minutos}m ${segundos}s`;
-      }, 1000);
-    }
-
-    // ==================== COPIAR CONFIG ====================
-    function copyConfig() {
-      const model = modelSelect.value;
-      const texto = `⚡ NIEL REALSENSI PRO
-📱 DISPOSITIVO: ${model}
-
-🎛️ GERAL: ${document.getElementById("res-g").innerText}
-🔴 RED DOT: ${document.getElementById("res-r").innerText}
-2️⃣ MIRA 2X: ${document.getElementById("res-2").innerText}
-4️⃣ MIRA 4X: ${document.getElementById("res-4").innerText}
-🎯 AWM: ${document.getElementById("res-a").innerText}
-📷 CÂMERA: ${document.getElementById("res-c").innerText}
-
-${document.getElementById("res-dpi").innerText}
-⚙️ BOTÃO DIREITO: 47%
-
-✨ Gerado por NIEL REALSENSI PRO OFICIAL`;
-
-      navigator.clipboard.writeText(texto).then(() => {
-        showToast("✅ Configuração copiada com sucesso!");
-      }).catch(() => {
-        // Fallback para navegadores que não suportam clipboard API
-        const textarea = document.createElement('textarea');
-        textarea.value = texto;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        showToast("✅ Configuração copiada com sucesso!");
-      });
-    }
-
-    // ==================== INICIALIZAÇÃO ====================
+    // Inicialização
     brandSelect.addEventListener("change", loadModels);
     generateBtn.addEventListener("click", generateSensi);
-    
-    // Restaurar estado quando selecionar modelo
-    modelSelect.addEventListener("change", restorePreviousState);
 
-    // Tentar restaurar estado ao carregar
-    window.addEventListener('load', () => {
-      if (modelSelect.value) {
-        restorePreviousState();
-      }
-    });
-
-    setTimeout(() => {
-      showToast("👋 Selecione marca e modelo para começar!", "success");
-    }, 800);
+    setTimeout(() => showToast("👋 Selecione marca e modelo para começar!"), 800);
   </script>
 </body>
 </html>
