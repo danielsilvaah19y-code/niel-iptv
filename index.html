@@ -21,24 +21,25 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      background-repeat: no-repeat;
     }
 
+    /* ==================== TELA DE ENTRADA ==================== */
     #entry-screen {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed; inset: 0;
       background: rgba(10, 10, 20, 0.78);
       display: flex; align-items: center; justify-content: center;
-      z-index: 9999; flex-direction: column; transition: opacity 0.8s ease;
+      z-index: 9999; transition: opacity 0.8s ease;
     }
 
-    .entry-content {
-      text-align: center;
-      max-width: 420px; width: 92%;
-      display: flex; flex-direction: column; justify-content: center; height: 100%;
-    }
+    .entry-content { text-align: center; max-width: 420px; width: 92%; }
 
-    .eagle-entry { width: 100%; max-width: 390px; margin: 0 auto 25px; filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.9)); animation: pulse 2s infinite; }
-    .logo-abaixo { width: 100%; max-width: 380px; margin: 40px auto 0; filter: drop-shadow(0 25px 50px rgba(0, 242, 254, 0.75)); animation: pulse 2s infinite; }
+    .eagle-entry, .logo-abaixo {
+      width: 100%; max-width: 390px; margin: 0 auto 25px;
+      filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.9));
+      animation: pulse 2s infinite;
+    }
+    .logo-abaixo { max-width: 380px; margin-top: 40px; filter: drop-shadow(0 25px 50px rgba(0, 242, 254, 0.75)); }
+
     @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
     .entry-title {
@@ -69,11 +70,29 @@
     }
 
     .header { text-align: center; margin-bottom: 40px; }
-    .logo { width: 100%; max-width: 200px; margin: 0 auto 24px; border-radius: 20px; filter: drop-shadow(0 20px 40px rgba(102, 126, 234, 0.4)); }
 
-    .eagle-logo { display: block; width: 100%; max-width: 380px; margin: 45px auto 20px; border-radius: 20px; filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.7)); }
+    /* Logo pequena - Efeito diferente */
+    .logo { 
+      width: 100%; max-width: 200px; margin: 0 auto 24px; border-radius: 20px; 
+      filter: drop-shadow(0 15px 35px rgba(102, 126, 234, 0.6));
+      animation: logoGlow 4s infinite ease-in-out;
+    }
 
-    .title { font-family: "Orbitron", monospace; font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    /* Logo grande - Pulse normal */
+    .eagle-logo { 
+      display: block; width: 100%; max-width: 380px; margin: 45px auto 20px;
+      border-radius: 20px; filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.7));
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes logoGlow { 
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .title { font-family: "Orbitron", monospace; font-size: 36px; font-weight: 900;
+      background: linear-gradient(135deg, #4facfe, #00f2fe); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; }
     .subtitle { font-size: 16px; color: #a0a0cc; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
 
     .history-btn {
@@ -121,7 +140,7 @@
     }
 
     .modal-overlay {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      display: none; position: fixed; inset: 0;
       background: rgba(0,0,0,0.94); z-index: 3000; justify-content: center; align-items: center;
     }
     .modal-overlay.show { display: flex; }
@@ -136,6 +155,26 @@
       padding: 30px; max-height: 88vh; overflow-y: auto;
       border: 1px solid rgba(79, 172, 254, 0.4);
     }
+
+    .history-item {
+      background: rgba(255,255,255,0.06); padding: 20px; border-radius: 20px;
+      margin-bottom: 16px; border-left: 4px solid #4facfe; transition: all 0.3s;
+    }
+    .history-item:hover { background: rgba(255,255,255,0.12); transform: translateX(8px); }
+
+    .history-item-date { font-size: 13px; color: #888; margin-bottom: 8px; }
+    .history-item-name { font-weight: 700; font-size: 17px; margin-bottom: 10px; }
+    .history-item-details { font-size: 14.5px; color: #b0b0d0; line-height: 1.6; margin-bottom: 15px; }
+
+    .history-item-buttons { display: flex; gap: 12px; }
+    .history-item-buttons button {
+      flex: 1; padding: 12px; border: none; border-radius: 12px;
+      font-weight: 600; cursor: pointer; font-size: 15px;
+    }
+    .btn-load { background: #22c55e; }
+    .btn-load:hover { background: #16a34a; }
+    .btn-delete { background: #ef4444; }
+    .btn-delete:hover { background: #dc2626; }
   </style>
 </head>
 <body>
@@ -209,7 +248,7 @@
       <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="NIEL REALSENSI VIP" class="eagle-logo" />
     </div>
 
-    <!-- Modais -->
+    <!-- Modal Salvar -->
     <div id="nameModal" class="modal-overlay">
       <div class="modal-content">
         <h2>💾 Salvar Sensibilidade</h2>
@@ -222,6 +261,7 @@
       </div>
     </div>
 
+    <!-- Modal Histórico -->
     <div id="historyModal" class="modal-overlay">
       <div class="history-modal-content">
         <h2>📜 Histórico de Sensibilidades</h2>
@@ -235,38 +275,19 @@
   </div>
 
   <script>
+    // ==================== DATABASE ====================
     const database = {
-      samsung: { 
-        modelos: [
-          // Android 6 para cima - Lista bem mais completa
-          "Galaxy S7","Galaxy S7 Edge","Galaxy S8","Galaxy S8+","Galaxy S9","Galaxy S9+",
-          "Galaxy Note 8","Galaxy Note 9","Galaxy Note 10","Galaxy Note 10+","Galaxy Note 20","Galaxy Note 20 Ultra",
-          "Galaxy A3 (2017)","Galaxy A5 (2017)","Galaxy A7 (2017)","Galaxy A8 (2018)",
-          "Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15","Galaxy A16",
-          "Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s",
-          "Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A36","Galaxy A50","Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy A56",
-          "Galaxy J4","Galaxy J6","Galaxy J7 Prime","Galaxy J7 Pro","Galaxy J8",
-          "Galaxy S10","Galaxy S10+","Galaxy S10e","Galaxy S20","Galaxy S20 FE","Galaxy S20 Ultra",
-          "Galaxy S21","Galaxy S21 FE","Galaxy S21 Ultra","Galaxy S22","Galaxy S22 Ultra",
-          "Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra","Galaxy S25","Galaxy S25 Ultra",
-          "Galaxy Z Fold3","Galaxy Z Fold4","Galaxy Z Fold5","Galaxy Z Flip4","Galaxy Z Flip5","Galaxy Z Flip6"
-        ], 
-        base: { g: 175, r: 170, m2: 168, m4: 165, awm: 45, cam: 155, dpi: 720 }
-      },
-
+      samsung: { modelos: ["Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A04","Galaxy A05","Galaxy A06","Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15","Galaxy A16","Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A36","Galaxy A50","Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy A56","Galaxy S20 FE","Galaxy S21","Galaxy S22","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra","Galaxy S25","Galaxy Note 20"], base: { g: 175, r: 170, m2: 168, m4: 165, awm: 45, cam: 155, dpi: 720 }},
+      realme: { modelos: ["Realme 7","Realme 7 Pro","Realme 8","Realme 8 Pro","Realme 9","Realme 9i","Realme 10","Realme 11","Realme 12","Realme 14 Pro+","Realme C11","Realme C21","Realme C33","Realme C35","Realme C53","Realme C55","Realme C61","Realme C63","Realme C67","Realme C75","Realme Narzo 50","Realme Narzo 60","Realme GT 7 Pro","Realme GT Neo 5","Realme 12 Pro+"], base: { g: 178, r: 172, m2: 170, m4: 168, awm: 46, cam: 158, dpi: 780 }},
+      zte: { modelos: ["Nubia Z60","Nubia Z60 Ultra","Nubia V60","Nubia V60 Design","Nubia Red Magic 9 Pro","Nubia Red Magic 10","ZTE Axon 60","ZTE Blade V40","ZTE Blade A73","Nubia Flip","Nubia Z50","Nubia Neo 2","Nubia Red Magic 9S Pro"], base: { g: 182, r: 177, m2: 174, m4: 171, awm: 47, cam: 162, dpi: 810 }},
       motorola: { modelos: ["Moto E7","Moto E13","Moto E22","Moto G05","Moto G06","Moto G8 Play","Moto G9 Play","Moto G10","Moto G15","Moto G20","Moto G22","Moto G23","Moto G24","Moto G30","Moto G32","Moto G35","Moto G42","Moto G52","Moto G54","Moto G55","Moto G60","Moto G73","Moto G75","Moto G84","Moto G85","Moto Edge 30","Moto Edge 40","Moto Edge 50"], base: { g: 170, r: 165, m2: 162, m4: 160, awm: 42, cam: 150, dpi: 700 }},
-
-      lg: { modelos: ["LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31","LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61","LG Stylo 5","LG Stylo 6","LG Velvet","LG Wing","LG V50 ThinQ","LG V60 ThinQ","LG G7 ThinQ","LG G8 ThinQ"], base: { g: 168, r: 163, m2: 160, m4: 158, awm: 40, cam: 148, dpi: 650 }},
-
-      // Outras marcas (mantidas)
+      lg: { modelos: ["LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31","LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61","LG Stylo 5","LG Stylo 6","LG Velvet","LG Wing"], base: { g: 168, r: 163, m2: 160, m4: 158, awm: 40, cam: 148, dpi: 650 }},
       xiaomi: { modelos: ["Redmi 9","Redmi 9A","Redmi 10","Redmi 12","Redmi 12C","Redmi 13C","Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 14","Poco X3 Pro","Poco X5 Pro","Poco X6 Pro","Poco F5","Poco F6"], base: { g: 180, r: 175, m2: 172, m4: 170, awm: 48, cam: 160, dpi: 800 }},
-      realme: { modelos: ["Realme 7","Realme 8","Realme 9","Realme 10","Realme 11","Realme C53","Realme C55","Realme GT 7 Pro"], base: { g: 178, r: 172, m2: 170, m4: 168, awm: 46, cam: 158, dpi: 780 }},
-      infinix: { modelos: ["Hot 10","Hot 12","Hot 20i","Hot 30i","Hot 40i","Note 12","Note 30","Note 40 Pro"], base: { g: 172, r: 168, m2: 165, m4: 162, awm: 44, cam: 152, dpi: 760 }},
+      infinix: { modelos: ["Hot 10","Hot 12","Hot 20i","Hot 30i","Hot 40i","Hot 50","Note 12","Note 30","Note 40 Pro"], base: { g: 172, r: 168, m2: 165, m4: 162, awm: 44, cam: 152, dpi: 760 }},
       oppo: { modelos: ["Oppo A15","Oppo A17","Oppo A31","Oppo A54","Oppo A76","Oppo Reno 12"], base: { g: 176, r: 171, m2: 169, m4: 166, awm: 44, cam: 156, dpi: 800 }},
       vivo: { modelos: ["Vivo Y15","Vivo Y21","Vivo Y22","Vivo Y33","Vivo Y35","Vivo Y55","Vivo Y200","Vivo V30"], base: { g: 173, r: 168, m2: 165, m4: 163, awm: 42, cam: 153, dpi: 780 }},
       huawei: { modelos: ["Huawei P30","Huawei P40","Huawei P50","Huawei Mate 20","Huawei Mate 40","Honor 200"], base: { g: 177, r: 172, m2: 170, m4: 167, awm: 45, cam: 157, dpi: 850 }},
       tecno: { modelos: ["Tecno Spark 10","Tecno Spark 20","Tecno Camon 20"], base: { g: 170, r: 165, m2: 162, m4: 160, awm: 42, cam: 150, dpi: 700 }},
-      zte: { modelos: ["Nubia Z60","Nubia V60"], base: { g: 182, r: 177, m2: 174, m4: 171, awm: 47, cam: 162, dpi: 810 }},
       asus: { modelos: ["ROG Phone 7","ROG Phone 8"], base: { g: 190, r: 185, m2: 182, m4: 180, awm: 52, cam: 170, dpi: 900 }},
       google: { modelos: ["Pixel 6","Pixel 7","Pixel 8"], base: { g: 183, r: 178, m2: 175, m4: 173, awm: 49, cam: 163, dpi: 870 }},
       oneplus: { modelos: ["OnePlus 11","OnePlus 12"], base: { g: 181, r: 176, m2: 173, m4: 171, awm: 48, cam: 161, dpi: 840 }},
@@ -277,7 +298,6 @@
       multilaser: { modelos: ["Multilaser M13"], base: { g: 167, r: 162, m2: 159, m4: 157, awm: 39, cam: 147, dpi: 620 }}
     };
 
-    // ==================== O RESTO DO SCRIPT (completo) ====================
     const brandSelect = document.getElementById('brand');
     const modelSelect = document.getElementById('model');
     const generateBtn = document.getElementById('generateBtn');
@@ -303,10 +323,14 @@
       } catch (e) { return []; }
     }
 
-    function showToast(message) {
+    function showToast(message, type = "normal") {
       toastEl.textContent = message;
       toastEl.style.display = "block";
       toastEl.style.opacity = "1";
+      
+      if (type === "success") toastEl.style.background = "#10b981";
+      else if (type === "error") toastEl.style.background = "#ef4444";
+
       setTimeout(() => {
         toastEl.style.opacity = "0";
         setTimeout(() => toastEl.style.display = "none", 400);
@@ -382,7 +406,7 @@
       history.unshift(sensi);
       history = history.slice(0, MAX_HISTORY);
       localStorage.setItem('sensiHistory', JSON.stringify(history));
-      showToast(`✅ "${safeName}" salva com sucesso!`);
+      showToast(`✅ "${safeName}" salva com sucesso!`, "success");
     }
 
     function showHistory() {
@@ -426,24 +450,24 @@
         document.getElementById("res-c").innerText = item.cam;
         document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${item.dpi}`;
         resultBox.classList.add("show");
-        showToast(`✅ Configuração carregada!`);
+        showToast(`✅ Configuração carregada!`, "success");
       }
     }
 
     function deleteFromHistory(id) {
-      if (confirm("Deletar esta sensibilidade?")) {
+      if (confirm("Deseja realmente excluir esta sensibilidade?")) {
         let history = getSafeHistory().filter(h => h.id !== id);
         localStorage.setItem('sensiHistory', JSON.stringify(history));
         showHistory();
-        showToast("✅ Deletada!");
+        showToast("✅ Sensibilidade excluída com sucesso!", "success");
       }
     }
 
     function clearAllHistory() {
-      if (confirm("⚠️ Apagar TODO o histórico?")) {
+      if (confirm("⚠️ Tem certeza que deseja apagar TODO o histórico?\n\nEsta ação não pode ser desfeita.")) {
         localStorage.removeItem('sensiHistory');
         showHistory();
-        showToast("✅ Histórico limpo!");
+        showToast("✅ Todo o histórico foi apagado com sucesso!", "success");
       }
     }
 
@@ -489,7 +513,7 @@
 
         resultBox.classList.add("show");
         localStorage.setItem(`cooldown_${model}`, JSON.stringify({ end: cooldownEndTime }));
-        showToast("✅ Sensibilidade gerada com sucesso!");
+        showToast("✅ Sensibilidade gerada com sucesso!", "success");
 
         generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
         generateBtn.disabled = false;
@@ -499,7 +523,7 @@
     function copyConfig() {
       const model = modelSelect.value;
       const texto = `⚡ NIEL REALSENSI PRO\n📱 ${model}\n\nGERAL: ${document.getElementById("res-g").innerText}\nRED DOT: ${document.getElementById("res-r").innerText}\n2X: ${document.getElementById("res-2").innerText}\n4X: ${document.getElementById("res-4").innerText}\nAWM: ${document.getElementById("res-a").innerText}\nCÂMERA: ${document.getElementById("res-c").innerText}\n${document.getElementById("res-dpi").innerText}`;
-      navigator.clipboard.writeText(texto).then(() => showToast("✅ Copiado para área de transferência!"));
+      navigator.clipboard.writeText(texto).then(() => showToast("✅ Copiado para área de transferência!", "success"));
     }
 
     function loadModels() {
@@ -538,4 +562,4 @@
     setTimeout(() => showToast("👋 Bem-vindo ao NIEL REALSENSI PRO"), 800);
   </script>
 </body>
-  </html>
+</html>
