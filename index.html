@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:;">
   <title>NIEL REALSENSI PRO - OFICIAL</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 
@@ -23,6 +24,27 @@
       background-attachment: fixed;
     }
 
+    /* ==================== ANIMAÇÕES ====================*/
+    @keyframes pulse { 
+      0%, 100% { transform: scale(1); } 
+      50% { transform: scale(1.06); } 
+    }
+
+    @keyframes logoGlow { 
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
     /* ==================== TELA DE ENTRADA ==================== */
     #entry-screen {
       position: fixed; inset: 0;
@@ -39,8 +61,6 @@
       animation: pulse 2s infinite;
     }
     .logo-abaixo { max-width: 380px; margin-top: 40px; filter: drop-shadow(0 25px 50px rgba(0, 242, 254, 0.75)); }
-
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
     .entry-title {
       font-family: "Orbitron", monospace; font-size: 44px; font-weight: 900;
@@ -85,28 +105,54 @@
       animation: pulse 3s infinite;
     }
 
-    @keyframes logoGlow { 
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    .title { font-family: "Orbitron", monospace; font-size: 36px; font-weight: 900;
+    .title { 
+      font-family: "Orbitron", monospace; font-size: 36px; font-weight: 900;
       background: linear-gradient(135deg, #4facfe, #00f2fe); -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent; }
-    .subtitle { font-size: 16px; color: #a0a0cc; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+      -webkit-text-fill-color: transparent; 
+    }
+    
+    .subtitle { 
+      font-size: 16px; color: #a0a0cc; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; 
+    }
 
     .history-btn {
       position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.15);
       border: none; color: white; font-size: 24px; width: 50px; height: 50px;
-      border-radius: 50%; cursor: pointer;
+      border-radius: 50%; cursor: pointer; transition: all 0.3s;
     }
 
-    .label { font-size: 14px; color: #b0b0d0; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; display: block; }
+    .history-btn:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.1);
+    }
+
+    .label { 
+      font-size: 14px; color: #b0b0d0; margin-bottom: 12px; font-weight: 600; 
+      text-transform: uppercase; display: block; 
+    }
 
     select {
       width: 100%; padding: 20px 24px; background: rgba(30,30,50,0.8); 
       border: 2px solid rgba(255,255,255,0.1); border-radius: 20px; 
       color: white; font-size: 16px; font-weight: 600; margin-bottom: 24px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    select:hover {
+      border-color: rgba(79, 172, 254, 0.5);
+      background: rgba(30,30,50,0.95);
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #4facfe;
+      box-shadow: 0 0 15px rgba(79, 172, 254, 0.3);
+    }
+
+    select:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .btn {
@@ -115,28 +161,73 @@
       font-size: 18px; cursor: pointer; text-transform: uppercase; margin-top: 12px;
       transition: all 0.3s;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    
+    .btn:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .btn-generate { background: linear-gradient(135deg, #667eea, #764ba2); }
     .btn-save { background: linear-gradient(135deg, #10b981, #34d399); }
     .btn-copy { background: linear-gradient(135deg, #8b5cf6, #c026d3); }
+    
+    /* BOTÃO LIMPAR SELEÇÃO - ROSA NEON */
+    .btn-reset { background: linear-gradient(135deg, #ff007f, #ff5e62); }
 
     .result-box {
       background: rgba(25,25,45,0.95); border-radius: 24px; padding: 36px; 
       margin-top: 36px; border: 2px solid #4facfe; display: none;
+      animation: fadeIn 0.5s ease;
     }
     .result-box.show { display: block; }
 
-    .sensi-item { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .sensi-item { 
+      display: flex; justify-content: space-between; padding: 18px 0; 
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: slideIn 0.4s ease;
+    }
+    
     .s-name { color: #b0b0d0; font-weight: 600; }
-    .s-val { color: #00f2fe; font-family: "Orbitron", monospace; font-weight: 900; font-size: 28px; }
+    .s-val { 
+      color: #00f2fe; font-family: "Orbitron", monospace; font-weight: 900; 
+      font-size: 28px; 
+    }
 
-    .dpi-card { background: rgba(79,172,254,0.15); padding: 24px; border-radius: 20px; margin-top: 28px; text-align: center; border: 1px solid #4facfe; font-weight: 700; font-size: 18px; }
+    .dpi-card { 
+      background: rgba(79,172,254,0.15); padding: 24px; border-radius: 20px; 
+      margin-top: 28px; text-align: center; border: 1px solid #4facfe; 
+      font-weight: 700; font-size: 18px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* CAIXA DO TIMER - ROSA NEON */
+    #timer {
+      text-align: center;
+      padding: 16px;
+      background: rgba(255, 0, 127, 0.1);
+      border-radius: 16px;
+      margin-top: 16px;
+      color: #ff85c0;
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      font-weight: 600;
+      display: none;
+    }
+
+    #timer.show {
+      display: block;
+    }
 
     .toast {
       position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
       background: #1f2937; color: white; padding: 14px 24px; border-radius: 9999px;
       z-index: 1000; opacity: 0; transition: all 0.4s; display: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
 
     .modal-overlay {
@@ -148,33 +239,190 @@
     .modal-content {
       background: #1a1a2e; padding: 35px; border-radius: 28px; width: 90%; max-width: 440px;
       border: 1px solid rgba(79, 172, 254, 0.4); text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .modal-content input {
+      width: 100%; 
+      padding: 16px; 
+      border-radius: 16px; 
+      background: rgba(255,255,255,0.08); 
+      border: 1px solid #4facfe; 
+      color: white; 
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .modal-content input:focus {
+      outline: none;
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 15px rgba(79, 172, 254, 0.3);
     }
 
     .history-modal-content {
       background: #1a1a2e; width: 95%; max-width: 560px; border-radius: 28px;
       padding: 30px; max-height: 88vh; overflow-y: auto;
       border: 1px solid rgba(79, 172, 254, 0.4);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .history-modal-content h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
     }
 
     .history-item {
       background: rgba(255,255,255,0.06); padding: 20px; border-radius: 20px;
       margin-bottom: 16px; border-left: 4px solid #4facfe; transition: all 0.3s;
+      animation: slideIn 0.4s ease;
+      position: relative;
     }
-    .history-item:hover { background: rgba(255,255,255,0.12); transform: translateX(8px); }
+    
+    /* ESTILO DO FAVORITO */
+    .history-item.is-fav {
+      border-left: 4px solid #ff007f;
+      background: rgba(255, 0, 127, 0.08);
+    }
+
+    .fav-star {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .fav-star:hover { transform: scale(1.2); }
+
+    .history-item:hover { 
+      background: rgba(255,255,255,0.12); 
+      transform: translateX(8px); 
+    }
 
     .history-item-date { font-size: 13px; color: #888; margin-bottom: 8px; }
-    .history-item-name { font-weight: 700; font-size: 17px; margin-bottom: 10px; }
+    .history-item-name { font-weight: 700; font-size: 17px; margin-bottom: 10px; padding-right: 30px; }
     .history-item-details { font-size: 14.5px; color: #b0b0d0; line-height: 1.6; margin-bottom: 15px; }
 
     .history-item-buttons { display: flex; gap: 12px; }
     .history-item-buttons button {
       flex: 1; padding: 12px; border: none; border-radius: 12px;
       font-weight: 600; cursor: pointer; font-size: 15px;
+      transition: all 0.3s;
     }
+    
     .btn-load { background: #22c55e; }
-    .btn-load:hover { background: #16a34a; }
+    .btn-load:hover { background: #16a34a; transform: translateY(-2px); }
+    
     .btn-delete { background: #ef4444; }
-    .btn-delete:hover { background: #dc2626; }
+    .btn-delete:hover { background: #dc2626; transform: translateY(-2px); }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .button-group button {
+      flex: 1;
+      padding: 16px;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-confirm {
+      background: #4facfe;
+      color: white;
+    }
+
+    .btn-confirm:hover {
+      background: #3b9cfd;
+      transform: translateY(-2px);
+    }
+
+    .btn-cancel {
+      background: #666;
+      color: white;
+    }
+
+    .btn-cancel:hover {
+      background: #555;
+      transform: translateY(-2px);
+    }
+
+    /* ==================== RESPONSIVIDADE ====================*/
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px 20px;
+        border-radius: 24px;
+      }
+      
+      .entry-title {
+        font-size: 32px;
+      }
+      
+      .title {
+        font-size: 28px;
+      }
+      
+      .btn {
+        padding: 18px;
+        font-size: 16px;
+      }
+      
+      .s-val {
+        font-size: 24px;
+      }
+
+      .history-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+      }
+
+      .modal-content {
+        width: 95%;
+        padding: 25px;
+      }
+
+      .history-modal-content {
+        width: 98%;
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .entry-title {
+        font-size: 26px;
+        letter-spacing: 1px;
+      }
+
+      .entry-subtitle {
+        font-size: 18px;
+      }
+
+      #enter-btn {
+        padding: 18px 50px;
+        font-size: 18px;
+      }
+
+      .title {
+        font-size: 22px;
+      }
+
+      .btn {
+        font-size: 14px;
+        padding: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -243,6 +491,7 @@
 
         <button class="btn btn-save" onclick="openSaveModal()">💾 Salvar no Histórico</button>
         <button class="btn btn-copy" onclick="copyConfig()">📋 Copiar Configuração PRO</button>
+        <button class="btn btn-reset" onclick="resetGenerator()">🔄 Limpar Seleção</button>
       </div>
 
       <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="NIEL REALSENSI VIP" class="eagle-logo" />
@@ -253,10 +502,10 @@
       <div class="modal-content">
         <h2>💾 Salvar Sensibilidade</h2>
         <p style="margin:20px 0 15px; color:#ccc;">Dê um nome para esta configuração:</p>
-        <input type="text" id="sensiName" placeholder="Ex: Headshot Nubia V60" maxlength="100" style="width:100%; padding:16px; border-radius:16px; background:rgba(255,255,255,0.08); border:1px solid #4facfe; color:white; font-size:16px;">
-        <div style="margin-top:25px; display:flex; gap:12px;">
-          <button onclick="saveWithName()" style="flex:1; padding:16px; background:#4facfe; border:none; color:white; border-radius:16px; cursor:pointer;">Salvar</button>
-          <button onclick="closeNameModal()" style="flex:1; padding:16px; background:#666; border:none; color:white; border-radius:16px; cursor:pointer;">Cancelar</button>
+        <input type="text" id="sensiName" placeholder="Ex: Headshot Nubia V60" maxlength="100">
+        <div class="button-group">
+          <button class="btn-confirm" onclick="saveWithName()">Salvar</button>
+          <button class="btn-cancel" onclick="closeNameModal()">Cancelar</button>
         </div>
       </div>
     </div>
@@ -265,9 +514,9 @@
     <div id="historyModal" class="modal-overlay">
       <div class="history-modal-content">
         <h2>📜 Histórico de Sensibilidades</h2>
-        <button onclick="clearAllHistory()" style="background:#ef4444; width:100%; padding:14px; border:none; border-radius:16px; color:white; margin-bottom:20px;">🗑️ Limpar Todo Histórico</button>
+        <button class="btn btn-delete" onclick="clearAllHistory()" style="width:100%; margin-bottom:20px;">🗑️ Limpar Todo Histórico</button>
         <div id="historyList"></div>
-        <button onclick="closeHistory()" style="width:100%; padding:16px; margin-top:25px; background:#666; border:none; color:white; border-radius:16px; cursor:pointer;">Fechar</button>
+        <button class="btn btn-cancel" onclick="closeHistory()" style="width:100%; margin-top:25px;">Fechar</button>
       </div>
     </div>
 
@@ -275,11 +524,23 @@
   </div>
 
   <script>
+    // ==================== VERIFICAÇÃO DE LOCALSTORAGE ====================
+    function isLocalStorageAvailable() {
+      try {
+        const test = '__test__';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
     // ==================== DATABASE ====================
     const database = {
       samsung: { modelos: ["Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A04","Galaxy A05","Galaxy A06","Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15","Galaxy A16","Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A36","Galaxy A50","Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy A56","Galaxy S20 FE","Galaxy S21","Galaxy S22","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra","Galaxy S25","Galaxy Note 20"], base: { g: 175, r: 170, m2: 168, m4: 165, awm: 45, cam: 155, dpi: 720 }},
       realme: { modelos: ["Realme 7","Realme 7 Pro","Realme 8","Realme 8 Pro","Realme 9","Realme 9i","Realme 10","Realme 11","Realme 12","Realme 14 Pro+","Realme C11","Realme C21","Realme C33","Realme C35","Realme C53","Realme C55","Realme C61","Realme C63","Realme C67","Realme C75","Realme Narzo 50","Realme Narzo 60","Realme GT 7 Pro","Realme GT Neo 5","Realme 12 Pro+"], base: { g: 178, r: 172, m2: 170, m4: 168, awm: 46, cam: 158, dpi: 780 }},
-      zte: { modelos: ["Nubia Z60","Nubia Z60 Ultra","Nubia V60","Nubia V60 Design","Nubia Red Magic 9 Pro","Nubia Red Magic 10","ZTE Axon 60","ZTE Blade V40","ZTE Blade A73","Nubia Flip","Nubia Z50","Nubia Neo 2","Nubia Red Magic 9S Pro"], base: { g: 182, r: 177, m2: 174, m4: 171, awm: 47, cam: 162, dpi: 810 }},
+      zte: { modelos: ["Nubia Z60","Nubia Z60 Ultra","Nubia V60","Nubia V60 Design","Nubia Red Magic 9 Pro","Nubia Red Magic 10","ZTE Axon 60","ZTE Blade A73","Nubia Flip","Nubia Z50","Nubia Neo 2","Nubia Red Magic 9S Pro"], base: { g: 182, r: 177, m2: 174, m4: 171, awm: 47, cam: 162, dpi: 810 }},
       motorola: { modelos: ["Moto E7","Moto E13","Moto E22","Moto G05","Moto G06","Moto G8 Play","Moto G9 Play","Moto G10","Moto G15","Moto G20","Moto G22","Moto G23","Moto G24","Moto G30","Moto G32","Moto G35","Moto G42","Moto G52","Moto G54","Moto G55","Moto G60","Moto G73","Moto G75","Moto G84","Moto G85","Moto Edge 30","Moto Edge 40","Moto Edge 50"], base: { g: 170, r: 165, m2: 162, m4: 160, awm: 42, cam: 150, dpi: 700 }},
       lg: { modelos: ["LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31","LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61","LG Stylo 5","LG Stylo 6","LG Velvet","LG Wing"], base: { g: 168, r: 163, m2: 160, m4: 158, awm: 40, cam: 148, dpi: 650 }},
       xiaomi: { modelos: ["Redmi 9","Redmi 9A","Redmi 10","Redmi 12","Redmi 12C","Redmi 13C","Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 14","Poco X3 Pro","Poco X5 Pro","Poco X6 Pro","Poco F5","Poco F6"], base: { g: 180, r: 175, m2: 172, m4: 170, awm: 48, cam: 160, dpi: 800 }},
@@ -309,6 +570,12 @@
     let cooldownEndTime = null;
     const MAX_HISTORY = 30;
 
+    // ==================== FUNÇÕES DE VALIDAÇÃO ====================
+    function validateInput(str, maxLength = 100) {
+      if (!str || typeof str !== 'string') return '';
+      return str.trim().substring(0, maxLength).replace(/[<>]/g, '');
+    }
+
     function sanitize(str) {
       if (typeof str !== 'string') return '';
       const div = document.createElement('div');
@@ -316,29 +583,42 @@
       return div.innerHTML;
     }
 
+    // ==================== FUNÇÕES DE LOCALSTORAGE ====================
     function getSafeHistory() {
       try {
+        if (!isLocalStorageAvailable()) return [];
         const data = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
         return Array.isArray(data) ? data : [];
-      } catch (e) { return []; }
+      } catch (e) { 
+        console.error('Erro ao carregar histórico:', e);
+        return []; 
+      }
     }
 
+    // ==================== TOAST NOTIFICATIONS ====================
     function showToast(message, type = "normal") {
       toastEl.textContent = message;
       toastEl.style.display = "block";
       toastEl.style.opacity = "1";
       
-      if (type === "success") toastEl.style.background = "#10b981";
-      else if (type === "error") toastEl.style.background = "#ef4444";
-
+      const colors = {
+        "success": "#10b981",
+        "error": "#ef4444",
+        "warning": "#f59e0b",
+        "normal": "#1f2937"
+      };
+      
+      toastEl.style.background = colors[type] || colors.normal;
+      
       setTimeout(() => {
         toastEl.style.opacity = "0";
         setTimeout(() => toastEl.style.display = "none", 400);
       }, 2800);
     }
 
+    // ==================== COOLDOWN SYSTEM ====================
     function checkCooldown(model) {
-      if (!model) return false;
+      if (!model || !isLocalStorageAvailable()) return false;
       try {
         const stored = JSON.parse(localStorage.getItem(`cooldown_${model}`) || '{}');
         if (!stored.end || Date.now() >= stored.end) {
@@ -348,18 +628,27 @@
         cooldownEndTime = stored.end;
         startRealTimeTimer();
         return true;
-      } catch (e) { return false; }
+      } catch (e) { 
+        return false; 
+      }
     }
 
     function startRealTimeTimer() {
       if (timerInterval) clearInterval(timerInterval);
+      
+      // BOTÃO FICA ROSA NEON DURANTE O COOLDOWN
+      generateBtn.style.background = 'linear-gradient(135deg, #ff007f, #ff5e62)';
+      timerEl.classList.add('show');
+      
       const update = () => {
         const restante = cooldownEndTime - Date.now();
         if (restante <= 0) {
           clearInterval(timerInterval);
           timerEl.innerHTML = "✅ Pode gerar novamente!";
+          timerEl.classList.remove('show');
           generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
           generateBtn.disabled = false;
+          generateBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
           return;
         }
         const m = Math.floor((restante % 3600000) / 60000);
@@ -372,10 +661,12 @@
       update();
     }
 
+    // ==================== MODAL FUNCTIONS ====================
     function openSaveModal() {
-      if (!modelSelect.value) return showToast("❌ Selecione marca e modelo primeiro");
+      if (!modelSelect.value) return showToast("❌ Selecione marca e modelo primeiro", "error");
       document.getElementById('sensiName').value = `Sensi ${modelSelect.value}`;
       document.getElementById('nameModal').classList.add('show');
+      document.getElementById('sensiName').focus();
     }
 
     function closeNameModal() {
@@ -384,8 +675,13 @@
 
     function saveWithName() {
       const nameInput = document.getElementById('sensiName').value.trim();
-      if (!nameInput) return showToast("❌ Digite um nome");
-      const safeName = sanitize(nameInput);
+      if (!nameInput) return showToast("❌ Digite um nome", "error");
+      
+      if (!isLocalStorageAvailable()) {
+        return showToast("⚠️ LocalStorage não disponível", "warning");
+      }
+
+      const safeName = sanitize(validateInput(nameInput));
       closeNameModal();
 
       const sensi = {
@@ -399,7 +695,8 @@
         m4: parseInt(document.getElementById("res-4").innerText) || 0,
         awm: parseInt(document.getElementById("res-a").innerText) || 0,
         cam: parseInt(document.getElementById("res-c").innerText) || 0,
-        dpi: parseInt(document.getElementById("res-dpi").innerText.match(/\d+/)[0]) || 0
+        dpi: parseInt(document.getElementById("res-dpi").innerText.match(/\d+/)[0]) || 0,
+        fav: false
       };
 
       let history = getSafeHistory();
@@ -409,6 +706,7 @@
       showToast(`✅ "${safeName}" salva com sucesso!`, "success");
     }
 
+    // ==================== HISTORY FUNCTIONS ====================
     function showHistory() {
       const history = getSafeHistory();
       const list = document.getElementById('historyList');
@@ -417,24 +715,37 @@
       if (history.length === 0) {
         list.innerHTML = '<div style="text-align:center; padding:40px; color:#777;">Nenhuma sensibilidade salva ainda.</div>';
       } else {
-        history.forEach(item => {
+        // Ordena para mostrar favoritos primeiro
+        const sortedHistory = [...history].sort((a, b) => b.fav - a.fav);
+
+        sortedHistory.forEach((item, index) => {
           const div = document.createElement('div');
-          div.className = 'history-item';
+          div.className = `history-item ${item.fav ? 'is-fav' : ''}`;
+          div.style.animationDelay = `${index * 0.05}s`;
           div.innerHTML = `
+            <span class="fav-star" onclick="toggleFav(${item.id})">${item.fav ? '⭐' : '☆'}</span>
             <div class="history-item-date">${item.date}</div>
-            <div class="history-item-name">${item.name} — ${item.model}</div>
+            <div class="history-item-name">${sanitize(item.name)} — ${item.model}</div>
             <div class="history-item-details">
               Geral: ${item.g} | Red: ${item.r} | 2X: ${item.m2} | 4X: ${item.m4} | AWM: ${item.awm} | DPI: ${item.dpi}
             </div>
             <div class="history-item-buttons">
-              <button onclick="loadFromHistory(${item.id}); closeHistory()">📂 Carregar</button>
-              <button onclick="deleteFromHistory(${item.id}); event.stopImmediatePropagation()">🗑️ Deletar</button>
+              <button class="btn-load" onclick="loadFromHistory(${item.id}); closeHistory()">📂 Carregar</button>
+              <button class="btn-delete" onclick="deleteFromHistory(${item.id}); event.stopImmediatePropagation()">🗑️ Deletar</button>
             </div>
           `;
           list.appendChild(div);
         });
       }
       document.getElementById('historyModal').classList.add('show');
+    }
+
+    function toggleFav(id) {
+      let history = getSafeHistory();
+      history = history.map(item => item.id === id ? {...item, fav: !item.fav} : item);
+      localStorage.setItem('sensiHistory', JSON.stringify(history));
+      showHistory();
+      showToast("⭐ Favoritos atualizados!", "success");
     }
 
     function loadFromHistory(id) {
@@ -457,7 +768,9 @@
     function deleteFromHistory(id) {
       if (confirm("Deseja realmente excluir esta sensibilidade?")) {
         let history = getSafeHistory().filter(h => h.id !== id);
-        localStorage.setItem('sensiHistory', JSON.stringify(history));
+        if (isLocalStorageAvailable()) {
+          localStorage.setItem('sensiHistory', JSON.stringify(history));
+        }
         showHistory();
         showToast("✅ Sensibilidade excluída com sucesso!", "success");
       }
@@ -465,7 +778,9 @@
 
     function clearAllHistory() {
       if (confirm("⚠️ Tem certeza que deseja apagar TODO o histórico?\n\nEsta ação não pode ser desfeita.")) {
-        localStorage.removeItem('sensiHistory');
+        if (isLocalStorageAvailable()) {
+          localStorage.removeItem('sensiHistory');
+        }
         showHistory();
         showToast("✅ Todo o histórico foi apagado com sucesso!", "success");
       }
@@ -475,12 +790,27 @@
       document.getElementById('historyModal').classList.remove('show');
     }
 
+    // ==================== RESET FUNCTION ====================
+    function resetGenerator() {
+      brandSelect.value = '';
+      modelSelect.value = '';
+      modelSelect.disabled = true;
+      resultBox.classList.remove('show');
+      if (timerInterval) clearInterval(timerInterval);
+      timerEl.classList.remove('show');
+      generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+      generateBtn.disabled = false;
+      generateBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+      showToast("🔄 Seleção limpa!", "success");
+    }
+
+    // ==================== GENERATE SENSI ====================
     function generateSensi() {
       const brand = brandSelect.value;
       const model = modelSelect.value;
-      if (!brand || !model) return showToast("❌ Selecione marca e modelo!");
+      if (!brand || !model) return showToast("❌ Selecione marca e modelo!", "error");
 
-      if (checkCooldown(model)) return showToast("⏳ Ainda em cooldown!");
+      if (checkCooldown(model)) return showToast("⏳ Ainda em cooldown!", "warning");
 
       generateBtn.textContent = "⚡ Gerando...";
       generateBtn.disabled = true;
@@ -512,7 +842,11 @@
         document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
 
         resultBox.classList.add("show");
-        localStorage.setItem(`cooldown_${model}`, JSON.stringify({ end: cooldownEndTime }));
+        
+        if (isLocalStorageAvailable()) {
+          localStorage.setItem(`cooldown_${model}`, JSON.stringify({ end: cooldownEndTime }));
+        }
+        
         showToast("✅ Sensibilidade gerada com sucesso!", "success");
 
         generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
@@ -520,12 +854,19 @@
       }, 1300);
     }
 
+    // ==================== COPY CONFIG ====================
     function copyConfig() {
       const model = modelSelect.value;
       const texto = `⚡ NIEL REALSENSI PRO\n📱 ${model}\n\nGERAL: ${document.getElementById("res-g").innerText}\nRED DOT: ${document.getElementById("res-r").innerText}\n2X: ${document.getElementById("res-2").innerText}\n4X: ${document.getElementById("res-4").innerText}\nAWM: ${document.getElementById("res-a").innerText}\nCÂMERA: ${document.getElementById("res-c").innerText}\n${document.getElementById("res-dpi").innerText}`;
-      navigator.clipboard.writeText(texto).then(() => showToast("✅ Copiado para área de transferência!", "success"));
+      
+      navigator.clipboard.writeText(texto).then(() => {
+        showToast("✅ Copiado para área de transferência!", "success");
+      }).catch(() => {
+        showToast("❌ Erro ao copiar", "error");
+      });
     }
 
+    // ==================== LOAD MODELS ====================
     function loadModels() {
       const brand = brandSelect.value;
       modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
@@ -533,13 +874,15 @@
       if (brand && database[brand]) {
         database[brand].modelos.sort().forEach(m => {
           const opt = document.createElement('option');
-          opt.value = m; opt.textContent = m;
+          opt.value = m; 
+          opt.textContent = m;
           modelSelect.appendChild(opt);
         });
       }
       resultBox.classList.remove('show');
     }
 
+    // ==================== ENTRY SCREEN ====================
     function entrarNoApp() {
       const btn = document.getElementById('enter-btn');
       btn.style.animation = 'pulse 0.6s';
@@ -552,14 +895,31 @@
       }, 300);
     }
 
-    // Inicialização
+    // ==================== EVENT LISTENERS ====================
     brandSelect.addEventListener("change", loadModels);
     generateBtn.addEventListener("click", generateSensi);
 
-    document.getElementById('nameModal').addEventListener('click', e => { if (e.target.id === 'nameModal') closeNameModal(); });
-    document.getElementById('historyModal').addEventListener('click', e => { if (e.target.id === 'historyModal') closeHistory(); });
+    document.getElementById('nameModal').addEventListener('click', e => { 
+      if (e.target.id === 'nameModal') closeNameModal(); 
+    });
+    
+    document.getElementById('historyModal').addEventListener('click', e => { 
+      if (e.target.id === 'historyModal') closeHistory(); 
+    });
 
-    setTimeout(() => showToast("👋 Bem-vindo ao NIEL REALSENSI PRO"), 800);
+    // Enter key para salvar
+    document.getElementById('sensiName').addEventListener('keypress', e => {
+      if (e.key === 'Enter') saveWithName();
+    });
+
+    // ==================== INICIALIZAÇÃO ====================
+    window.addEventListener('load', () => {
+      if (!isLocalStorageAvailable()) {
+        showToast("⚠️ LocalStorage não disponível - histórico desativado", "warning");
+      } else {
+        setTimeout(() => showToast("👋 Bem-vindo ao NIEL REALSENSI PRO"), 800);
+      }
+    });
   </script>
 </body>
 </html>
