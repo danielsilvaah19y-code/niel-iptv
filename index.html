@@ -18,7 +18,7 @@
       background: #0a0a0a;
       color: white;
       min-height: 100vh;
-      background-image: url('https://i.ibb.co/WNg5B4qF/image-31e568da.png');
+      background-image: url('https://i.ibb.co/8gL7vzKp/image-5c445b6b.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -67,11 +67,18 @@
     .entry-content { text-align: center; max-width: 420px; width: 92%; }
 
     .eagle-entry, .logo-abaixo {
-      width: 100%; max-width: 390px; margin: 0 auto 25px;
+      width: 92%;
+      max-width: 380px;
+      margin: 15px auto 20px;
       filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.9));
-      animation: pulse 2s infinite;
+      animation: pulse 2.2s infinite;
+      border-radius: 16px;
     }
-    .logo-abaixo { max-width: 380px; margin-top: 40px; filter: drop-shadow(0 25px 50px rgba(0, 242, 254, 0.75)); }
+    .logo-abaixo { 
+      max-width: 360px; 
+      margin-top: 30px; 
+      filter: drop-shadow(0 25px 50px rgba(0, 242, 254, 0.75)); 
+    }
 
     .entry-title {
       font-family: "Orbitron", monospace; font-size: 44px; font-weight: 900;
@@ -370,6 +377,11 @@
         border-radius: 24px;
       }
       
+      .eagle-entry, .logo-abaixo {
+        width: 90%;
+        max-width: 340px;
+      }
+      
       .entry-title {
         font-size: 32px;
       }
@@ -435,11 +447,11 @@
   <!-- TELA DE ENTRADA -->
   <div id="entry-screen">
     <div class="entry-content">
-      <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="Logo" class="eagle-entry" />
+      <img src="https://i.ibb.co/ccVZ6gbD/image-a9d5f82c.png" alt="Logo" class="eagle-entry" />
       <h1 class="entry-title">NIEL REALSENSI</h1>
       <p class="entry-subtitle">PRO • OFICIAL</p>
       <button id="enter-btn" onclick="entrarNoApp()">ENTRAR</button>
-      <img src="https://i.ibb.co/VWsQdL34/image-7ec08026.png" alt="Logo NIEL" class="logo-abaixo" />
+      <img src="https://i.ibb.co/ccVZ6gbD/image-a9d5f82c.png" alt="Logo NIEL" class="logo-abaixo" />
     </div>
   </div>
 
@@ -447,7 +459,7 @@
   <div id="main-app">
     <div class="container">
       <div class="header">
-        <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="Logo" class="logo" />
+        <img src="https://i.ibb.co/KpMQwkm7/image-1975527.png" alt="Logo" class="logo" />
         <h1 class="title">NIEL REALSENSI</h1>
         <div class="subtitle">VERSÃO PRO • OFICIAL</div>
       </div>
@@ -500,7 +512,7 @@
         <button class="btn btn-reset" onclick="resetGenerator()">🔄 Limpar Seleção</button>
       </div>
 
-      <img src="https://i.ibb.co/ym3t7Jpf/fundo-vip.png" alt="NIEL REALSENSI VIP" class="eagle-logo" />
+      <img src="https://i.ibb.co/KpMQwkm7/image-1975527.png" alt="NIEL REALSENSI VIP" class="eagle-logo" />
     </div>
 
     <!-- Modal Salvar -->
@@ -581,7 +593,17 @@
     const COOLDOWN_KEY = 'niel_global_cooldown';
     const MAX_HISTORY = 30;
 
-    // ==================== FUNÇÕES DE VALIDAÇÃO ====================
+    function isLocalStorageAvailable() {
+      try {
+        const test = '__test__';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
     function validateInput(str, maxLength = 100) {
       if (!str || typeof str !== 'string') return '';
       return str.trim().substring(0, maxLength).replace(/[<>]/g, '');
@@ -594,7 +616,6 @@
       return div.innerHTML;
     }
 
-    // ==================== FUNÇÕES DE LOCALSTORAGE ====================
     function getSafeHistory() {
       try {
         if (!isLocalStorageAvailable()) return [];
@@ -606,7 +627,6 @@
       }
     }
 
-    // ==================== TOAST NOTIFICATIONS ====================
     function showToast(message, type = "normal") {
       toastEl.textContent = message;
       toastEl.style.display = "block";
@@ -627,7 +647,6 @@
       }, 2800);
     }
 
-    // ==================== COOLDOWN SYSTEM (GLOBAL) ====================
     function checkCooldown() {
       if (!isLocalStorageAvailable()) return false;
       try {
@@ -672,7 +691,6 @@
       update();
     }
 
-    // ==================== MODAL FUNCTIONS ====================
     function openSaveModal() {
       if (!modelSelect.value) return showToast("❌ Selecione marca e modelo primeiro", "error");
       document.getElementById('sensiName').value = `Sensi ${modelSelect.value}`;
@@ -717,7 +735,6 @@
       showToast(`✅ "${safeName}" salva com sucesso!`, "success");
     }
 
-    // ==================== HISTORY FUNCTIONS ====================
     function showHistory() {
       const history = getSafeHistory();
       const list = document.getElementById('historyList');
@@ -800,7 +817,6 @@
       document.getElementById('historyModal').classList.remove('show');
     }
 
-    // ==================== RESET FUNCTION ====================
     function resetGenerator() {
       if (timerInterval) clearInterval(timerInterval);
       
@@ -815,7 +831,6 @@
       showToast("🔄 Seleção limpa!", "success");
     }
 
-    // ==================== GENERATE SENSI ====================
     function generateSensi() {
       const brand = brandSelect.value;
       const model = modelSelect.value;
@@ -871,7 +886,6 @@
       }, 1300);
     }
 
-    // ==================== COPY CONFIG ====================
     function copyConfig() {
       const model = modelSelect.value;
       const texto = `⚡ NIEL REALSENSI PRO\n📱 ${model}\n\nGERAL: ${document.getElementById("res-g").innerText}\nRED DOT: ${document.getElementById("res-r").innerText}\n2X: ${document.getElementById("res-2").innerText}\n4X: ${document.getElementById("res-4").innerText}\nAWM: ${document.getElementById("res-a").innerText}\nCÂMERA: ${document.getElementById("res-c").innerText}\n${document.getElementById("res-dpi").innerText}`;
@@ -883,18 +897,15 @@
       });
     }
 
-    // ==================== LOAD MODELS ====================
     function loadModels() {
       const brand = brandSelect.value;
       modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
       modelSelect.disabled = !brand;
       
-      // CORREÇÃO: Limpar timer ao trocar marca/modelo
       if (timerInterval) clearInterval(timerInterval);
       timerEl.classList.remove('show');
       timerEl.innerHTML = "⏳ Aguarde...";
       
-      // Se ainda estiver em cooldown global, reata o timer
       checkCooldown();
       generateBtn.disabled = false;
       generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
@@ -911,7 +922,6 @@
       resultBox.classList.remove('show');
     }
 
-    // ==================== ENTRY SCREEN ====================
     function entrarNoApp() {
       const btn = document.getElementById('enter-btn');
       btn.style.animation = 'pulse 0.6s';
@@ -925,7 +935,6 @@
       }, 300);
     }
 
-    // ==================== EVENT LISTENERS ====================
     brandSelect.addEventListener("change", loadModels);
     generateBtn.addEventListener("click", generateSensi);
 
@@ -941,7 +950,6 @@
       if (e.key === 'Enter') saveWithName();
     });
 
-    // ==================== INICIALIZAÇÃO ====================
     window.addEventListener('load', () => {
       if (!isLocalStorageAvailable()) {
         showToast("⚠️ LocalStorage não disponível - histórico desativado", "warning");
