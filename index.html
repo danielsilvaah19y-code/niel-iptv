@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:;">
   <title>NIEL REALSENSI PRO - OFICIAL</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -22,6 +22,17 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    html, body {
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* ==================== ANIMAÇÕES ====================*/
@@ -91,14 +102,12 @@
 
     .header { text-align: center; margin-bottom: 40px; }
 
-    /* Logo pequena - Efeito diferente */
     .logo { 
       width: 100%; max-width: 200px; margin: 0 auto 24px; border-radius: 20px; 
       filter: drop-shadow(0 15px 35px rgba(102, 126, 234, 0.6));
       animation: logoGlow 4s infinite ease-in-out;
     }
 
-    /* Logo grande - Pulse normal */
     .eagle-logo { 
       display: block; width: 100%; max-width: 380px; margin: 45px auto 20px;
       border-radius: 20px; filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.7));
@@ -176,8 +185,6 @@
     .btn-generate { background: linear-gradient(135deg, #667eea, #764ba2); }
     .btn-save { background: linear-gradient(135deg, #10b981, #34d399); }
     .btn-copy { background: linear-gradient(135deg, #8b5cf6, #c026d3); }
-    
-    /* BOTÃO LIMPAR SELEÇÃO - ROSA NEON */
     .btn-reset { background: linear-gradient(135deg, #ff007f, #ff5e62); }
 
     .result-box {
@@ -206,7 +213,6 @@
       animation: fadeIn 0.5s ease;
     }
 
-    /* CAIXA DO TIMER - ROSA NEON */
     #timer {
       text-align: center;
       padding: 16px;
@@ -283,7 +289,6 @@
       position: relative;
     }
     
-    /* ESTILO DO FAVORITO */
     .history-item.is-fav {
       border-left: 4px solid #ff007f;
       background: rgba(255, 0, 127, 0.08);
@@ -425,7 +430,7 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <!-- TELA DE ENTRADA -->
   <div id="entry-screen">
@@ -471,6 +476,7 @@
         <option value="lenovo">LENOVO</option>
         <option value="positivo">POSITIVO</option>
         <option value="multilaser">MULTILASER</option>
+        <option value="iphone">IPHONE</option>
       </select>
 
       <label class="label">📱 Modelo do Aparelho</label>
@@ -556,7 +562,13 @@
       nokia: { modelos: ["Nokia G50","Nokia G60"], base: { g: 168, r: 163, m2: 160, m4: 158, awm: 40, cam: 148, dpi: 650 }},
       lenovo: { modelos: ["Legion Y700"], base: { g: 186, r: 181, m2: 178, m4: 176, awm: 51, cam: 166, dpi: 890 }},
       positivo: { modelos: ["Positivo Smart"], base: { g: 165, r: 160, m2: 157, m4: 155, awm: 38, cam: 145, dpi: 600 }},
-      multilaser: { modelos: ["Multilaser M13"], base: { g: 167, r: 162, m2: 159, m4: 157, awm: 39, cam: 147, dpi: 620 }}
+      multilaser: { modelos: ["Multilaser M13"], base: { g: 167, r: 162, m2: 159, m4: 157, awm: 39, cam: 147, dpi: 620 }},
+
+      // IPHONE ADICIONADO
+      iphone: { 
+        modelos: ["iPhone 8","iPhone 8 Plus","iPhone X","iPhone XS","iPhone XS Max","iPhone XR","iPhone 11","iPhone 11 Pro","iPhone 11 Pro Max","iPhone 12","iPhone 12 mini","iPhone 12 Pro","iPhone 12 Pro Max","iPhone 13","iPhone 13 mini","iPhone 13 Pro","iPhone 13 Pro Max","iPhone 14","iPhone 14 Plus","iPhone 14 Pro","iPhone 14 Pro Max","iPhone 15","iPhone 15 Plus","iPhone 15 Pro","iPhone 15 Pro Max","iPhone 16","iPhone 16 Plus","iPhone 16 Pro","iPhone 16 Pro Max"], 
+        base: { g: 195, r: 190, m2: 188, m4: 185, awm: 55, cam: 175, dpi: 0 }
+      }
     };
 
     const brandSelect = document.getElementById('brand');
@@ -636,7 +648,6 @@
     function startRealTimeTimer() {
       if (timerInterval) clearInterval(timerInterval);
       
-      // BOTÃO FICA ROSA NEON DURANTE O COOLDOWN
       generateBtn.style.background = 'linear-gradient(135deg, #ff007f, #ff5e62)';
       timerEl.classList.add('show');
       
@@ -715,7 +726,6 @@
       if (history.length === 0) {
         list.innerHTML = '<div style="text-align:center; padding:40px; color:#777;">Nenhuma sensibilidade salva ainda.</div>';
       } else {
-        // Ordena para mostrar favoritos primeiro
         const sortedHistory = [...history].sort((a, b) => b.fav - a.fav);
 
         sortedHistory.forEach((item, index) => {
@@ -839,7 +849,13 @@
         document.getElementById("res-4").innerText = v.m4;
         document.getElementById("res-a").innerText = v.awm;
         document.getElementById("res-c").innerText = v.cam;
-        document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
+
+        if (brand === "iphone") {
+          document.getElementById("res-g").innerText = Math.max(190, Math.min(200, v.g));
+          document.getElementById("res-dpi").innerText = "Sistema iOS (Não alterável)";
+        } else {
+          document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
+        }
 
         resultBox.classList.add("show");
         
@@ -907,7 +923,6 @@
       if (e.target.id === 'historyModal') closeHistory(); 
     });
 
-    // Enter key para salvar
     document.getElementById('sensiName').addEventListener('keypress', e => {
       if (e.key === 'Enter') saveWithName();
     });
