@@ -1,1 +1,1577 @@
-https://www.mediafire.com/file/wor7pvn3o09t9xd/REALSENSIVIP.apk/file
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:;">
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="description" content="NIEL REALSENSI PRO - Gerador de sensibilidade para Free Fire" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>NIEL REALSENSI PRO - OFICIAL</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #0a0a0a;
+      color: white;
+      min-height: 100vh;
+      background-image: url('https://i.ibb.co/C530WmHp/bg-char-3.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light-mode {
+      background: #f0f0f0;
+      color: #1a1a1a;
+    }
+
+    body.light-mode .container {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 32px 80px -20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(0,0,0,0.1);
+    }
+
+    body.light-mode .label { color: #4a4a6a; }
+    body.light-mode .s-name { color: #4a4a6a; }
+    body.light-mode .history-item-name { color: #4facfe; }
+    body.light-mode .subtitle { color: #6a6a8a; }
+    body.light-mode .entry-subtitle { color: #6a6a8a; }
+    body.light-mode .tiktok-handle { color: #4facfe; }
+
+    body.light-mode select {
+      background: rgba(255,255,255,0.9);
+      border: 2px solid rgba(79, 172, 254, 0.4);
+      color: #1a1a1a;
+    }
+
+    body.light-mode select:hover {
+      border-color: rgba(79, 172, 254, 0.6);
+      background: rgba(255,255,255,1);
+    }
+
+    body.light-mode select:focus {
+      border-color: #00f2fe;
+    }
+
+    body.light-mode .modal-content { background: #ffffff; color: #1a1a1a; }
+    body.light-mode .history-modal-content { background: #ffffff; color: #1a1a1a; }
+    body.light-mode .history-item { background: rgba(0,0,0,0.05); }
+    body.light-mode .history-item:hover { background: rgba(79, 172, 254, 0.1); }
+    body.light-mode .modal-content h2 { color: #4facfe; }
+    body.light-mode .history-modal-content h2 { color: #4facfe; }
+    body.light-mode .modal-content input { background: rgba(0,0,0,0.05); border: 1px solid #4facfe; color: #1a1a1a; }
+    body.light-mode .toast { color: white; }
+    body.light-mode .history-item-details { color: #6a6a8a; }
+
+    html, body {
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(79, 172, 254, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(79, 172, 254, 0.8), 0 0 80px rgba(139, 92, 246, 0.6);
+      }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0px); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-30px); opacity: 0; }
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9998;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: particleFloat 2s ease-out forwards;
+    }
+
+    .tutorial-tooltip {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 30px 40px;
+      border-radius: 20px;
+      text-align: center;
+      z-index: 10000;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      max-width: 90%;
+      width: 400px;
+      display: none;
+    }
+
+    .tutorial-tooltip.show {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tutorial-tooltip h3 {
+      font-family: "Orbitron", monospace;
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .tutorial-tooltip p {
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .tutorial-tooltip .tutorial-steps {
+      text-align: left;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tutorial-tooltip .tutorial-steps div {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tutorial-tooltip .tutorial-steps div:last-child { border-bottom: none; }
+
+    .tutorial-tooltip button {
+      background: linear-gradient(135deg, #00f2fe, #00b8d4);
+      color: #000;
+      border: none;
+      padding: 12px 40px;
+      font-family: "Orbitron", monospace;
+      font-size: 16px;
+      font-weight: 800;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #entry-screen {
+      background: linear-gradient(135deg, rgba(10, 10, 20, 0.95), rgba(30, 20, 60, 0.95));
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+      overflow: hidden;
+    }
+
+    #entry-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #entry-screen::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(79, 172, 254, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      animation: glowPulse 8s infinite;
+      pointer-events: none;
+    }
+
+    .entry-content {
+      text-align: center;
+      max-width: 420px;
+      width: 92%;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .eagle-entry, .logo-abaixo {
+      width: 92%;
+      max-width: 380px;
+      height: auto;
+      object-fit: cover;
+      margin: 15px auto 20px;
+      filter: drop-shadow(0 25px 50px rgba(139, 92, 246, 0.9)) brightness(1.1) contrast(1.15);
+      animation: pulse 2.2s infinite;
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .eagle-entry:hover, .logo-abaixo:hover {
+      transform: scale(1.05) translateY(-5px);
+      filter: drop-shadow(0 35px 70px rgba(139, 92, 246, 1.2)) brightness(1.2) contrast(1.25);
+    }
+
+    .logo-abaixo {
+      max-width: 360px;
+      margin-top: 30px;
+      filter: drop-shadow(0 25px 50px rgba(0, 242, 254, 0.75));
+    }
+
+    .entry-title {
+      font-family: "Orbitron", monospace;
+      font-size: 44px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #4facfe, #00f2fe, #c026d3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 30px rgba(79, 172, 254, 0.3);
+      animation: fadeIn 0.8s ease;
+    }
+
+    .entry-subtitle {
+      font-size: 25px;
+      font-weight: 700;
+      color: #a0a0cc;
+      letter-spacing: 4px;
+      margin-bottom: 40px;
+    }
+
+    #enter-btn {
+      background: linear-gradient(135deg, #00f2fe, #00b8d4);
+      color: #000;
+      border: none;
+      padding: 22px 85px;
+      font-family: "Orbitron", monospace;
+      font-size: 23px;
+      font-weight: 900;
+      text-transform: uppercase;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 15px 45px rgba(0, 242, 254, 0.65), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: all 0.4s;
+      letter-spacing: 2px;
+      margin: 15px 0 25px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #enter-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.3);
+      animation: shimmer 2s infinite;
+    }
+
+    #enter-btn:hover {
+      transform: scale(1.08) translateY(-3px);
+      box-shadow: 0 22px 60px rgba(0, 242, 254, 0.85), inset 0 1px 0 rgba(255,255,255,0.4);
+    }
+
+    #enter-btn:active { transform: scale(1.05); }
+
+    #main-app {
+      display: none;
+      padding: 20px 15px;
+      opacity: 1;
+      transition: opacity 0.8s ease;
+    }
+
+    #main-app.show { display: block; }
+
+    .container {
+      background: rgba(15, 15, 25, 0.95);
+      backdrop-filter: blur(30px);
+      border-radius: 32px;
+      box-shadow: 0 32px 80px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px 40px;
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #4facfe, #00f2fe, #c026d3) 1;
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%);
+      animation: glowPulse 4s infinite;
+      pointer-events: none;
+    }
+
+    .header { text-align: center; margin-bottom: 40px; position: relative; z-index: 1; }
+
+    .logo {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      object-fit: cover;
+      margin: 0 auto 24px;
+      border-radius: 20px;
+      filter: drop-shadow(0 15px 35px rgba(0, 242, 254, 0.6));
+      animation: logoGlow 4s infinite ease-in-out;
+      transition: all 0.4s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.08);
+      filter: drop-shadow(0 20px 45px rgba(0, 242, 254, 0.9));
+    }
+
+    .title {
+      font-family: "Orbitron", monospace;
+      font-size: 36px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #a0a0cc;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .tiktok-handle {
+      font-size: 13px;
+      color: #00f2fe;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+      animation: fadeIn 0.8s ease;
+      line-height: 1.4;
+    }
+
+    .history-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      font-size: 24px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    .history-btn:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      font-size: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+    }
+
+    .stats-bar {
+      background: linear-gradient(135deg, rgba(79,172,254,0.25), rgba(139,92,246,0.15));
+      padding: 18px 24px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      border: 2px solid rgba(79, 172, 254, 0.4);
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 5px 20px rgba(79, 172, 254, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .stats-bar span {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+    }
+
+    .stats-bar .stat-number {
+      font-family: "Orbitron", monospace;
+      font-size: 20px;
+      font-weight: 900;
+      margin: 0 6px;
+      color: #00f2fe;
+      text-shadow: 0 0 15px rgba(0, 242, 254, 0.7);
+    }
+
+    .label {
+      font-size: 15px;
+      color: #c0c0e0;
+      margin-bottom: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: block;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 8px rgba(192, 192, 224, 0.3);
+    }
+
+    select {
+      width: 100%;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, rgba(30,30,50,0.9), rgba(40,40,70,0.8));
+      border: 2px solid rgba(79, 172, 254, 0.4);
+      border-radius: 20px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 15px rgba(79, 172, 254, 0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234facfe' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 20px;
+      padding-right: 50px;
+    }
+
+    select:hover {
+      border-color: #4facfe;
+      background: linear-gradient(135deg, rgba(50,50,80,0.95), rgba(60,60,90,0.9));
+      box-shadow: 0 0 20px rgba(79, 172, 254, 0.4), 0 0 40px rgba(79, 172, 254, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #00f2fe;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.5), 0 0 50px rgba(0, 242, 254, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, rgba(60,60,90,0.98), rgba(70,70,100,0.95));
+    }
+
+    select:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 22px;
+      border: none;
+      border-radius: 24px;
+      color: white;
+      font-family: "Orbitron", monospace;
+      font-weight: 800;
+      font-size: 18px;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin-top: 12px;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+
+    .btn:active { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .btn-generate {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: 2px solid rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-generate:hover {
+      border-color: rgba(102, 126, 234, 1);
+      background: linear-gradient(135deg, #7c8ff0, #8b5cb8);
+    }
+
+    .btn-save {
+      background: linear-gradient(135deg, #10b981, #34d399);
+      border: 2px solid rgba(16, 185, 129, 0.5);
+    }
+
+    .btn-save:hover {
+      border-color: rgba(16, 185, 129, 1);
+      background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, #8b5cf6, #c026d3);
+      border: 2px solid rgba(139, 92, 246, 0.5);
+    }
+
+    .btn-copy:hover {
+      border-color: rgba(139, 92, 246, 1);
+      background: linear-gradient(135deg, #a78bfa, #d946ef);
+    }
+
+    .btn-reset {
+      background: linear-gradient(135deg, #ff007f, #ff5e62);
+      border: 2px solid rgba(255, 0, 127, 0.5);
+    }
+
+    .btn-reset:hover {
+      border-color: rgba(255, 0, 127, 1);
+      background: linear-gradient(135deg, #ff1493, #ff6b6b);
+    }
+
+    .result-box {
+      background: rgba(25, 25, 45, 0.95);
+      border-radius: 24px;
+      padding: 36px;
+      margin-top: 36px;
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #4facfe, #00f2fe) 1;
+      display: none;
+      animation: fadeIn 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(79, 172, 254, 0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+      z-index: 1;
+    }
+
+    .result-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #4facfe, transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .result-box.show { display: block; }
+
+    .sensi-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: slideIn 0.4s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sensi-item:hover {
+      background: rgba(79, 172, 254, 0.1);
+      padding: 18px 12px;
+      border-radius: 12px;
+    }
+
+    .s-name { color: #b0b0d0; font-weight: 600; }
+
+    .s-val {
+      color: #00f2fe;
+      font-family: "Orbitron", monospace;
+      font-weight: 900;
+      font-size: 28px;
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    }
+
+    .dpi-card {
+      background: rgba(79,172,254,0.15);
+      padding: 24px;
+      border-radius: 20px;
+      margin-top: 28px;
+      text-align: center;
+      border: 1px solid #4facfe;
+      font-weight: 700;
+      font-size: 18px;
+      animation: fadeIn 0.5s ease;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 5px 15px rgba(79, 172, 254, 0.1);
+    }
+
+    #timer {
+      text-align: center;
+      padding: 16px;
+      background: rgba(255, 0, 127, 0.1);
+      border-radius: 16px;
+      margin-top: 16px;
+      color: #ff85c0;
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      font-weight: 600;
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    #timer.show { display: block; }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 9999px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.4s;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal-content {
+      background: #1a1a2e;
+      padding: 35px;
+      border-radius: 28px;
+      width: 90%;
+      max-width: 440px;
+      border: 1px solid rgba(79, 172, 254, 0.4);
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #00f2fe;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid #4facfe;
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s;
+      margin-bottom: 20px;
+    }
+
+    .modal-content input:focus {
+      outline: none;
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 15px rgba(79, 172, 254, 0.3);
+    }
+
+    .history-modal-content {
+      background: #1a1a2e;
+      width: 95%;
+      max-width: 560px;
+      border-radius: 28px;
+      padding: 30px;
+      max-height: 88vh;
+      overflow-y: auto;
+      border: 1px solid rgba(79, 172, 254, 0.4);
+      animation: fadeIn 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .history-modal-content h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #00f2fe;
+    }
+
+    .history-item {
+      background: rgba(255,255,255,0.06);
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid #4facfe;
+      transition: all 0.3s;
+      animation: slideIn 0.4s ease;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .history-item.is-fav {
+      border-left: 4px solid #ff007f;
+      background: rgba(255, 0, 127, 0.08);
+    }
+
+    .history-item:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateX(8px);
+      box-shadow: 0 8px 20px rgba(79, 172, 254, 0.2);
+    }
+
+    .fav-star {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .fav-star:hover { transform: scale(1.2); }
+    .history-item-date { font-size: 13px; color: #888; margin-bottom: 8px; }
+    .history-item-name { font-weight: 700; font-size: 17px; margin-bottom: 10px; padding-right: 30px; color: #00f2fe; }
+    .history-item-details { font-size: 14.5px; color: #b0b0d0; line-height: 1.6; margin-bottom: 15px; }
+    .history-item-buttons { display: flex; gap: 12px; }
+    .history-item-buttons button { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 15px; transition: all 0.3s; }
+
+    .btn-load { background: #22c55e; color: white; }
+    .btn-load:hover { background: #16a34a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3); }
+
+    .btn-delete { background: #ef4444; color: white; }
+    .btn-delete:hover { background: #dc2626; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3); }
+
+    .button-group { display: flex; gap: 12px; margin-top: 25px; }
+    .button-group button { flex: 1; padding: 16px; border: none; border-radius: 16px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+
+    .btn-confirm { background: #4facfe; color: white; }
+    .btn-confirm:hover { background: #3b9cfd; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3); }
+
+    .btn-cancel { background: #666; color: white; }
+    .btn-cancel:hover { background: #555; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(100, 100, 100, 0.3); }
+
+    .nivel-sensi {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 15px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @media (max-width: 480px) {
+      .container { 
+        padding: 30px 20px 350px;
+        border-radius: 24px; 
+      }
+      .eagle-entry, .logo-abaixo { width: 90%; max-width: 340px; }
+      .entry-title { font-size: 32px; }
+      .title { font-size: 28px; }
+      .btn { padding: 18px; font-size: 16px; }
+      .s-val { font-size: 22px; }
+      .history-btn, .theme-toggle { width: 45px; height: 45px; font-size: 20px; }
+      .modal-content { width: 95%; padding: 25px; }
+      .history-modal-content { width: 98%; padding: 20px; }
+      .result-box { padding: 24px; margin-top: 24px; }
+      .sensi-item { padding: 14px 0; }
+      .stats-bar { padding: 12px 15px; font-size: 13px; }
+      .stats-bar .stat-number { font-size: 16px; }
+    }
+
+    @media (max-width: 320px) {
+      .entry-title { font-size: 26px; letter-spacing: 1px; }
+      .entry-subtitle { font-size: 18px; }
+      #enter-btn { padding: 18px 50px; font-size: 18px; }
+      .title { font-size: 22px; }
+      .btn { font-size: 14px; padding: 16px; }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+
+  <div id="tutorial-tooltip" class="tutorial-tooltip">
+    <h3>👋 Bem-vindo ao NIEL REALSENSI PRO!</h3>
+    <div class="tutorial-steps">
+      <div>📱 1️⃣ Selecione a marca do seu celular</div>
+      <div>🎯 2️⃣ Escolha o modelo exato</div>
+      <div>⚡ 3️⃣ Clique em "Gerar Sensibilidade"</div>
+      <div>📋 4️⃣ Copie e cole no Free Fire</div>
+      <div>💾 5️⃣ Salve suas configurações favoritas</div>
+    </div>
+    <p>Dica: Você pode trocar para modo claro/escuro usando o botão ☀️/🌙 no canto superior esquerdo.</p>
+    <button onclick="closeTutorial()">Entendi! Let's Go 🎮</button>
+  </div>
+
+  <div id="particles-container" class="particles-container"></div>
+
+  <div id="entry-screen">
+    <img src="https://i.ibb.co/gFHy6g1k/niel-v9x16-ump-verde.png" alt="NIEL REALSENSI VIP" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;" />
+    <div class="entry-content">
+      <button id="enter-btn" type="button">ENTRAR</button>
+    </div>
+  </div>
+
+  <div id="main-app">
+    <div class="container">
+      <div class="header">
+        <img src="https://i.ibb.co/d00Z4W1D/niel-v1x1-ak-branco.png"  alt="Character" class="logo" />
+        <h1 class="title">NIEL REALSENSI</h1>
+        <div class="subtitle">VERSÃO PRO • OFICIAL</div>
+        <div class="tiktok-handle">🎬 TikTok do Criador oficial TikTok dele @daniielsilvh19y</div>
+      </div>
+
+      <button class="history-btn" onclick="showHistory()" title="Histórico">📋</button>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema" id="theme-toggle">☀️</button>
+
+      <div class="stats-bar">
+        <span>🎮 Gerações: <span class="stat-number" id="total-generations">0</span> | ⭐ Favoritos: <span class="stat-number" id="total-favorites">0</span></span>
+      </div>
+
+      <label class="label">🔥 Selecione a Marca</label>
+      <select id="brand">
+        <option value="">Escolha uma marca...</option>
+        <option value="samsung">SAMSUNG</option>
+        <option value="motorola">MOTOROLA</option>
+        <option value="xiaomi">XIAOMI / POCO</option>
+        <option value="realme">REALME</option>
+        <option value="infinix">INFINIX</option>
+        <option value="oppo">OPPO</option>
+        <option value="vivo">VIVO</option>
+        <option value="huawei">HUAWEI / HONOR</option>
+        <option value="tecno">TECNO</option>
+        <option value="lg">LG</option>
+        <option value="zte">ZTE / NUBIA</option>
+        <option value="asus">ASUS</option>
+        <option value="google">GOOGLE PIXEL</option>
+        <option value="oneplus">ONEPLUS</option>
+        <option value="sony">SONY XPERIA</option>
+        <option value="nokia">NOKIA</option>
+        <option value="lenovo">LENOVO</option>
+        <option value="positivo">POSITIVO</option>
+        <option value="multilaser">MULTILASER</option>
+        <option value="iphone">IPHONE</option>
+      </select>
+
+      <label class="label">📱 Modelo do Aparelho</label>
+      <select id="model" disabled><option value="">Selecione o modelo...</option></select>
+
+      <label class="label">🎯 Nível de DPI</label>
+      <select id="dpi-level">
+        <option value="BAIXA">DPI BAIXA (Foco em Precisão)</option>
+        <option value="MÉDIA" selected>DPI MÉDIA (Equilibrada)</option>
+        <option value="ALTA">DPI ALTA (Foco em Velocidade)</option>
+      </select>
+
+      <button class="btn btn-generate" id="generateBtn">⚡ Gerar Sensibilidade PRO</button>
+
+      <div id="resultBox" class="result-box">
+        <h2 id="res-model" style="text-align:center; margin-bottom:24px; color:#67e8f9;">📱</h2>
+        <div id="nivel-container" class="nivel-sensi" style="display:none;"></div>
+        <div class="sensi-item"><span class="s-name">GERAL</span><span class="s-val" id="res-g">0</span></div>
+        <div class="sensi-item"><span class="s-name">PONTO VERMELHO</span><span class="s-val" id="res-r">0</span></div>
+        <div class="sensi-item"><span class="s-name">MIRA 2X</span><span class="s-val" id="res-2">0</span></div>
+        <div class="sensi-item"><span class="s-name">MIRA 4X</span><span class="s-val" id="res-4">0</span></div>
+        <div class="sensi-item"><span class="s-name">MIRA AWM</span><span class="s-val" id="res-a">0</span></div>
+        <div class="sensi-item"><span class="s-name">CÂMERA LIVRE</span><span class="s-val" id="res-c">0</span></div>
+        <div class="dpi-card" id="res-dpi">DPI RECOMENDADA: 0</div>
+        <div id="timer">⏳ Aguarde...</div>
+        <button class="btn btn-save" onclick="openSaveModal()">💾 Salvar no Histórico</button>
+        <button class="btn btn-copy" onclick="copyConfig()">📋 Copiar Configuração PRO</button>
+        <button class="btn btn-reset" onclick="resetGenerator()">🔄 Limpar Seleção</button>
+      </div>
+    </div>
+
+    <div id="nameModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2>💾 Salvar Sensibilidade</h2>
+        <p style="margin:20px 0 15px; color:#ccc;">Dê um nome para esta configuração:</p>
+        <input type="text" id="sensiName" placeholder="Ex: Headshot Nubia V60" maxlength="100">
+        <div class="button-group">
+          <button class="btn-confirm" onclick="saveWithName()">Salvar</button>
+          <button class="btn-cancel" onclick="closeNameModal()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="historyModal" class="modal-overlay">
+      <div class="history-modal-content">
+        <h2>📋 Histórico de Sensibilidades</h2>
+        <button class="btn btn-delete" onclick="clearAllHistory()" style="width:100%; margin-bottom:20px;">🗑️ Limpar Todo Histórico</button>
+        <div id="historyList"></div>
+        <button class="btn btn-cancel" onclick="closeHistory()" style="width:100%; margin-top:25px;">Fechar</button>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script>
+        function isLocalStorageAvailable() {
+      try {
+        const test = '__test__';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+      } catch (e) { return false; }
+    }
+
+    const database = {
+      samsung: {
+        modelos: ["Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A04","Galaxy A05","Galaxy A06","Galaxy A07","Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15","Galaxy A16","Galaxy A16 5G","Galaxy A20","Galaxy A20s","Galaxy A21","Galaxy A21s","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25","Galaxy A30","Galaxy A30s","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35","Galaxy A36","Galaxy A50","Galaxy A51","Galaxy A52","Galaxy A53","Galaxy A54","Galaxy A55","Galaxy A56","Galaxy A70","Galaxy A71","Galaxy A72","Galaxy A73","Galaxy A74","Galaxy A75","Galaxy A76","Galaxy A80","Galaxy A81","Galaxy A82","Galaxy A83","Galaxy A84","Galaxy A85","Galaxy A90","Galaxy A91","Galaxy A92","Galaxy S20 FE","Galaxy S21","Galaxy S22","Galaxy S23","Galaxy S23 Ultra","Galaxy S24","Galaxy S24 Ultra","Galaxy S25","Galaxy S25 Plus","Galaxy S25 Ultra","Galaxy Note 20","Galaxy Z Flip 4","Galaxy Z Flip 5","Galaxy Z Fold 4","Galaxy Z Fold 5"],
+        valores: {"Galaxy A01":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Galaxy A02":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Galaxy A03":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Galaxy A04":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Galaxy A05":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Galaxy A06":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Galaxy A07":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Galaxy A10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Galaxy A10s":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Galaxy A11":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Galaxy A12":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Galaxy A13":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Galaxy A14":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Galaxy A15":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Galaxy A16":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Galaxy A16 5G":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Galaxy A20":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Galaxy A20s":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Galaxy A21":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Galaxy A21s":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Galaxy A22":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Galaxy A23":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Galaxy A24":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Galaxy A25":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Galaxy A30":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Galaxy A30s":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Galaxy A31":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Galaxy A32":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Galaxy A33":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Galaxy A34":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Galaxy A35":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Galaxy A36":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Galaxy A50":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Galaxy A51":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Galaxy A52":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Galaxy A53":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Galaxy A54":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Galaxy A55":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Galaxy A56":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Galaxy A70":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Galaxy A71":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Galaxy A72":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Galaxy A73":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Galaxy A74":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Galaxy A75":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Galaxy A76":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Galaxy A80":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Galaxy A81":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Galaxy A82":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Galaxy A83":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Galaxy A84":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Galaxy A85":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Galaxy A90":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Galaxy A91":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Galaxy A92":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Galaxy S20 FE":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Galaxy S21":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Galaxy S22":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Galaxy S23":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Galaxy S23 Ultra":{g:190,r:185,m2:182,m4:180,awm:51,cam:170,dpi:890},"Galaxy S24":{g:191,r:186,m2:183,m4:181,awm:52,cam:171,dpi:900},"Galaxy S24 Ultra":{g:192,r:187,m2:184,m4:182,awm:52,cam:172,dpi:910},"Galaxy S25":{g:192,r:187,m2:184,m4:182,awm:52,cam:172,dpi:910},"Galaxy S25 Plus":{g:193,r:188,m2:185,m4:183,awm:53,cam:173,dpi:920},"Galaxy S25 Ultra":{g:194,r:189,m2:186,m4:184,awm:53,cam:174,dpi:930},"Galaxy Note 20":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Galaxy Z Flip 4":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Galaxy Z Flip 5":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Galaxy Z Fold 4":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Galaxy Z Fold 5":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880}}
+      },
+      motorola: {
+        modelos: ["Moto E7","Moto E13","Moto E22","Moto E32","Moto G04","Moto G05","Moto G06","Moto G8 Power","Moto G8 Play","Moto G9 Play","Moto G10","Moto G14","Moto G15","Moto G20","Moto G22","Moto G23","Moto G24","Moto G30","Moto G31","Moto G32","Moto G34","Moto G35","Moto G42","Moto G52","Moto G54","Moto G55","Moto G60","Moto G73","Moto G75","Moto G84","Moto G85","Moto G86","Moto Edge 30","Moto Edge 40","Moto Edge 50","Moto Edge 50 Fusion","Moto Edge 50 Pro","Moto Edge 50 Ultra","Moto Razr 40","Moto Razr 40 Ultra","Moto Razr 50","Moto Razr 50 Ultra"],
+        valores: {"Moto E7":{g:162,r:157,m2:154,m4:152,awm:36,cam:142,dpi:580},"Moto E13":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Moto E22":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Moto E32":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Moto G04":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Moto G05":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Moto G06":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Moto G8 Power":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Moto G8 Play":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Moto G9 Play":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Moto G10":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Moto G14":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Moto G15":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Moto G20":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Moto G22":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Moto G23":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Moto G24":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Moto G30":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Moto G31":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Moto G32":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Moto G34":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Moto G35":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Moto G42":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Moto G52":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Moto G54":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Moto G55":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Moto G60":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Moto G73":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Moto G75":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Moto G84":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Moto G85":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Moto G86":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Moto Edge 30":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Moto Edge 40":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Moto Edge 50":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Moto Edge 50 Fusion":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Moto Edge 50 Pro":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Moto Edge 50 Ultra":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Moto Razr 40":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Moto Razr 40 Ultra":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Moto Razr 50":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Moto Razr 50 Ultra":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850}}
+      },
+      xiaomi: {
+        modelos: ["Redmi 9","Redmi 9A","Redmi 9C","Redmi 10","Redmi 10A","Redmi 10C","Redmi 10T","Redmi 11","Redmi 11 Prime","Redmi 12","Redmi 12 5G","Redmi 12C","Redmi 13","Redmi 13C","Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12","Redmi Note 12 Pro","Redmi Note 12 Pro+","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 13 Pro+","Redmi Note 14","Redmi Note 14 Pro","Redmi Note 14 Pro+","Poco C40","Poco C50","Poco C51","Poco C55","Poco M7","Poco M8","Poco M8 56","Poco M8 Pro","Poco X3","Poco X3 Pro","Poco X3 GT","Poco X4 Pro 5G","Poco X5 Pro","Poco X6","Poco X6 Pro","Poco F3","Poco F4","Poco F5","Poco F5 Pro","Poco F6","Poco F6 Pro","Poco M5","Poco M5s","Poco M6 Pro","Xiaomi 12","Xiaomi 12 Pro","Xiaomi 12T","Xiaomi 13","Xiaomi 13T","Xiaomi 13T Pro","Xiaomi 14","Xiaomi 14 Ultra","Xiaomi 15"],
+        valores: {"Redmi 9":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Redmi 9A":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Redmi 9C":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Redmi 10":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Redmi 10A":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Redmi 10C":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Redmi 10T":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Redmi 11":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Redmi 11 Prime":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Redmi 12":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Redmi 12 5G":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Redmi 12C":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Redmi 13":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Redmi 13C":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Redmi Note 8":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Redmi Note 9":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Redmi Note 10":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Redmi Note 11":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Redmi Note 12":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Redmi Note 12 Pro":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Redmi Note 12 Pro+":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Redmi Note 13":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Redmi Note 13 Pro":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Redmi Note 13 Pro+":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Redmi Note 14":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Redmi Note 14 Pro":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Redmi Note 14 Pro+":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Poco C40":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Poco C50":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Poco C51":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Poco C55":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Poco M7":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Poco M8":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Poco M8 56":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Poco M8 Pro":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Poco X3":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Poco X3 Pro":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Poco X3 GT":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Poco X4 Pro 5G":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Poco X5 Pro":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Poco X6":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Poco X6 Pro":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Poco F3":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Poco F4":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Poco F5":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Poco F5 Pro":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Poco F6":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Poco F6 Pro":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Poco M5":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Poco M5s":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Poco M6 Pro":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Xiaomi 12":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Xiaomi 12 Pro":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Xiaomi 12T":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Xiaomi 13":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Xiaomi 13T":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Xiaomi 13T Pro":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Xiaomi 14":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Xiaomi 14 Ultra":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Xiaomi 15":{g:190,r:185,m2:182,m4:180,awm:51,cam:170,dpi:890}}
+      },
+      realme: {
+        modelos: ["Realme 7","Realme 7 Pro","Realme 8","Realme 8 Pro","Realme 9","Realme 9i","Realme 9 Pro+","Realme 10","Realme 11","Realme 11 Pro+","Realme 12","Realme 12 Pro+","Realme 13 Pro+","Realme 14 Pro+","Realme C11","Realme C21","Realme C33","Realme C35","Realme C53","Realme C55","Realme C61","Realme C63","Realme C67","Realme C75","Realme Narzo 50","Realme Narzo 60","Realme Narzo 70","GT 7 Pro","GT 7 Neo","GT 5 Pro","GT 6","GT 6T","GT Neo 5","GT Neo 5 SE","Realme 12 Pro+"],
+        valores: {"Realme 7":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Realme 7 Pro":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Realme 8":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Realme 8 Pro":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Realme 9":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Realme 9i":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Realme 9 Pro+":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Realme 10":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Realme 11":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Realme 11 Pro+":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Realme 12":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Realme 12 Pro+":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Realme 13 Pro+":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Realme 14 Pro+":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Realme C11":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Realme C21":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Realme C33":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Realme C35":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Realme C53":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Realme C55":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Realme C61":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Realme C63":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Realme C67":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Realme C75":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Realme Narzo 50":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Realme Narzo 60":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Realme Narzo 70":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"GT 7 Pro":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"GT 7 Neo":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"GT 5 Pro":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"GT 6":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"GT 6T":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"GT Neo 5":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"GT Neo 5 SE":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Realme 12 Pro+":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780}}
+      },
+      infinix: {
+        modelos: ["Hot 10","Hot 12","Hot 12i","Hot 20","Hot 20i","Hot 20 5G","Hot 30i","Hot 40","Hot 40 Pro","Hot 40i","Hot 50","Hot 50 5G","Hot 50 Pro","Note 12","Note 12 Pro","Note 30","Note 30 Pro","Note 40","Note 40 Pro","Note 40S","Infinix GT 20 Pro"],
+        valores: {"Hot 10":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Hot 12":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Hot 12i":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Hot 20":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Hot 20i":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Hot 20 5G":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Hot 30i":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Hot 40":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Hot 40 Pro":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Hot 40i":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Hot 50":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Hot 50 5G":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Hot 50 Pro":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Note 12":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Note 12 Pro":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Note 30":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Note 30 Pro":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Note 40":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Note 40 Pro":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Note 40S":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Infinix GT 20 Pro":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810}}
+      },
+      oppo: {
+        modelos: ["Oppo A15","Oppo A17","Oppo A31","Oppo A38","Oppo A54","Oppo A58","Oppo A76","Oppo A78","Oppo A79","Oppo Reno 8","Oppo Reno 8T","Oppo Reno 9","Oppo Reno 10","Oppo Reno 11","Oppo Reno 12","Oppo Reno 12 Pro","Oppo Find X5","Oppo Find X6","Oppo Find X7","Oppo Find X7 Ultra","Oppo Find N2","Oppo Find N3"],
+        valores: {"Oppo A15":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Oppo A17":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Oppo A31":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Oppo A38":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Oppo A54":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Oppo A58":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Oppo A76":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Oppo A78":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Oppo A79":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Oppo Reno 8":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Oppo Reno 8T":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Oppo Reno 9":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Oppo Reno 10":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Oppo Reno 11":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Oppo Reno 12":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Oppo Reno 12 Pro":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Oppo Find X5":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Oppo Find X6":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Oppo Find X7":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Oppo Find X7 Ultra":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Oppo Find N2":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Oppo Find N3":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830}}
+      },
+      vivo: {
+        modelos: ["Vivo Y15","Vivo Y21","Vivo Y22","Vivo Y27","Vivo Y33","Vivo Y35","Vivo Y36","Vivo Y55","Vivo Y200","Vivo V25","Vivo V27","Vivo V29","Vivo V30","Vivo V30 SE","Vivo V30 Pro","Vivo X80","Vivo X90","Vivo X100","Vivo X100 Pro","Vivo X Fold 2"],
+        valores: {"Vivo Y15":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Vivo Y21":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Vivo Y22":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Vivo Y27":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Vivo Y33":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Vivo Y35":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Vivo Y36":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Vivo Y55":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Vivo Y200":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Vivo V25":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Vivo V27":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Vivo V29":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Vivo V30":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Vivo V30 SE":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Vivo V30 Pro":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Vivo X80":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Vivo X90":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Vivo X100":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Vivo X100 Pro":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Vivo X Fold 2":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820}}
+      },
+      huawei: {
+        modelos: ["Huawei P30","Huawei P40","Huawei P50","Huawei P60","Huawei P60 Pro","Huawei P70","Huawei P70 Pro","Huawei Mate 20","Huawei Mate 30","Huawei Mate 40","Huawei Mate 50","Huawei Mate 60","Huawei Mate 60 Pro","Huawei Mate X3","Huawei Mate X5","Honor 200","Honor 200 Pro","Honor 90","Honor 90 Pro","Honor Magic 5","Honor Magic 6","Honor Magic 6 Pro"],
+        valores: {"Huawei P30":{g:177,r:172,m2:170,m4:167,awm:45,cam:157,dpi:850},"Huawei P40":{g:179,r:174,m2:172,m4:169,awm:46,cam:159,dpi:870},"Huawei P50":{g:180,r:175,m2:173,m4:170,awm:47,cam:160,dpi:880},"Huawei P60":{g:182,r:177,m2:175,m4:172,awm:48,cam:162,dpi:900},"Huawei P60 Pro":{g:183,r:178,m2:176,m4:173,awm:48,cam:163,dpi:910},"Huawei P70":{g:184,r:179,m2:177,m4:174,awm:49,cam:164,dpi:920},"Huawei P70 Pro":{g:185,r:180,m2:178,m4:175,awm:49,cam:165,dpi:930},"Huawei Mate 20":{g:178,r:173,m2:171,m4:168,awm:45,cam:158,dpi:860},"Huawei Mate 30":{g:179,r:174,m2:172,m4:169,awm:46,cam:159,dpi:870},"Huawei Mate 40":{g:180,r:175,m2:173,m4:170,awm:47,cam:160,dpi:880},"Huawei Mate 50":{g:181,r:176,m2:174,m4:171,awm:47,cam:161,dpi:890},"Huawei Mate 60":{g:182,r:177,m2:175,m4:172,awm:48,cam:162,dpi:900},"Huawei Mate 60 Pro":{g:183,r:178,m2:176,m4:173,awm:48,cam:163,dpi:910},"Huawei Mate X3":{g:181,r:176,m2:174,m4:171,awm:47,cam:161,dpi:890},"Huawei Mate X5":{g:182,r:177,m2:175,m4:172,awm:48,cam:162,dpi:900},"Honor 200":{g:180,r:175,m2:173,m4:170,awm:47,cam:160,dpi:880},"Honor 200 Pro":{g:181,r:176,m2:174,m4:171,awm:47,cam:161,dpi:890},"Honor 90":{g:179,r:174,m2:172,m4:169,awm:46,cam:159,dpi:870},"Honor 90 Pro":{g:180,r:175,m2:173,m4:170,awm:47,cam:160,dpi:880},"Honor Magic 5":{g:181,r:176,m2:174,m4:171,awm:47,cam:161,dpi:890},"Honor Magic 6":{g:182,r:177,m2:175,m4:172,awm:48,cam:162,dpi:900},"Honor Magic 6 Pro":{g:183,r:178,m2:176,m4:173,awm:48,cam:163,dpi:910}}
+      },
+      tecno: {
+        modelos: ["Tecno Spark 10","Spark 10C","Spark 10P","Spark 10 Pro","Spark 20","Spark 20C","Spark 20 Pro","Spark 20P","Camon 20","Camon 20 Pro","Camon 20 Pro 5G","Camon 30","Camon 30 Pro","Phantom V Flip","Phantom V Fold"],
+        valores: {"Tecno Spark 10":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:700},"Spark 10C":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Spark 10P":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Spark 10 Pro":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Spark 20":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Spark 20C":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Spark 20 Pro":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Spark 20P":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Camon 20":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Camon 20 Pro":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Camon 20 Pro 5G":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Camon 30":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Camon 30 Pro":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Phantom V Flip":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Phantom V Fold":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800}}
+      },
+      lg: {
+        modelos: ["LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31","LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61","LG Stylo 5","LG Stylo 6","LG Velvet","LG Wing"],
+        valores: {"LG K8":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"LG K9":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:610},"LG K10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"LG K11":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"LG K12":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K20":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"LG K22":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K30":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K31":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"LG K32":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG K40":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K41":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"LG K42":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG K50":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K51":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"LG K52":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG K61":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"LG Stylo 5":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG Stylo 6":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"LG Velvet":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"LG Wing":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760}}
+      },
+      zte: {
+        modelos: ["Nubia Z60","Nubia Z60 Ultra","Nubia Z60S Pro","Nubia V60","Nubia V60 Design","Nubia V70","Nubia Red Magic 9 Pro","Nubia Red Magic 9S Pro","Nubia Red Magic 10","Nubia Red Magic 10 Pro","ZTE Axon 60","ZTE Axon 60 Ultra","ZTE Blade A73","Nubia Flip","Nubia Z50","Nubia Z50S Pro","Nubia Neo 2","Nubia Red Magic 9R","Nubia Red Magic 10R"],
+        valores: {"Nubia Z60":{g:182,r:177,m2:174,m4:171,awm:47,cam:162,dpi:810},"Nubia Z60 Ultra":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Nubia Z60S Pro":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Nubia V60":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Nubia V60 Design":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Nubia V70":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Nubia Red Magic 9 Pro":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Nubia Red Magic 9S Pro":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Nubia Red Magic 10":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Nubia Red Magic 10 Pro":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"ZTE Axon 60":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"ZTE Axon 60 Ultra":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"ZTE Blade A73":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Nubia Flip":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Nubia Z50":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Nubia Z50S Pro":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Nubia Neo 2":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Nubia Red Magic 9R":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Nubia Red Magic 10R":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850}}
+      },
+      asus: {
+        modelos: ["ROG Phone 5","ROG Phone 5s","ROG Phone 6","ROG Phone 6 Pro","ROG Phone 7","ROG Phone 7 Ultimate","ROG Phone 8","ROG Phone 8 Pro","Zenfone 8","Zenfone 8 Flip","Zenfone 9","Zenfone 10","Zenfone 11 Ultra"],
+        valores: {"ROG Phone 5":{g:190,r:185,m2:182,m4:180,awm:52,cam:170,dpi:900},"ROG Phone 5s":{g:191,r:186,m2:183,m4:181,awm:52,cam:171,dpi:910},"ROG Phone 6":{g:192,r:187,m2:184,m4:182,awm:53,cam:172,dpi:920},"ROG Phone 6 Pro":{g:193,r:188,m2:185,m4:183,awm:53,cam:173,dpi:930},"ROG Phone 7":{g:194,r:189,m2:186,m4:184,awm:54,cam:174,dpi:940},"ROG Phone 7 Ultimate":{g:195,r:190,m2:187,m4:185,awm:54,cam:175,dpi:950},"ROG Phone 8":{g:194,r:189,m2:186,m4:184,awm:54,cam:174,dpi:940},"ROG Phone 8 Pro":{g:195,r:190,m2:187,m4:185,awm:54,cam:175,dpi:950},"Zenfone 8":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Zenfone 8 Flip":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Zenfone 9":{g:190,r:185,m2:182,m4:180,awm:52,cam:170,dpi:900},"Zenfone 10":{g:191,r:186,m2:183,m4:181,awm:52,cam:171,dpi:910},"Zenfone 11 Ultra":{g:192,r:187,m2:184,m4:182,awm:53,cam:172,dpi:920}}
+      },
+      google: {
+        modelos: ["Pixel 6","Pixel 6 Pro","Pixel 7","Pixel 7 Pro","Pixel 7a","Pixel 8","Pixel 8 Pro","Pixel 8a","Pixel 9","Pixel 9 Pro","Pixel 9 Pro XL","Pixel 9 Pro Fold"],
+        valores: {"Pixel 6":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"Pixel 6 Pro":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"Pixel 7":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"Pixel 7 Pro":{g:186,r:181,m2:178,m4:176,awm:50,cam:166,dpi:900},"Pixel 7a":{g:182,r:177,m2:174,m4:172,awm:48,cam:162,dpi:860},"Pixel 8":{g:187,r:182,m2:179,m4:177,awm:51,cam:167,dpi:910},"Pixel 8 Pro":{g:188,r:183,m2:180,m4:178,awm:51,cam:168,dpi:920},"Pixel 8a":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"Pixel 9":{g:189,r:184,m2:181,m4:179,awm:52,cam:169,dpi:930},"Pixel 9 Pro":{g:190,r:185,m2:182,m4:180,awm:52,cam:170,dpi:940},"Pixel 9 Pro XL":{g:191,r:186,m2:183,m4:181,awm:53,cam:171,dpi:950},"Pixel 9 Pro Fold":{g:188,r:183,m2:180,m4:178,awm:51,cam:168,dpi:920}}
+      },
+      oneplus: {
+        modelos: ["OnePlus 9","OnePlus 9 Pro","OnePlus 9R","OnePlus 10R","OnePlus 10T","OnePlus 10 Pro","OnePlus 11","OnePlus 11R","OnePlus 12","OnePlus 12R","OnePlus Ace","OnePlus Ace 2","OnePlus Ace 2V","OnePlus Ace 3","OnePlus Ace 3 Pro","OnePlus Nord 2","OnePlus Nord 3","OnePlus Nord 4"],
+        valores: {"OnePlus 9":{g:181,r:176,m2:173,m4:171,awm:48,cam:161,dpi:840},"OnePlus 9 Pro":{g:182,r:177,m2:174,m4:172,awm:48,cam:162,dpi:850},"OnePlus 9R":{g:181,r:176,m2:173,m4:171,awm:48,cam:161,dpi:840},"OnePlus 10R":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"OnePlus 10T":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"OnePlus 10 Pro":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"OnePlus 11":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"OnePlus 11R":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"OnePlus 12":{g:186,r:181,m2:178,m4:176,awm:50,cam:166,dpi:900},"OnePlus 12R":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"OnePlus Ace":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"OnePlus Ace 2":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"OnePlus Ace 2V":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"OnePlus Ace 3":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"OnePlus Ace 3 Pro":{g:186,r:181,m2:178,m4:176,awm:50,cam:166,dpi:900},"OnePlus Nord 2":{g:180,r:175,m2:172,m4:170,awm:47,cam:160,dpi:830},"OnePlus Nord 3":{g:181,r:176,m2:173,m4:171,awm:48,cam:161,dpi:840},"OnePlus Nord 4":{g:182,r:177,m2:174,m4:172,awm:48,cam:162,dpi:850}}
+      },
+      sony: {
+        modelos: ["Xperia 1 III","Xperia 1 IV","Xperia 1 V","Xperia 5 II","Xperia 5 III","Xperia 5 IV","Xperia 5 V","Xperia 10 III","Xperia 10 IV","Xperia 10 V","Xperia Pro-I","Xperia 1 VI","Xperia 5 VI"],
+        valores: {"Xperia 1 III":{g:184,r:179,m2:176,m4:174,awm:50,cam:164,dpi:880},"Xperia 1 IV":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"Xperia 1 V":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:900},"Xperia 5 II":{g:182,r:177,m2:174,m4:172,awm:48,cam:162,dpi:860},"Xperia 5 III":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"Xperia 5 IV":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"Xperia 5 V":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"Xperia 10 III":{g:180,r:175,m2:172,m4:170,awm:47,cam:160,dpi:840},"Xperia 10 IV":{g:181,r:176,m2:173,m4:171,awm:48,cam:161,dpi:850},"Xperia 10 V":{g:182,r:177,m2:174,m4:172,awm:48,cam:162,dpi:860},"Xperia Pro-I":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:900},"Xperia 1 VI":{g:187,r:182,m2:179,m4:177,awm:51,cam:167,dpi:910},"Xperia 5 VI":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:900}}
+      },
+      nokia: {
+        modelos: ["Nokia G10","Nokia G20","Nokia G21","Nokia G22","Nokia G42","Nokia G50","Nokia G60","Nokia G310","Nokia X10","Nokia X20","Nokia X30","Nokia XR21","Nokia XR23","Nokia C32","Nokia C33","Nokia C12","Nokia C21"],
+        valores: {"Nokia G10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Nokia G20":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Nokia G21":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Nokia G22":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Nokia G42":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Nokia G50":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Nokia G60":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Nokia G310":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Nokia X10":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Nokia X20":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Nokia X30":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Nokia XR21":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Nokia XR23":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Nokia C32":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Nokia C33":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Nokia C12":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:610},"Nokia C21":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:620}}
+      },
+      lenovo: {
+        modelos: ["Legion Y70","Legion Y700","Legion Y90","Legion Pro","Lenovo K14","Lenovo K14 Plus","Lenovo Tab Extreme","Lenovo Tab P12 Pro"],
+        valores: {"Legion Y70":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:890},"Legion Y700":{g:187,r:182,m2:179,m4:177,awm:51,cam:167,dpi:900},"Legion Y90":{g:188,r:183,m2:180,m4:178,awm:52,cam:168,dpi:910},"Legion Pro":{g:189,r:184,m2:181,m4:179,awm:52,cam:169,dpi:920},"Lenovo K14":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"Lenovo K14 Plus":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"Lenovo Tab Extreme":{g:188,r:183,m2:180,m4:178,awm:52,cam:168,dpi:910},"Lenovo Tab P12 Pro":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:890}}
+      },
+      positivo: {
+        modelos: ["Positivo Smart","Positivo Twist","Positivo Twist 5G","Positivo Selfie","Positivo N350","Positivo Q32","Positivo Q20"],
+        valores: {"Positivo Smart":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Positivo Twist":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:620},"Positivo Twist 5G":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Positivo Selfie":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Positivo N350":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:610},"Positivo Q32":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Positivo Q20":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:620}}
+      },
+      multilaser: {
+        modelos: ["Multilaser M13","Multilaser M15","Multilaser G Max","Multilaser G Pro","Multilaser H","Multilaser H+","Multilaser M11","Multilaser M12"],
+        valores: {"Multilaser M13":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:620},"Multilaser M15":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Multilaser G Max":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Multilaser G Pro":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Multilaser H":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Multilaser H+":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Multilaser M11":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Multilaser M12":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660}}
+      },
+      iphone: {
+        modelos: ["iPhone 8","iPhone 8 Plus","iPhone X","iPhone XS","iPhone XS Max","iPhone XR","iPhone 11","iPhone 11 Pro","iPhone 11 Pro Max","iPhone 12","iPhone 12 mini","iPhone 12 Pro","iPhone 12 Pro Max","iPhone 13","iPhone 13 mini","iPhone 13 Pro","iPhone 13 Pro Max","iPhone 14","iPhone 14 Plus","iPhone 14 Pro","iPhone 14 Pro Max","iPhone 15","iPhone 15 Plus","iPhone 15 Pro","iPhone 15 Pro Max","iPhone 16","iPhone 16 Plus","iPhone 16 Pro","iPhone 16 Pro Max"],
+        valores: {"iPhone 8":{g:192,r:187,m2:184,m4:182,awm:54,cam:172,dpi:0},"iPhone 8 Plus":{g:193,r:188,m2:185,m4:183,awm:54,cam:173,dpi:0},"iPhone X":{g:194,r:189,m2:186,m4:184,awm:55,cam:174,dpi:0},"iPhone XS":{g:195,r:190,m2:187,m4:185,awm:55,cam:175,dpi:0},"iPhone XS Max":{g:196,r:191,m2:188,m4:186,awm:56,cam:176,dpi:0},"iPhone XR":{g:194,r:189,m2:186,m4:184,awm:55,cam:174,dpi:0},"iPhone 11":{g:195,r:190,m2:187,m4:185,awm:55,cam:175,dpi:0},"iPhone 11 Pro":{g:196,r:191,m2:188,m4:186,awm:56,cam:176,dpi:0},"iPhone 11 Pro Max":{g:197,r:192,m2:189,m4:187,awm:56,cam:177,dpi:0},"iPhone 12":{g:196,r:191,m2:188,m4:186,awm:56,cam:176,dpi:0},"iPhone 12 mini":{g:195,r:190,m2:187,m4:185,awm:55,cam:175,dpi:0},"iPhone 12 Pro":{g:197,r:192,m2:189,m4:187,awm:56,cam:177,dpi:0},"iPhone 12 Pro Max":{g:198,r:193,m2:190,m4:188,awm:57,cam:178,dpi:0},"iPhone 13":{g:197,r:192,m2:189,m4:187,awm:56,cam:177,dpi:0},"iPhone 13 mini":{g:196,r:191,m2:188,m4:186,awm:56,cam:176,dpi:0},"iPhone 13 Pro":{g:198,r:193,m2:190,m4:188,awm:57,cam:178,dpi:0},"iPhone 13 Pro Max":{g:199,r:194,m2:191,m4:189,awm:57,cam:179,dpi:0},"iPhone 14":{g:198,r:193,m2:190,m4:188,awm:57,cam:178,dpi:0},"iPhone 14 Plus":{g:199,r:194,m2:191,m4:189,awm:57,cam:179,dpi:0},"iPhone 14 Pro":{g:199,r:194,m2:191,m4:189,awm:57,cam:179,dpi:0},"iPhone 14 Pro Max":{g:200,r:195,m2:192,m4:190,awm:58,cam:180,dpi:0},"iPhone 15":{g:199,r:194,m2:191,m4:189,awm:57,cam:179,dpi:0},"iPhone 15 Plus":{g:200,r:195,m2:192,m4:190,awm:58,cam:180,dpi:0},"iPhone 15 Pro":{g:200,r:195,m2:192,m4:190,awm:58,cam:180,dpi:0},"iPhone 15 Pro Max":{g:201,r:196,m2:193,m4:191,awm:58,cam:181,dpi:0},"iPhone 16":{g:200,r:195,m2:192,m4:190,awm:58,cam:180,dpi:0},"iPhone 16 Plus":{g:201,r:196,m2:193,m4:191,awm:58,cam:181,dpi:0},"iPhone 16 Pro":{g:201,r:196,m2:193,m4:191,awm:58,cam:181,dpi:0},"iPhone 16 Pro Max":{g:202,r:197,m2:194,m4:192,awm:59,cam:182,dpi:0}}
+      }
+    };
+
+    const brandSelect = document.getElementById('brand');
+    const modelSelect = document.getElementById('model');
+    const generateBtn = document.getElementById('generateBtn');
+    const resultBox = document.getElementById('resultBox');
+    const timerEl = document.getElementById('timer');
+    const toastEl = document.getElementById('toast');
+    const entryScreen = document.getElementById('entry-screen');
+    const mainApp = document.getElementById('main-app');
+    const enterBtn = document.getElementById('enter-btn');
+
+    let timerInterval = null;
+    let cooldownEndTime = null;
+    const COOLDOWN_KEY = 'niel_global_cooldown';
+    const MAX_HISTORY = 30;
+    const GENERATIONS_KEY = 'niel_total_generations';
+
+    function validateInput(str, maxLength = 100) {
+      if (!str || typeof str !== 'string') return '';
+      return str.trim().substring(0, maxLength).replace(/[<>]/g, '');
+    }
+
+    function sanitize(str) {
+      if (typeof str !== 'string') return '';
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function getSafeHistory() {
+      try {
+        if (!isLocalStorageAvailable()) return [];
+        const data = JSON.parse(localStorage.getItem('sensiHistory') || '[]');
+        return Array.isArray(data) ? data : [];
+      } catch (e) { return []; }
+    }
+
+    function updateStats() {
+      const history = getSafeHistory();
+      document.getElementById('total-generations').innerText = localStorage.getItem(GENERATIONS_KEY) || 0;
+      document.getElementById('total-favorites').innerText = history.filter(item => item.fav).length;
+    }
+
+    function incrementGenerations() {
+      if (!isLocalStorageAvailable()) return;
+      let count = parseInt(localStorage.getItem(GENERATIONS_KEY) || '0');
+      count++;
+      localStorage.setItem(GENERATIONS_KEY, count.toString());
+      updateStats();
+    }
+
+    function showToast(message, type = "normal") {
+      toastEl.textContent = message;
+      toastEl.style.display = "block";
+      toastEl.style.opacity = "1";
+      const colors = { 
+        "success": "#10b981", 
+        "error": "#ef4444", 
+        "warning": "#f59e0b", 
+        "normal": "#1f2937" 
+      };
+      toastEl.style.background = colors[type] || colors.normal;
+      setTimeout(() => {
+        toastEl.style.opacity = "0";
+        setTimeout(() => toastEl.style.display = "none", 400);
+      }, 2800);
+    }
+
+    function checkCooldown() {
+      if (!isLocalStorageAvailable()) return false;
+      try {
+        const stored = JSON.parse(localStorage.getItem(COOLDOWN_KEY) || '{}');
+        if (!stored.end || Date.now() >= stored.end) {
+          localStorage.removeItem(COOLDOWN_KEY);
+          return false;
+        }
+        cooldownEndTime = stored.end;
+        startRealTimeTimer();
+        return true;
+      } catch (e) { return false; }
+    }
+
+    function startRealTimeTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      generateBtn.style.background = 'linear-gradient(135deg, #ff007f, #ff5e62)';
+      timerEl.classList.add('show');
+      generateBtn.disabled = true;
+
+      const update = () => {
+        const restante = cooldownEndTime - Date.now();
+        if (restante <= 0) {
+          clearInterval(timerInterval);
+          timerEl.innerHTML = "✅ Pode gerar novamente!";
+          timerEl.classList.remove('show');
+          generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+          generateBtn.disabled = false;
+          generateBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+          if (isLocalStorageAvailable() && Notification.permission === 'granted') {
+            new Notification("⚡ NIEL REALSENSI PRO", { 
+              body: "Seu cooldown terminou! Pode gerar novamente.", 
+              icon: "⚡" 
+            });
+          }
+          return;
+        }
+        const m = Math.floor((restante % 3600000) / 60000);
+        const s = Math.floor((restante % 60000) / 1000);
+        timerEl.innerHTML = `⏰ Aguarde: <strong>${m}m ${s}s</strong>`;
+        generateBtn.textContent = `Aguarde ${m}m ${s}s`;
+        generateBtn.disabled = true;
+      };
+      timerInterval = setInterval(update, 1000);
+      update();
+    }
+
+    function openSaveModal() {
+      if (!modelSelect.value) return showToast("❌ Selecione marca e modelo primeiro", "error");
+      document.getElementById('sensiName').value = `Sensi ${modelSelect.value}`;
+      document.getElementById('nameModal').classList.add('show');
+      document.getElementById('sensiName').focus();
+    }
+
+    function closeNameModal() { 
+      document.getElementById('nameModal').classList.remove('show'); 
+    }
+
+    function saveWithName() {
+      const nameInput = document.getElementById('sensiName').value.trim();
+      if (!nameInput) return showToast("❌ Digite um nome", "error");
+      if (!isLocalStorageAvailable()) return showToast("⚠️ LocalStorage não disponível", "warning");
+
+      const safeName = sanitize(validateInput(nameInput));
+      closeNameModal();
+
+      const sensi = {
+        id: Date.now(), 
+        name: safeName, 
+        date: new Date().toLocaleString('pt-BR'), 
+        model: modelSelect.value,
+        g: parseInt(document.getElementById("res-g").innerText) || 0,
+        r: parseInt(document.getElementById("res-r").innerText) || 0,
+        m2: parseInt(document.getElementById("res-2").innerText) || 0,
+        m4: parseInt(document.getElementById("res-4").innerText) || 0,
+        awm: parseInt(document.getElementById("res-a").innerText) || 0,
+        cam: parseInt(document.getElementById("res-c").innerText) || 0,
+        dpi: parseInt(document.getElementById("res-dpi").innerText.match(/\d+/)?.[0]) || 0, 
+        fav: false
+      };
+
+      let history = getSafeHistory();
+      history.unshift(sensi);
+      history = history.slice(0, MAX_HISTORY);
+      localStorage.setItem('sensiHistory', JSON.stringify(history));
+      updateStats();
+      showToast(`✅ "${safeName}" salva com sucesso!`, "success");
+    }
+
+    function showHistory() {
+      const history = getSafeHistory();
+      const list = document.getElementById('historyList');
+      list.innerHTML = '';
+
+      if (history.length === 0) {
+        list.innerHTML = '<div style="text-align:center; padding:40px; color:#777;">Nenhuma sensibilidade salva ainda.</div>';
+      } else {
+        const sortedHistory = [...history].sort((a, b) => b.fav - a.fav);
+        sortedHistory.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = `history-item ${item.fav ? 'is-fav' : ''}`;
+          div.style.animationDelay = `${index * 0.05}s`;
+          div.innerHTML = `
+            <span class="fav-star" onclick="toggleFav(${item.id});">${item.fav ? '⭐' : '☆'}</span>
+            <div class="history-item-date">${item.date}</div>
+            <div class="history-item-name">${sanitize(item.name)} — ${item.model}</div>
+            <div class="history-item-details">Geral: ${item.g} | Red: ${item.r} | 2X: ${item.m2} | 4X: ${item.m4} | AWM: ${item.awm} | DPI: ${item.dpi}</div>
+            <div class="history-item-buttons">
+              <button class="btn-load" onclick="loadFromHistory(${item.id}); closeHistory();">📂 Carregar</button>
+              <button class="btn-delete" onclick="deleteFromHistory(${item.id}); event.stopImmediatePropagation();">🗑️ Deletar</button>
+            </div>
+          `;
+          list.appendChild(div);
+        });
+      }
+      document.getElementById('historyModal').classList.add('show');
+    }
+
+    function toggleFav(id) {
+      let history = getSafeHistory();
+      history = history.map(item => item.id === id ? {...item, fav: !item.fav} : item);
+      localStorage.setItem('sensiHistory', JSON.stringify(history));
+      showHistory();
+      updateStats();
+      showToast("⭐ Favoritos atualizados!", "success");
+    }
+
+    function loadFromHistory(id) {
+      const history = getSafeHistory();
+      const item = history.find(h => h.id === id);
+      if (item) {
+        document.getElementById("res-model").innerText = "📱 " + item.model;
+        document.getElementById("res-g").innerText = item.g;
+        document.getElementById("res-r").innerText = item.r;
+        document.getElementById("res-2").innerText = item.m2;
+        document.getElementById("res-4").innerText = item.m4;
+        document.getElementById("res-a").innerText = item.awm;
+        document.getElementById("res-c").innerText = item.cam;
+        document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${item.dpi}`;
+        resultBox.classList.add("show");
+        showToast(`✅ Configuração carregada!`, "success");
+      }
+    }
+
+    function deleteFromHistory(id) {
+      if (confirm("Deseja realmente excluir esta sensibilidade?")) {
+        let history = getSafeHistory().filter(h => h.id !== id);
+        if (isLocalStorageAvailable()) localStorage.setItem('sensiHistory', JSON.stringify(history));
+        showHistory();
+        updateStats();
+        showToast("✅ Sensibilidade excluída com sucesso!", "success");
+      }
+    }
+
+    function clearAllHistory() {
+      if (confirm("⚠️ Tem certeza que deseja apagar TODO o histórico?\n\nEsta ação não pode ser desfeita.")) {
+        if (isLocalStorageAvailable()) {
+          localStorage.removeItem('sensiHistory');
+          localStorage.removeItem(GENERATIONS_KEY);
+        }
+        showHistory();
+        updateStats();
+        showToast("✅ Todo o histórico foi apagado com sucesso!", "success");
+      }
+    }
+
+    function closeHistory() { 
+      document.getElementById('historyModal').classList.remove('show'); 
+    }
+
+    function resetGenerator() {
+      if (timerInterval) clearInterval(timerInterval);
+      brandSelect.value = '';
+      modelSelect.value = '';
+      modelSelect.disabled = true;
+      resultBox.classList.remove('show');
+      timerEl.classList.remove('show');
+      generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+      generateBtn.disabled = false;
+      generateBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+      showToast("🔄 Seleção limpa!", "success");
+    }
+
+    function generateSensi() {
+      const brand = brandSelect.value;
+      const model = modelSelect.value;
+      const nivelSensi = document.getElementById('dpi-level').value;
+
+      if (!brand || !model) return showToast("❌ Selecione marca e modelo!", "error");
+      if (!database[brand]) return showToast("❌ Marca não encontrada no banco de dados", "error");
+      if (!database[brand].valores[model]) return showToast("❌ Modelo não encontrado. Selecione novamente.", "error");
+      if (checkCooldown()) return showToast("⏳ Ainda em cooldown!", "warning");
+
+      generateBtn.textContent = "⚡ Gerando...";
+      generateBtn.disabled = true;
+      cooldownEndTime = Date.now() + (5 * 60 * 1000);
+      startRealTimeTimer();
+
+      setTimeout(() => {
+        const base = database[brand].valores[model];
+        let multiplicador = 1;
+        
+        if (nivelSensi === "BAIXA") {
+          multiplicador = 0.85;
+        } else if (nivelSensi === "MÉDIA") {
+          multiplicador = 1.0;
+        } else {
+          multiplicador = 1.15;
+        }
+        
+        const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+        const v = {
+          g: Math.max(158, Math.min(208, Math.round(base.g * multiplicador + rand(-15, 15)))),
+          r: Math.max(152, Math.min(200, Math.round(base.r * multiplicador + rand(-15, 15)))),
+          m2: Math.max(145, Math.min(200, Math.round(base.m2 * multiplicador + rand(-15, 15)))),
+          m4: Math.max(142, Math.min(198, Math.round(base.m4 * multiplicador + rand(-15, 15)))),
+          awm: Math.max(30, Math.min(75, Math.round(base.awm * multiplicador + rand(-10, 10)))),
+          cam: Math.max(132, Math.min(188, Math.round(base.cam * multiplicador + rand(-15, 15)))),
+          dpi: Math.round((base.dpi * multiplicador + rand(-50, 50)) / 10) * 10
+        };
+
+        let corNivel = "#00f2fe";
+        let emoji = "⚖️";
+        
+        if (nivelSensi === "BAIXA") {
+          corNivel = "#10b981";
+          emoji = "📉";
+        } else if (nivelSensi === "ALTA") {
+          corNivel = "#ff007f";
+          emoji = "📈";
+        }
+
+        document.getElementById("res-model").innerText = "📱 " + model;
+        document.getElementById("res-model").style.color = corNivel;
+        
+        const nivelContainer = document.getElementById("nivel-container");
+        nivelContainer.style.display = "block";
+        nivelContainer.style.background = `rgba(${corNivel === "#10b981" ? "16, 185, 129" : corNivel === "#ff007f" ? "255, 0, 127" : "0, 242, 254"}, 0.15)`;
+        nivelContainer.style.borderLeft = `4px solid ${corNivel}`;
+        nivelContainer.innerHTML = `${emoji} <strong>NÍVEL DE DPI: ${nivelSensi}</strong>`;
+        
+        document.getElementById("res-g").innerText = v.g;
+        document.getElementById("res-r").innerText = v.r;
+        document.getElementById("res-2").innerText = v.m2;
+        document.getElementById("res-4").innerText = v.m4;
+        document.getElementById("res-a").innerText = v.awm;
+        document.getElementById("res-c").innerText = v.cam;
+
+        if (brand === "iphone") {
+          document.getElementById("res-g").innerText = Math.max(190, Math.min(200, v.g));
+          document.getElementById("res-dpi").innerText = "Sistema iOS (Não alterável)";
+        } else {
+          document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
+        }
+
+        resultBox.classList.add("show");
+        if (isLocalStorageAvailable()) localStorage.setItem(COOLDOWN_KEY, JSON.stringify({ end: cooldownEndTime }));
+        incrementGenerations();
+        createParticles();
+        showToast(`✅ Sensibilidade ${nivelSensi} gerada!`, "success");
+        generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+        generateBtn.disabled = false;
+      }, 1300);
+    }
+
+   function copyConfig() {
+  const model = modelSelect.value || "Desconhecido";
+  const nivelText = document.getElementById("nivel-container").innerText || "MÉDIA";
+
+  const texto = `⚡ NIEL REALSENSI PRO
+📱 ${model}
+${nivelText}
+
+GERAL: ${document.getElementById("res-g").innerText}
+RED DOT: ${document.getElementById("res-r").innerText}
+MIRA 2X: ${document.getElementById("res-2").innerText}
+MIRA 4X: ${document.getElementById("res-4").innerText}
+MIRA AWM: ${document.getElementById("res-a").innerText}
+CÂMERA LIVRE: ${document.getElementById("res-c").innerText}
+TIRA: ${document.getElementById("res-tira") ? document.getElementById("res-tira").innerText : "85"}
+${document.getElementById("res-dpi").innerText}`;
+
+  navigator.clipboard.writeText(texto).then(() => {
+    showToast("✅ Copiado com sucesso! (MIRA 2X, 4X e Tira incluídos)", "success");
+  }).catch(() => {
+    showToast("❌ Erro ao copiar", "error");
+  });
+}
+
+    function loadModels() {
+      const brand = brandSelect.value;
+      modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
+      modelSelect.disabled = !brand;
+      if (timerInterval) clearInterval(timerInterval);
+      timerEl.classList.remove('show');
+      timerEl.innerHTML = "⏳ Aguarde...";
+      checkCooldown();
+      generateBtn.disabled = false;
+      generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
+      generateBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+
+      if (brand && database[brand]) {
+        database[brand].modelos.sort().forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          modelSelect.appendChild(opt);
+        });
+      }
+      resultBox.classList.remove('show');
+    }
+
+    function entrarNoApp() {
+      enterBtn.disabled = true;
+      setTimeout(() => {
+        entryScreen.classList.add('hidden');
+        setTimeout(() => {
+          entryScreen.style.display = 'none';
+          mainApp.classList.add('show');
+          checkCooldown();
+          updateStats();
+          enterBtn.disabled = false;
+        }, 800);
+      }, 300);
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const themeToggle = document.getElementById('theme-toggle');
+      if (body.classList.contains('light-mode')) {
+        body.classList.remove('light-mode');
+        themeToggle.innerHTML = '☀️';
+        if (isLocalStorageAvailable()) localStorage.setItem('niel_theme', 'dark');
+      } else {
+        body.classList.add('light-mode');
+        themeToggle.innerHTML = '🌙';
+        if (isLocalStorageAvailable()) localStorage.setItem('niel_theme', 'light');
+      }
+    }
+
+    function loadTheme() {
+      if (isLocalStorageAvailable()) {
+        const theme = localStorage.getItem('niel_theme');
+        const themeToggle = document.getElementById('theme-toggle');
+        if (theme === 'light') {
+          document.body.classList.add('light-mode');
+          themeToggle.innerHTML = '🌙';
+        }
+      }
+    }
+
+    function createParticles() {
+      const container = document.getElementById('particles-container');
+      const colors = ['#4facfe', '#00f2fe', '#c026d3', '#8b5cf6', '#ff007f'];
+      const particleCount = 30;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.width = (Math.random() * 10 + 5) + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+        particle.style.animationDelay = (Math.random() * 0.5) + 's';
+        container.appendChild(particle);
+        setTimeout(() => { particle.remove(); }, 3000);
+      }
+    }
+
+    function closeTutorial() {
+      document.getElementById('tutorial-tooltip').classList.remove('show');
+      if (isLocalStorageAvailable()) localStorage.setItem('niel_tutorial_done', 'true');
+    }
+
+    function showTutorial() {
+      if (isLocalStorageAvailable()) {
+        const done = localStorage.getItem('niel_tutorial_done');
+        if (!done) setTimeout(() => { document.getElementById('tutorial-tooltip').classList.add('show'); }, 500);
+      }
+    }
+
+    function requestNotificationPermission() {
+      if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
+    }
+
+    brandSelect.addEventListener("change", loadModels);
+    generateBtn.addEventListener("click", generateSensi);
+    enterBtn.addEventListener("click", entrarNoApp);
+    document.getElementById('nameModal').addEventListener('click', e => { 
+      if (e.target.id === 'nameModal') closeNameModal(); 
+    });
+    document.getElementById('historyModal').addEventListener('click', e => { 
+      if (e.target.id === 'historyModal') closeHistory(); 
+    });
+    document.getElementById('sensiName').addEventListener('keypress', e => { 
+      if (e.key === 'Enter') saveWithName(); 
+    });
+
+    window.addEventListener('load', () => {
+      loadTheme();
+      updateStats();
+      showTutorial();
+      requestNotificationPermission();
+      if (!isLocalStorageAvailable()) {
+        showToast("⚠️ LocalStorage não disponível - histórico desativado", "warning");
+      } else {
+        setTimeout(() => showToast("👋 Bem-vindo ao NIEL REALSENSI PRO"), 800);
+      }
+    });
+  </script>
+</body>
+</html>
+
