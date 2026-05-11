@@ -22,7 +22,7 @@
       background: #0a0a0a;
       color: white;
       min-height: 100vh;
-      background-image: url('https://i.ibb.co/C530WmHp/bg-char-3.png');
+      background-image: url('https://i.ibb.co/r2X4TSpT/neon-char2-ump-bottom.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -369,7 +369,7 @@
 
     .logo {
       width: 100%;
-      max-width: 200px;
+      max-width: 400px;
       height: auto;
       object-fit: cover;
       margin: 0 auto 24px;
@@ -1272,22 +1272,41 @@
       showToast("🔄 Seleções limpas!", "normal");
     }
 
+    // Agora com memória!
+function closeTutorial() {
+  document.getElementById('tutorial-tooltip').classList.remove('show');
+  // Cria o "bilhete" na memória do celular
+  localStorage.setItem('niel_tutorial_visto', 'true');
+}
+
+function showWelcomeMessage() {
+  // Só mostra se o "bilhete" NÃO existir
+  if (!localStorage.getItem('niel_tutorial_visto')) {
+    document.getElementById('tutorial-tooltip').classList.add('show');
+  }
+}
+
+
     function openSaveModal() { document.getElementById('nameModal').classList.add('show'); }
     function closeNameModal() { document.getElementById('nameModal').classList.remove('show'); }
     function showHistory() { document.getElementById('historyModal').classList.add('show'); }
     function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
 
-    // Eventos principais
-    brandSelect.addEventListener("change", loadModels);
-    generateBtn.addEventListener("click", generateSensi);
-    enterBtn.addEventListener("click", () => {
+       // COMO DEVE FICAR (COPIE E COLE ESTE):
+        enterBtn.addEventListener("click", () => {
       entryScreen.classList.add('hidden');
+      
+      // MOVI PARA CÁ: Agora ela ativa IMEDIATAMENTE ao clicar no botão
+      showWelcomeMessage(); 
+
       setTimeout(() => { 
         entryScreen.style.display = 'none'; 
         mainApp.classList.add('show'); 
         updateStats();
       }, 800);
     });
+
+
 
     // Inicialização ao carregar a página
     window.onload = () => { 
