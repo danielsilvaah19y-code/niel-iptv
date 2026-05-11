@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -1093,7 +1092,7 @@
     };
 
     // [VARIÁVEIS E FUNÇÕES DE CONTROLE]
-    const brandSelect = document.getElementById('brand');
+        const brandSelect = document.getElementById('brand');
     const modelSelect = document.getElementById('model');
     const generateBtn = document.getElementById('generateBtn');
     const resultBox = document.getElementById('resultBox');
@@ -1111,8 +1110,6 @@
 
     // [FUNÇÕES DE UTILIDADE]
     function isLocalStorageAvailable() { try { const t = '__t__'; localStorage.setItem(t, t); localStorage.removeItem(t); return true; } catch (e) { return false; } }
-    function validateInput(s, m = 100) { if (!s) return ''; return s.trim().substring(0, m).replace(/[<>]/g, ''); }
-    function sanitize(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
     function getSafeHistory() { try { if (!isLocalStorageAvailable()) return []; return JSON.parse(localStorage.getItem('sensiHistory') || '[]'); } catch (e) { return []; } }
 
     function updateStats() {
@@ -1128,7 +1125,19 @@
       setTimeout(() => { toastEl.style.opacity = "0"; setTimeout(() => toastEl.style.display = "none", 400); }, 2800);
     }
 
-    // [LÓGICA DE GERAÇÃO COM BOTÃO DE TIRO]
+    // [CARREGAR MODELOS]
+    function loadModels() {
+      const b = brandSelect.value;
+      modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
+      modelSelect.disabled = !b;
+      if (b && database[b]) {
+        database[b].modelos.sort().forEach(m => {
+          const o = document.createElement('option'); o.value = m; o.textContent = m; modelSelect.appendChild(o);
+        });
+      }
+    }
+
+    // [LÓGICA DE GERAÇÃO]
     function generateSensi() {
       const brand = brandSelect.value;
       const model = modelSelect.value;
@@ -1157,11 +1166,7 @@
           dpi: Math.round((base.dpi * mult + rand(-50, 50)) / 10) * 10
         };
 
-        // --- NOVA LÓGICA DO BOTÃO ---
-        let tamBotao;
-        if (v.dpi > 800) tamBotao = rand(38, 45);
-        else if (v.dpi > 500) tamBotao = rand(46, 53);
-        else tamBotao = rand(54, 60);
+        let tamBotao = v.dpi > 800 ? rand(38, 45) : (v.dpi > 500 ? rand(46, 53) : rand(54, 60));
 
         document.getElementById("res-model").innerText = "📱 " + model;
         document.getElementById("res-g").innerText = v.g;
@@ -1171,147 +1176,158 @@
         document.getElementById("res-a").innerText = v.awm;
         document.getElementById("res-c").innerText = v.cam;
         document.getElementById("res-bt").innerText = tamBotao + "%";
-
-        if (brand === "iphone") {
-          document.getElementById("res-dpi").innerText = "Sistema iOS (Não alterável)";
-        } else {
-          document.getElementById("res-dpi").innerText = `DPI RECOMENDADA: ${v.dpi}`;
-        }
+        document.getElementById("res-dpi").innerText = brand === "iphone" ? "Sistema iOS" : `DPI RECOMENDADA: ${v.dpi}`;
 
         resultBox.classList.add("show");
-        if (isLocalStorageAvailable()) localStorage.setItem(COOLDOWN_KEY, JSON.stringify({ end: cooldownEndTime }));
+        localStorage.setItem(COOLDOWN_KEY, JSON.stringify({ end: cooldownEndTime }));
+        
+        let total = parseInt(localStorage.getItem(GENERATIONS_KEY) || 0) + 1;
+        localStorage.setItem(GENERATIONS_KEY, total);
+        
         updateStats();
         createParticles();
-        showToast(`✅ Sensibilidade gerada!`, "success");
+        showToast(`✅ Gerado com sucesso!`, "success");
         generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
         generateBtn.disabled = false;
       }, 1300);
     }
 
-    // [FUNÇÃO COPIAR ATUALIZADA]
     function copyConfig() {
-      const model = modelSelect.value || "Desconhecido";
-      const texto = `⚡ NIEL REALSENSI PRO\n📱 ${model}\n\nGERAL: ${document.getElementById("res-g").innerText}\nRED DOT: ${document.getElementById("res-r").innerText}\nMIRA 2X: ${document.getElementById("res-2").innerText}\nMIRA 4X: ${document.getElementById("res-4").innerText}\nMIRA AWM: ${document.getElementById("res-a").innerText}\nCÂMERA LIVRE: ${document.getElementById("res-c").innerText}\nBOTÃO DE TIRO: ${document.getElementById("res-bt").innerText}\n${document.getElementById("res-dpi").innerText}`;
+      const texto = `⚡ NIEL REALSENSI PRO\n📱 ${modelSelect.value}\nGERAL: ${document.getElementById("res-g").innerText}\nRED DOT: ${document.getElementById("res-r").innerText}\nMIRA 2X: ${document.getElementById("res-2").innerText}\nMIRA 4X: ${document.getElementById("res-4").innerText}\nMIRA AWM: ${document.getElementById("res-a").innerText}\nCÂMERA LIVRE: ${document.getElementById("res-c").innerText}\nBOTÃO: ${document.getElementById("res-bt").innerText}\n${document.getElementById("res-dpi").innerText}`;
       navigator.clipboard.writeText(texto).then(() => showToast("✅ Copiado!", "success"));
     }
 
-    // [RESTANTE DAS FUNÇÕES ORIGINAIS]
-    function loadModels() {
-      const b = brandSelect.value;
-      modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
-      modelSelect.disabled = !b;
-      if (b && database[b]) {
-        database[b].modelos.sort().forEach(m => {
-          const o = document.createElement('option'); o.value = m; o.textContent = m; modelSelect.appendChild(o);
-        });
-      }
+    function startRealTimeTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerEl.classList.add('show');
+      timerInterval = setInterval(() => {
+        const r = cooldownEndTime - Date.now();
+        if (r <= 0) { clearInterval(timerInterval); timerEl.classList.remove('show'); generateBtn.disabled = false; generateBtn.textContent = "⚡ Gerar Sensibilidade PRO"; return; }
+        const m = Math.floor(r / 60000), s = Math.floor((r % 60000) / 1000);
+        timerEl.innerHTML = `⏰ Aguarde: <strong>${m}m ${s}s</strong>`;
+        generateBtn.textContent = `⏳ AGUARDE ${m}m ${s}s`;
+      }, 1000);
     }
 
     function checkCooldown() {
-      if (!isLocalStorageAvailable()) return false;
       const s = JSON.parse(localStorage.getItem(COOLDOWN_KEY) || '{}');
       if (!s.end || Date.now() >= s.end) return false;
       cooldownEndTime = s.end; startRealTimeTimer(); return true;
     }
 
-        function startRealTimeTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      timerEl.classList.add('show');
-      
-      timerInterval = setInterval(() => {
-        const r = cooldownEndTime - Date.now();
-        
-        if (r <= 0) { 
-          clearInterval(timerInterval); 
-          timerEl.classList.remove('show'); 
-          generateBtn.disabled = false; 
-          generateBtn.textContent = "⚡ Gerar Sensibilidade PRO";
-          return; 
-        }
-        
-        const m = Math.floor(r / 60000);
-        const s = Math.floor((r % 60000) / 1000);
-        
-        // Atualiza o cronômetro rosa
-        timerEl.innerHTML = `⏰ Aguarde: <strong>${m}m ${s}s</strong>`;
-        
-        // Atualiza o texto do botão para reforçar o bloqueio
-        generateBtn.disabled = true;
-        generateBtn.textContent = `⏳ AGUARDE ${m}m ${s}s`;
-      }, 1000);
+    // [HISTÓRICO E SALVAMENTO]
+    function saveWithName() {
+      const name = document.getElementById('sensiName').value.trim();
+      if (!name) return showToast("❌ Digite um nome!", "error");
+      let h = getSafeHistory();
+      const item = {
+        name: name, model: modelSelect.value, date: new Date().toLocaleString(), fav: false,
+        vals: { g: document.getElementById("res-g").innerText, r: document.getElementById("res-r").innerText, m2: document.getElementById("res-2").innerText, m4: document.getElementById("res-4").innerText, awm: document.getElementById("res-a").innerText, cam: document.getElementById("res-c").innerText, bt: document.getElementById("res-bt").innerText, dpi: document.getElementById("res-dpi").innerText }
+      };
+      h.unshift(item);
+      localStorage.setItem('sensiHistory', JSON.stringify(h.slice(0, MAX_HISTORY)));
+      closeNameModal(); updateStats(); showToast("💾 Salvo no histórico!", "success");
     }
 
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      document.getElementById('theme-toggle').innerHTML = isLight ? '🌙' : '☀️';
+    function showHistory() {
+      const h = getSafeHistory();
+      const list = document.getElementById('historyList');
+      list.innerHTML = h.length ? '' : '<p style="text-align:center;color:#888;padding:20px;">Nenhum registro encontrado.</p>';
+      h.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = `history-item ${item.fav ? 'is-fav' : ''}`;
+        div.innerHTML = `
+          <div class="fav-star" onclick="toggleFav(${index})">${item.fav ? '⭐' : '☆'}</div>
+          <div class="history-item-date">${item.date}</div>
+          <div class="history-item-name">${item.name} (${item.model})</div>
+          <div class="history-item-buttons">
+            <button class="btn-load" onclick="loadFromHistory(${index})">Carregar</button>
+            <button class="btn-delete" onclick="deleteHistory(${index})">Apagar</button>
+          </div>`;
+        list.appendChild(div);
+      });
+      document.getElementById('historyModal').classList.add('show');
     }
 
-    function createParticles() {
-      const c = document.getElementById('particles-container');
-      if(!c) return;
-      for (let i = 0; i < 20; i++) {
+    function toggleFav(i) { let h = getSafeHistory(); h[i].fav = !h[i].fav; localStorage.setItem('sensiHistory', JSON.stringify(h)); showHistory(); updateStats(); }
+    function deleteHistory(i) { let h = getSafeHistory(); h.splice(i, 1); localStorage.setItem('sensiHistory', JSON.stringify(h)); showHistory(); updateStats(); }
+    function clearAllHistory() { if(confirm("Deseja apagar todo o histórico?")) { localStorage.removeItem('sensiHistory'); showHistory(); updateStats(); } }
+
+    function loadFromHistory(i) {
+      const item = getSafeHistory()[i];
+      document.getElementById("res-model").innerText = "📱 " + item.model;
+      document.getElementById("res-g").innerText = item.vals.g;
+      document.getElementById("res-r").innerText = item.vals.r;
+      document.getElementById("res-2").innerText = item.vals.m2;
+      document.getElementById("res-4").innerText = item.vals.m4;
+      document.getElementById("res-a").innerText = item.vals.awm;
+      document.getElementById("res-c").innerText = item.vals.cam;
+      document.getElementById("res-bt").innerText = item.vals.bt;
+      document.getElementById("res-dpi").innerText = item.vals.dpi;
+      resultBox.classList.add("show"); closeHistory(); showToast("📂 Configuração carregada!");
+    }
+
+        // [INTERFACE E TUTORIAL]
+    function toggleTheme() { 
+      document.body.classList.toggle('light-mode'); 
+      document.getElementById('theme-toggle').innerText = document.body.classList.contains('light-mode') ? '🌙' : '☀️'; 
+    }
+
+    function createParticles() { 
+      const c = document.getElementById('particles-container'); 
+      for (let i = 0; i < 15; i++) { 
         const p = document.createElement('div'); 
-        p.className = 'particle';
+        p.className = 'particle'; 
         p.style.left = Math.random() * 100 + '%'; 
-        p.style.background = '#00f2fe';
-        p.style.width = '10px'; 
-        p.style.height = '10px';
-        p.style.animationDuration = '2s'; 
-        c.appendChild(p);
-        setTimeout(() => p.remove(), 2000);
+        p.style.background = '#00f2fe'; 
+        c.appendChild(p); 
+        setTimeout(() => p.remove(), 2000); 
+      } 
+    }
+
+    function resetGenerator() { 
+      brandSelect.value = ""; 
+      modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>'; 
+      modelSelect.disabled = true; 
+      resultBox.classList.remove("show"); 
+      showToast("🔄 Seleções limpas!");
+    }
+
+    function closeTutorial() { 
+      document.getElementById('tutorial-tooltip').classList.remove('show'); 
+      localStorage.setItem('niel_tutorial_visto', 'true'); 
+    }
+
+    function showWelcomeMessage() { 
+      if (!localStorage.getItem('niel_tutorial_visto')) {
+        document.getElementById('tutorial-tooltip').classList.add('show'); 
       }
     }
 
-    // Funções de Reset e Modal
-    function resetGenerator() {
-      brandSelect.value = "";
-      modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
-      modelSelect.disabled = true;
-      resultBox.classList.remove("show");
-      showToast("🔄 Seleções limpas!", "normal");
+    function openSaveModal() { 
+      const model = modelSelect.value || "Aparelho";
+      // Preenche o campo de texto automaticamente com o modelo selecionado
+      document.getElementById('sensiName').value = "Sensi " + model; 
+      document.getElementById('nameModal').classList.add('show'); 
     }
 
-    // Função para fechar o tutorial de boas-vindas
-function closeTutorial() {
-  document.getElementById('tutorial-tooltip').classList.remove('show');
-}
-
-// Função para mostrar o tutorial (chame isso quando clicar em entrar)
-function showWelcomeMessage() {
-  document.getElementById('tutorial-tooltip').classList.add('show');
-}
-
-
-
-    function openSaveModal() { document.getElementById('nameModal').classList.add('show'); }
     function closeNameModal() { document.getElementById('nameModal').classList.remove('show'); }
-            function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
+    function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
 
-    // --- CONEXÕES DOS BOTÕES (O QUE ESTAVA FALTANDO) ---
-    brandSelect.addEventListener("change", loadModels); // Faz os modelos aparecerem
-    generateBtn.addEventListener("click", generateSensi); // Faz o botão GERAR funcionar
-
-    // Evento do botão ENTRAR
+    // [EVENTOS]
+    brandSelect.addEventListener("change", loadModels);
+    generateBtn.addEventListener("click", generateSensi);
     enterBtn.addEventListener("click", () => {
       entryScreen.classList.add('hidden');
-      showWelcomeMessage(); 
-      setTimeout(() => { 
-        entryScreen.style.display = 'none'; 
-        mainApp.classList.add('show'); 
+      showWelcomeMessage();
+      setTimeout(() => {
+        entryScreen.style.display = 'none';
+        mainApp.classList.add('show');
         updateStats();
       }, 800);
     });
 
-
-
-
-
-    // Inicialização ao carregar a página
-    window.onload = () => { 
-      updateStats(); 
-      checkCooldown(); 
-    };
+    window.onload = () => { updateStats(); checkCooldown(); };
   </script>
 </body>
 </html>
