@@ -1272,39 +1272,38 @@
       showToast("🔄 Seleções limpas!", "normal");
     }
 
-    // Agora com memória!
+    // Função para fechar o tutorial de boas-vindas
 function closeTutorial() {
   document.getElementById('tutorial-tooltip').classList.remove('show');
-  // Cria o "bilhete" na memória do celular
-  localStorage.setItem('niel_tutorial_visto', 'true');
 }
 
+// Função para mostrar o tutorial (chame isso quando clicar em entrar)
 function showWelcomeMessage() {
-  // Só mostra se o "bilhete" NÃO existir
-  if (!localStorage.getItem('niel_tutorial_visto')) {
-    document.getElementById('tutorial-tooltip').classList.add('show');
-  }
+  document.getElementById('tutorial-tooltip').classList.add('show');
 }
+
 
 
     function openSaveModal() { document.getElementById('nameModal').classList.add('show'); }
     function closeNameModal() { document.getElementById('nameModal').classList.remove('show'); }
-    function showHistory() { document.getElementById('historyModal').classList.add('show'); }
-    function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
+            function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
 
-       // COMO DEVE FICAR (COPIE E COLE ESTE):
-        enterBtn.addEventListener("click", () => {
+    // --- CONEXÕES DOS BOTÕES (O QUE ESTAVA FALTANDO) ---
+    brandSelect.addEventListener("change", loadModels); // Faz os modelos aparecerem
+    generateBtn.addEventListener("click", generateSensi); // Faz o botão GERAR funcionar
+
+    // Evento do botão ENTRAR
+    enterBtn.addEventListener("click", () => {
       entryScreen.classList.add('hidden');
-      
-      // MOVI PARA CÁ: Agora ela ativa IMEDIATAMENTE ao clicar no botão
       showWelcomeMessage(); 
-
       setTimeout(() => { 
         entryScreen.style.display = 'none'; 
         mainApp.classList.add('show'); 
         updateStats();
       }, 800);
     });
+
+
 
 
 
