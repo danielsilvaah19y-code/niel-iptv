@@ -507,11 +507,115 @@
       .btn { font-size:13px; padding:15px; }
     }
 
-    ::-webkit-scrollbar { width:6px; }
+        ::-webkit-scrollbar { width:6px; }
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:rgba(79,172,254,0.35); border-radius:3px; }
+
+       /* ── CUSTOM SELECT ── */
+    .custom-select-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 22px;
+    }
+    .custom-select-wrapper.open {
+      z-index: 9999;
+    }
+    .custom-select-trigger {
+      width: 100%;
+      padding: 18px 50px 18px 22px;
+      background: linear-gradient(135deg,rgba(25,25,48,0.92),rgba(35,35,65,0.88));
+      border: 1.5px solid var(--border-glow);
+      border-radius: 18px;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.25s;
+      box-shadow: 0 2px 12px rgba(79,172,254,0.1);
+      user-select: none;
+    }
+    .custom-select-trigger:hover {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 22px rgba(79,172,254,0.35);
+      transform: translateY(-2px);
+    }
+    .custom-select-wrapper.open .custom-select-trigger {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 28px rgba(0,242,254,0.45);
+    }
+    .custom-select-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0; right: 0;
+      background: linear-gradient(135deg,rgba(20,20,40,0.99),rgba(30,30,60,0.99));
+      border: 1.5px solid rgba(79,172,254,0.4);
+      border-radius: 18px;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      overflow: hidden;
+      animation: fadeIn 0.2s ease;
+    }
+    .custom-select-wrapper.open .custom-select-dropdown {
+      display: flex;
+    }
+    .custom-select-search {
+  margin: 12px 12px 6px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(79,172,254,0.4);
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.custom-select-search:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(0,242,254,0.2);
+}
+
+    .custom-select-options {
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 6px 8px 10px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(79,172,254,0.4) transparent;
+    }
+    .custom-select-options::-webkit-scrollbar { width: 5px; }
+    .custom-select-options::-webkit-scrollbar-thumb { background: rgba(79,172,254,0.4); border-radius: 3px; }
+    .custom-select-option {
+      padding: 13px 16px;
+      border-radius: 12px;
+      color: #d0d0f0;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .custom-select-option:hover {
+      background: rgba(79,172,254,0.15);
+      color: #fff;
+      transform: translateX(4px);
+    }
+    .custom-select-option.selected {
+      background: rgba(0,242,254,0.15);
+      color: var(--accent-cyan);
+    }
+    .custom-select-empty {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+    }
+
   </style>
 </head>
+
 <body oncontextmenu="return false;">
 
   <!-- TUTORIAL -->
@@ -751,39 +855,39 @@
         }
       },
       infinix: {
-        modelos: ["Infinix Hot 10","Infinix Hot 11","Infinix Hot 12","Infinix Hot 20","Infinix Hot 30","Infinix Hot 40","Infinix Note 12","Infinix Note 30","Infinix Note 40","Infinix Smart 7","Infinix Smart 8","Infinix Zero 30","Infinix Zero 40"],
+        modelos: ["Infinix Hot 10","Infinix Hot 11","Infinix Hot 12","Infinix Hot 12i","Infinix Hot 20","Infinix Hot 20i","Infinix Hot 20 5G","Infinix Hot 30","Infinix Hot 30i","Infinix Hot 40","Infinix Hot 40 Pro","Infinix Hot 40i","Infinix Hot 50","Infinix Hot 50 5G","Infinix Hot 50 Pro","Infinix Note 12","Infinix Note 12 Pro","Infinix Note 30","Infinix Note 30 Pro","Infinix Note 40","Infinix Note 40 Pro","Infinix Note 40S","Infinix Smart 7","Infinix Smart 8","Infinix Zero 30","Infinix Zero 40","Infinix GT 20 Pro"],
         valores: {
-          "Infinix Hot 10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Infinix Hot 11":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Infinix Hot 12":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Infinix Hot 20":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Infinix Hot 30":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Infinix Hot 40":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Infinix Note 12":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Infinix Note 30":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Infinix Note 40":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Infinix Smart 7":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:620},"Infinix Smart 8":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Infinix Zero 30":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Infinix Zero 40":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810}
+          "Infinix Hot 10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Infinix Hot 11":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Infinix Hot 12":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Infinix Hot 12i":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Infinix Hot 20":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Infinix Hot 20i":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Infinix Hot 20 5G":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Infinix Hot 30":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Infinix Hot 30i":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Infinix Hot 40":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Infinix Hot 40 Pro":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Infinix Hot 40i":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Infinix Hot 50":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Infinix Hot 50 5G":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Infinix Hot 50 Pro":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Infinix Note 12":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Infinix Note 12 Pro":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Infinix Note 30":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Infinix Note 30 Pro":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Infinix Note 40":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Infinix Note 40 Pro":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Infinix Note 40S":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Infinix Smart 7":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:620},"Infinix Smart 8":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Infinix Zero 30":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Infinix Zero 40":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Infinix GT 20 Pro":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810}
         }
       },
       oppo: {
-        modelos: ["OPPO A17","OPPO A38","OPPO A54","OPPO A57","OPPO A58","OPPO A74","OPPO A78","OPPO A96","OPPO A98","OPPO Reno 8","OPPO Reno 10","OPPO Reno 11","OPPO Reno 12","OPPO Find X6","OPPO Find X7","OPPO Find N3"],
+        modelos: ["OPPO A15","OPPO A17","OPPO A31","OPPO A38","OPPO A54","OPPO A57","OPPO A58","OPPO A74","OPPO A76","OPPO A78","OPPO A79","OPPO A96","OPPO A98","OPPO Reno 8","OPPO Reno 8T","OPPO Reno 9","OPPO Reno 10","OPPO Reno 11","OPPO Reno 12","OPPO Reno 12 Pro","OPPO Find X5","OPPO Find X6","OPPO Find X7","OPPO Find X7 Ultra","OPPO Find N2","OPPO Find N3"],
         valores: {
-          "OPPO A17":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"OPPO A38":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"OPPO A54":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"OPPO A57":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"OPPO A58":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"OPPO A74":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"OPPO A78":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"OPPO A96":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"OPPO A98":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"OPPO Reno 8":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"OPPO Reno 10":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"OPPO Reno 11":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"OPPO Reno 12":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"OPPO Find X6":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"OPPO Find X7":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"OPPO Find N3":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860}
+          "OPPO A15":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"OPPO A17":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"OPPO A31":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"OPPO A38":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"OPPO A54":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"OPPO A57":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"OPPO A58":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"OPPO A74":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"OPPO A76":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"OPPO A78":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"OPPO A79":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"OPPO A96":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"OPPO A98":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"OPPO Reno 8":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"OPPO Reno 8T":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"OPPO Reno 9":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"OPPO Reno 10":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"OPPO Reno 11":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"OPPO Reno 12":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"OPPO Reno 12 Pro":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"OPPO Find X5":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"OPPO Find X6":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"OPPO Find X7":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"OPPO Find X7 Ultra":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"OPPO Find N2":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"OPPO Find N3":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860}
         }
       },
       vivo: {
-        modelos: ["Vivo Y02","Vivo Y16","Vivo Y17s","Vivo Y22","Vivo Y27","Vivo Y35","Vivo Y36","Vivo Y55","Vivo Y72","Vivo Y76","Vivo V23","Vivo V25","Vivo V27","Vivo V29","Vivo V30","Vivo X80","Vivo X90","Vivo X100"],
+        modelos: ["Vivo Y02","Vivo Y15","Vivo Y16","Vivo Y17s","Vivo Y21","Vivo Y22","Vivo Y27","Vivo Y33","Vivo Y35","Vivo Y36","Vivo Y55","Vivo Y72","Vivo Y76","Vivo Y200","Vivo V23","Vivo V25","Vivo V27","Vivo V29","Vivo V30","Vivo V30 SE","Vivo V30 Pro","Vivo X80","Vivo X90","Vivo X100","Vivo X100 Pro","Vivo X Fold 2"],
         valores: {
-          "Vivo Y02":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Vivo Y16":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Vivo Y17s":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Vivo Y22":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Vivo Y27":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Vivo Y35":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Vivo Y36":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Vivo Y55":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Vivo Y72":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Vivo Y76":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Vivo V23":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Vivo V25":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Vivo V27":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Vivo V29":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Vivo V30":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Vivo X80":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Vivo X90":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Vivo X100":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880}
+          "Vivo Y02":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Vivo Y15":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Vivo Y16":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Vivo Y17s":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Vivo Y21":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Vivo Y22":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Vivo Y27":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Vivo Y33":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Vivo Y35":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Vivo Y36":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Vivo Y55":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Vivo Y72":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Vivo Y76":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Vivo Y200":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Vivo V23":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Vivo V25":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Vivo V27":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Vivo V29":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Vivo V30":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Vivo V30 SE":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Vivo V30 Pro":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Vivo X80":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Vivo X90":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Vivo X100":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Vivo X100 Pro":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Vivo X Fold 2":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820}
         }
       },
       huawei: {
-        modelos: ["Honor X6","Honor X7","Honor X8","Honor X9","Honor 90","Honor 200","Huawei Nova 11","Huawei Nova 12","Huawei P50","Huawei P60","Huawei Mate 50","Huawei Mate 60"],
+        modelos: ["Honor X6","Honor X7","Honor X8","Honor X9","Honor 90","Honor 90 Pro","Honor 200","Honor 200 Pro","Honor Magic 5","Honor Magic 6","Honor Magic 6 Pro","Huawei Nova 11","Huawei Nova 12","Huawei P30","Huawei P40","Huawei P50","Huawei P60","Huawei P60 Pro","Huawei P70","Huawei P70 Pro","Huawei Mate 20","Huawei Mate 30","Huawei Mate 40","Huawei Mate 50","Huawei Mate 60","Huawei Mate 60 Pro","Huawei Mate X3","Huawei Mate X5"],
         valores: {
-          "Honor X6":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Honor X7":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Honor X8":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Honor X9":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Honor 90":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Honor 200":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Huawei Nova 11":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Huawei Nova 12":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Huawei P50":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Huawei P60":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Huawei Mate 50":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Huawei Mate 60":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870}
+          "Honor X6":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Honor X7":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Honor X8":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Honor X9":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Honor 90":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Honor 90 Pro":{g:180,r:175,m2:173,m4:170,awm:47,cam:160,dpi:880},"Honor 200":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Honor 200 Pro":{g:181,r:176,m2:174,m4:171,awm:47,cam:161,dpi:890},"Honor Magic 5":{g:181,r:176,m2:174,m4:171,awm:47,cam:161,dpi:890},"Honor Magic 6":{g:182,r:177,m2:175,m4:172,awm:48,cam:162,dpi:900},"Honor Magic 6 Pro":{g:183,r:178,m2:176,m4:173,awm:48,cam:163,dpi:910},"Huawei Nova 11":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Huawei Nova 12":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"Huawei P30":{g:177,r:172,m2:170,m4:167,awm:45,cam:157,dpi:850},"Huawei P40":{g:179,r:174,m2:172,m4:169,awm:46,cam:159,dpi:870},"Huawei P50":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Huawei P60":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Huawei P60 Pro":{g:183,r:178,m2:176,m4:173,awm:48,cam:163,dpi:910},"Huawei P70":{g:184,r:179,m2:177,m4:174,awm:49,cam:164,dpi:920},"Huawei P70 Pro":{g:185,r:180,m2:178,m4:175,awm:49,cam:165,dpi:930},"Huawei Mate 20":{g:178,r:173,m2:171,m4:168,awm:45,cam:158,dpi:860},"Huawei Mate 30":{g:179,r:174,m2:172,m4:169,awm:46,cam:159,dpi:870},"Huawei Mate 40":{g:180,r:175,m2:173,m4:170,awm:47,cam:160,dpi:880},"Huawei Mate 50":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Huawei Mate 60":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Huawei Mate 60 Pro":{g:183,r:178,m2:176,m4:173,awm:48,cam:163,dpi:910},"Huawei Mate X3":{g:181,r:176,m2:174,m4:171,awm:47,cam:161,dpi:890},"Huawei Mate X5":{g:182,r:177,m2:175,m4:172,awm:48,cam:162,dpi:900}
         }
       },
       tecno: {
-        modelos: ["Tecno Spark 10","Tecno Spark 20","Tecno Camon 20","Tecno Camon 30","Tecno Pova 5","Tecno Pova 6","Tecno Pop 7","Tecno Pop 8"],
+        modelos: ["Tecno Spark 10","Tecno Spark 10C","Tecno Spark 10P","Tecno Spark 10 Pro","Tecno Spark 20","Tecno Spark 20C","Tecno Spark 20 Pro","Tecno Spark 20P","Tecno Camon 20","Tecno Camon 20 Pro","Tecno Camon 20 Pro 5G","Tecno Camon 30","Tecno Camon 30 Pro","Tecno Pova 5","Tecno Pova 6","Tecno Pop 7","Tecno Pop 8","Tecno Phantom V Flip","Tecno Phantom V Fold"],
         valores: {
-          "Tecno Spark 10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Tecno Spark 20":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Tecno Camon 20":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Tecno Camon 30":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Tecno Pova 5":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Tecno Pova 6":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Tecno Pop 7":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Tecno Pop 8":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:630}
+          "Tecno Spark 10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Tecno Spark 10C":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Tecno Spark 10P":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Tecno Spark 10 Pro":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Tecno Spark 20":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Tecno Spark 20C":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Tecno Spark 20 Pro":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Tecno Spark 20P":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Tecno Camon 20":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Tecno Camon 20 Pro":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Tecno Camon 20 Pro 5G":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Tecno Camon 30":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Tecno Camon 30 Pro":{g:177,r:172,m2:169,m4:167,awm:45,cam:157,dpi:760},"Tecno Pova 5":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Tecno Pova 6":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Tecno Pop 7":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Tecno Pop 8":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:630},"Tecno Phantom V Flip":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Tecno Phantom V Fold":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800}
         }
       },
       lg: {
-        modelos: ["LG K22","LG K52","LG K62","LG Velvet","LG Wing","LG Q52","LG Q92"],
+        modelos: ["LG K8","LG K9","LG K10","LG K11","LG K12","LG K20","LG K22","LG K30","LG K31","LG K32","LG K40","LG K41","LG K42","LG K50","LG K51","LG K52","LG K61","LG K62","LG Q52","LG Q92","LG Stylo 5","LG Stylo 6","LG Velvet","LG Wing"],
         valores: {
-          "LG K22":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"LG K52":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG K62":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"LG Velvet":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"LG Wing":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"LG Q52":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"LG Q92":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750}
+          "LG K8":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"LG K9":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:610},"LG K10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"LG K11":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"LG K12":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K20":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"LG K22":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"LG K30":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K31":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"LG K32":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG K40":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K41":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"LG K42":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG K50":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"LG K51":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"LG K52":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG K61":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"LG K62":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"LG Q52":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"LG Q92":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"LG Stylo 5":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"LG Stylo 6":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"LG Velvet":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"LG Wing":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810}
         }
       },
       zte: {
@@ -793,54 +897,55 @@
         }
       },
       asus: {
-        modelos: ["ASUS ROG Phone 6","ASUS ROG Phone 7","ASUS ROG Phone 8","ASUS ROG Phone 8 Pro","ASUS Zenfone 10","ASUS Zenfone 11 Ultra"],
+        modelos: ["ASUS ROG Phone 5","ASUS ROG Phone 5s","ASUS ROG Phone 6","ASUS ROG Phone 6 Pro","ASUS ROG Phone 7","ASUS ROG Phone 7 Ultimate","ASUS ROG Phone 8","ASUS ROG Phone 8 Pro","ASUS Zenfone 8","ASUS Zenfone 8 Flip","ASUS Zenfone 9","ASUS Zenfone 10","ASUS Zenfone 11 Ultra"],
         valores: {
-          "ASUS ROG Phone 6":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"ASUS ROG Phone 7":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"ASUS ROG Phone 8":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"ASUS ROG Phone 8 Pro":{g:190,r:185,m2:182,m4:180,awm:51,cam:170,dpi:890},"ASUS Zenfone 10":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"ASUS Zenfone 11 Ultra":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860}
+          "ASUS ROG Phone 5":{g:190,r:185,m2:182,m4:180,awm:52,cam:170,dpi:900},"ASUS ROG Phone 5s":{g:191,r:186,m2:183,m4:181,awm:52,cam:171,dpi:910},"ASUS ROG Phone 6":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"ASUS ROG Phone 6 Pro":{g:193,r:188,m2:185,m4:183,awm:53,cam:173,dpi:930},"ASUS ROG Phone 7":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"ASUS ROG Phone 7 Ultimate":{g:195,r:190,m2:187,m4:185,awm:54,cam:175,dpi:950},"ASUS ROG Phone 8":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"ASUS ROG Phone 8 Pro":{g:190,r:185,m2:182,m4:180,awm:51,cam:170,dpi:890},"ASUS Zenfone 8":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"ASUS Zenfone 8 Flip":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"ASUS Zenfone 9":{g:190,r:185,m2:182,m4:180,awm:52,cam:170,dpi:900},"ASUS Zenfone 10":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"ASUS Zenfone 11 Ultra":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860}
         }
       },
       google: {
-        modelos: ["Pixel 6","Pixel 6a","Pixel 7","Pixel 7a","Pixel 7 Pro","Pixel 8","Pixel 8a","Pixel 8 Pro","Pixel 9","Pixel 9 Pro"],
+        modelos: ["Pixel 6","Pixel 6a","Pixel 6 Pro","Pixel 7","Pixel 7a","Pixel 7 Pro","Pixel 8","Pixel 8a","Pixel 8 Pro","Pixel 9","Pixel 9 Pro","Pixel 9 Pro XL","Pixel 9 Pro Fold"],
         valores: {
-          "Pixel 6":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Pixel 6a":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Pixel 7":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Pixel 7a":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Pixel 7 Pro":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Pixel 8":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Pixel 8a":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Pixel 8 Pro":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Pixel 9":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Pixel 9 Pro":{g:191,r:186,m2:183,m4:181,awm:52,cam:171,dpi:900}
+          "Pixel 6":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Pixel 6a":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Pixel 6 Pro":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"Pixel 7":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Pixel 7a":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Pixel 7 Pro":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Pixel 8":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"Pixel 8a":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Pixel 8 Pro":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Pixel 9":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"Pixel 9 Pro":{g:191,r:186,m2:183,m4:181,awm:52,cam:171,dpi:900},"Pixel 9 Pro XL":{g:191,r:186,m2:183,m4:181,awm:53,cam:171,dpi:950},"Pixel 9 Pro Fold":{g:188,r:183,m2:180,m4:178,awm:51,cam:168,dpi:920}
         }
       },
       oneplus: {
-        modelos: ["OnePlus Nord CE 3","OnePlus Nord CE 4","OnePlus Nord 3","OnePlus Nord 4","OnePlus 11","OnePlus 12","OnePlus 12R","OnePlus Open"],
+        modelos: ["OnePlus 9","OnePlus 9 Pro","OnePlus 9R","OnePlus 10R","OnePlus 10T","OnePlus 10 Pro","OnePlus 11","OnePlus 11R","OnePlus 12","OnePlus 12R","OnePlus Open","OnePlus Ace","OnePlus Ace 2","OnePlus Ace 2V","OnePlus Ace 3","OnePlus Ace 3 Pro","OnePlus Nord 2","OnePlus Nord 3","OnePlus Nord 4","OnePlus Nord CE 3","OnePlus Nord CE 4"],
         valores: {
-          "OnePlus Nord CE 3":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"OnePlus Nord CE 4":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"OnePlus Nord 3":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"OnePlus Nord 4":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"OnePlus 11":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"OnePlus 12":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"OnePlus 12R":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"OnePlus Open":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870}
+          "OnePlus 9":{g:181,r:176,m2:173,m4:171,awm:48,cam:161,dpi:840},"OnePlus 9 Pro":{g:182,r:177,m2:174,m4:172,awm:48,cam:162,dpi:850},"OnePlus 9R":{g:181,r:176,m2:173,m4:171,awm:48,cam:161,dpi:840},"OnePlus 10R":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"OnePlus 10T":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"OnePlus 10 Pro":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"OnePlus 11":{g:187,r:182,m2:179,m4:177,awm:50,cam:167,dpi:860},"OnePlus 11R":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"OnePlus 12":{g:189,r:184,m2:181,m4:179,awm:51,cam:169,dpi:880},"OnePlus 12R":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"OnePlus Open":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"OnePlus Ace":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"OnePlus Ace 2":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"OnePlus Ace 2V":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"OnePlus Ace 3":{g:185,r:180,m2:177,m4:175,awm:50,cam:165,dpi:890},"OnePlus Ace 3 Pro":{g:186,r:181,m2:178,m4:176,awm:50,cam:166,dpi:900},"OnePlus Nord 2":{g:180,r:175,m2:172,m4:170,awm:47,cam:160,dpi:830},"OnePlus Nord 3":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"OnePlus Nord 4":{g:182,r:177,m2:174,m4:172,awm:47,cam:162,dpi:810},"OnePlus Nord CE 3":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"OnePlus Nord CE 4":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790}
         }
       },
       sony: {
-        modelos: ["Xperia 1 IV","Xperia 1 V","Xperia 5 IV","Xperia 5 V","Xperia 10 IV","Xperia 10 V","Xperia 10 VI"],
+        modelos: ["Xperia 1 III","Xperia 1 IV","Xperia 1 V","Xperia 1 VI","Xperia 5 II","Xperia 5 III","Xperia 5 IV","Xperia 5 V","Xperia 5 VI","Xperia 10 III","Xperia 10 IV","Xperia 10 V","Xperia 10 VI","Xperia Pro-I"],
         valores: {
-          "Xperia 1 IV":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Xperia 1 V":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Xperia 5 IV":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Xperia 5 V":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Xperia 10 IV":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Xperia 10 V":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Xperia 10 VI":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820}
+          "Xperia 1 III":{g:184,r:179,m2:176,m4:174,awm:50,cam:164,dpi:880},"Xperia 1 IV":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Xperia 1 V":{g:188,r:183,m2:180,m4:178,awm:50,cam:168,dpi:870},"Xperia 1 VI":{g:187,r:182,m2:179,m4:177,awm:51,cam:167,dpi:910},"Xperia 5 II":{g:182,r:177,m2:174,m4:172,awm:48,cam:162,dpi:860},"Xperia 5 III":{g:183,r:178,m2:175,m4:173,awm:49,cam:163,dpi:870},"Xperia 5 IV":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Xperia 5 V":{g:186,r:181,m2:178,m4:176,awm:49,cam:166,dpi:850},"Xperia 5 VI":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:900},"Xperia 10 III":{g:180,r:175,m2:172,m4:170,awm:47,cam:160,dpi:840},"Xperia 10 IV":{g:179,r:174,m2:171,m4:169,awm:46,cam:159,dpi:780},"Xperia 10 V":{g:181,r:176,m2:173,m4:171,awm:47,cam:161,dpi:800},"Xperia 10 VI":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Xperia Pro-I":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:900}
         }
       },
       nokia: {
-        modelos: ["Nokia G21","Nokia G22","Nokia G42","Nokia G60","Nokia X30","Nokia XR21","Nokia C32","Nokia C22"],
+        modelos: ["Nokia C12","Nokia C21","Nokia C22","Nokia C32","Nokia C33","Nokia G10","Nokia G20","Nokia G21","Nokia G22","Nokia G42","Nokia G50","Nokia G60","Nokia G310","Nokia X10","Nokia X20","Nokia X30","Nokia XR21","Nokia XR23"],
         valores: {
-          "Nokia G21":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Nokia G22":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Nokia G42":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Nokia G60":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Nokia X30":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Nokia XR21":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Nokia C32":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Nokia C22":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:620}
+          "Nokia C12":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:610},"Nokia C21":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:620},"Nokia C22":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:620},"Nokia C32":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Nokia C33":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Nokia G10":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Nokia G20":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Nokia G21":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Nokia G22":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Nokia G42":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Nokia G50":{g:175,r:170,m2:167,m4:165,awm:44,cam:155,dpi:740},"Nokia G60":{g:176,r:171,m2:168,m4:166,awm:44,cam:156,dpi:750},"Nokia G310":{g:173,r:168,m2:165,m4:163,awm:42,cam:153,dpi:720},"Nokia X10":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Nokia X20":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Nokia X30":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770},"Nokia XR21":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790},"Nokia XR23":{g:178,r:173,m2:170,m4:168,awm:45,cam:158,dpi:770}
         }
       },
       lenovo: {
-        modelos: ["Lenovo K13","Lenovo K14 Plus","Lenovo Legion Phone 2","Lenovo Legion Phone 3","Lenovo Legion Phone Duel","Lenovo Tab P11","Lenovo ThinkPhone"],
+        modelos: ["Lenovo K13","Lenovo K14","Lenovo K14 Plus","Lenovo Legion Phone 2","Lenovo Legion Phone 3","Lenovo Legion Phone Duel","Lenovo Legion Y70","Lenovo Legion Y700","Lenovo Legion Y90","Lenovo Legion Pro","Lenovo Tab P11","Lenovo Tab Extreme","Lenovo Tab P12 Pro","Lenovo ThinkPhone"],
         valores: {
-          "Lenovo K13":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Lenovo K14 Plus":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Lenovo Legion Phone 2":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Lenovo Legion Phone 3":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Lenovo Legion Phone Duel":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Lenovo Tab P11":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Lenovo ThinkPhone":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790}
+          "Lenovo K13":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Lenovo K14":{g:184,r:179,m2:176,m4:174,awm:49,cam:164,dpi:880},"Lenovo K14 Plus":{g:172,r:167,m2:164,m4:162,awm:42,cam:152,dpi:700},"Lenovo Legion Phone 2":{g:183,r:178,m2:175,m4:173,awm:48,cam:163,dpi:820},"Lenovo Legion Phone 3":{g:185,r:180,m2:177,m4:175,awm:49,cam:165,dpi:840},"Lenovo Legion Phone Duel":{g:184,r:179,m2:176,m4:174,awm:48,cam:164,dpi:830},"Lenovo Legion Y70":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:890},"Lenovo Legion Y700":{g:187,r:182,m2:179,m4:177,awm:51,cam:167,dpi:900},"Lenovo Legion Y90":{g:188,r:183,m2:180,m4:178,awm:52,cam:168,dpi:910},"Lenovo Legion Pro":{g:189,r:184,m2:181,m4:179,awm:52,cam:169,dpi:920},"Lenovo Tab P11":{g:174,r:169,m2:166,m4:164,awm:43,cam:154,dpi:730},"Lenovo Tab Extreme":{g:188,r:183,m2:180,m4:178,awm:52,cam:168,dpi:910},"Lenovo Tab P12 Pro":{g:186,r:181,m2:178,m4:176,awm:51,cam:166,dpi:890},"Lenovo ThinkPhone":{g:180,r:175,m2:172,m4:170,awm:46,cam:160,dpi:790}
         }
       },
       positivo: {
-        modelos: ["Positivo Twist 4","Positivo Twist 5","Positivo Q20","Positivo Q20S","Positivo S560","Positivo S570","Positivo Twist 6","Positivo Vision 6"],
+        modelos: ["Positivo Smart","Positivo Twist","Positivo Twist 4","Positivo Twist 5","Positivo Twist 5G","Positivo Twist 6","Positivo Selfie","Positivo Q20","Positivo Q20S","Positivo Q32","Positivo N350","Positivo S560","Positivo S570","Positivo Vision 6"],
         valores: {
-          "Positivo Twist 4":{g:162,r:157,m2:154,m4:152,awm:36,cam:142,dpi:580},"Positivo Twist 5":{g:164,r:159,m2:156,m4:154,awm:37,cam:144,dpi:595},"Positivo Q20":{g:163,r:158,m2:155,m4:153,awm:36,cam:143,dpi:585},"Positivo Q20S":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Positivo S560":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:630},"Positivo S570":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Positivo Twist 6":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Positivo Vision 6":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680}
+          "Positivo Smart":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Positivo Twist":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:620},"Positivo Twist 4":{g:162,r:157,m2:154,m4:152,awm:36,cam:142,dpi:580},"Positivo Twist 5":{g:164,r:159,m2:156,m4:154,awm:37,cam:144,dpi:595},"Positivo Twist 5G":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Positivo Twist 6":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Positivo Selfie":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Positivo Q20":{g:163,r:158,m2:155,m4:153,awm:36,cam:143,dpi:585},"Positivo Q20S":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Positivo Q32":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Positivo N350":{g:166,r:161,m2:158,m4:156,awm:39,cam:146,dpi:610},"Positivo S560":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:630},"Positivo S570":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Positivo Vision 6":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680}
         }
       },
       multilaser: {
-        modelos: ["Multilaser F Pro","Multilaser G Max","Multilaser G Pro","Multilaser E Lite","Multilaser E Pro","Multilaser RE"],
+        modelos: ["Multilaser F Pro","Multilaser G Max","Multilaser G Pro","Multilaser E Lite","Multilaser E Pro","Multilaser RE","Multilaser H","Multilaser H+","Multilaser M11","Multilaser M12","Multilaser M13","Multilaser M15"],
         valores: {
-          "Multilaser F Pro":{g:162,r:157,m2:154,m4:152,awm:36,cam:142,dpi:580},"Multilaser G Max":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Multilaser G Pro":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:630},"Multilaser E Lite":{g:160,r:155,m2:152,m4:150,awm:35,cam:140,dpi:560},"Multilaser E Pro":{g:163,r:158,m2:155,m4:153,awm:36,cam:143,dpi:585},"Multilaser RE":{g:161,r:156,m2:153,m4:151,awm:35,cam:141,dpi:570}
+          "Multilaser F Pro":{g:162,r:157,m2:154,m4:152,awm:36,cam:142,dpi:580},"Multilaser G Max":{g:165,r:160,m2:157,m4:155,awm:38,cam:145,dpi:600},"Multilaser G Pro":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:630},"Multilaser E Lite":{g:160,r:155,m2:152,m4:150,awm:35,cam:140,dpi:560},"Multilaser E Pro":{g:163,r:158,m2:155,m4:153,awm:36,cam:143,dpi:585},"Multilaser RE":{g:161,r:156,m2:153,m4:151,awm:35,cam:141,dpi:570},"Multilaser H":{g:170,r:165,m2:162,m4:160,awm:41,cam:150,dpi:680},"Multilaser H+":{g:171,r:166,m2:163,m4:161,awm:41,cam:151,dpi:690},"Multilaser M11":{g:168,r:163,m2:160,m4:158,awm:40,cam:148,dpi:650},"Multilaser M12":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660},"Multilaser M13":{g:167,r:162,m2:159,m4:157,awm:39,cam:147,dpi:620},"Multilaser M15":{g:169,r:164,m2:161,m4:159,awm:40,cam:149,dpi:660}
         }
       }
     };
+
 
     /* ═══════════════════════════════════════════════
        DOM REFS
@@ -857,6 +962,92 @@
     const progressFill = document.getElementById('progressFill');
 
     /* ═══════════════════════════════════════════════
+       CUSTOM SELECT
+    ═══════════════════════════════════════════════ */
+    function buildCustomSelect(selectEl) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'custom-select-wrapper';
+
+      const trigger = document.createElement('div');
+      trigger.className = 'custom-select-trigger';
+      trigger.innerHTML = `<span>${selectEl.options[0].text}</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+
+      const dropdown = document.createElement('div');
+      dropdown.className = 'custom-select-dropdown';
+
+      
+
+      const optList = document.createElement('div');
+      optList.className = 'custom-select-options';
+      dropdown.appendChild(optList);
+
+      function populateOptions(filter) {
+        optList.innerHTML = '';
+        const opts = Array.from(selectEl.options);
+        const filtered = filter
+          ? opts.filter(o => o.text.toLowerCase().includes(filter.toLowerCase()))
+          : opts;
+        filtered.forEach(o => {
+          if (!o.value) return;
+          const item = document.createElement('div');
+          item.className = 'custom-select-option' + (o.value === selectEl.value ? ' selected' : '');
+          item.textContent = o.text;
+          item.dataset.value = o.value;
+          item.addEventListener('click', () => {
+            selectEl.value = o.value;
+            trigger.querySelector('span').textContent = o.text;
+            wrapper.classList.remove('open');
+            selectEl.dispatchEvent(new Event('change'));
+            // marca selected
+            optList.querySelectorAll('.custom-select-option').forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+          });
+          optList.appendChild(item);
+        });
+        if (!optList.children.length) {
+          const empty = document.createElement('div');
+          empty.className = 'custom-select-empty';
+          empty.textContent = 'Nenhum resultado encontrado.';
+          optList.appendChild(empty);
+        }
+      }
+
+      populateOptions('');
+
+       
+
+      trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = wrapper.classList.contains('open');
+        // fecha todos os outros
+        document.querySelectorAll('.custom-select-wrapper.open').forEach(w => w.classList.remove('open'));
+        if (!isOpen) {
+  wrapper.classList.add('open');
+  populateOptions("");
+}
+
+      });
+
+      wrapper.appendChild(trigger);
+      wrapper.appendChild(dropdown);
+      selectEl.parentNode.insertBefore(wrapper, selectEl);
+      selectEl.style.display = 'none';
+
+      // atualiza o trigger quando o select muda por código
+      selectEl._customUpdate = function() {
+        const sel = selectEl.options[selectEl.selectedIndex];
+        trigger.querySelector('span').textContent = sel ? sel.text : selectEl.options[0].text;
+        populateOptions('');
+      };
+
+      return wrapper;
+    }
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.custom-select-wrapper.open').forEach(w => w.classList.remove('open'));
+    });
+
+    /* ═══════════════════════════════════════════════
        CONSTANTS
     ═══════════════════════════════════════════════ */
     const COOLDOWN_MS     = 5 * 60 * 1000;
@@ -870,7 +1061,7 @@
     let timerInterval   = null;
     let cooldownEndTime = null;
     let toastTimeout    = null;
-    let currentValues   = null; // guarda última config gerada para comparação
+    let currentValues   = null;
 
     /* ═══════════════════════════════════════════════
        STORAGE HELPERS
@@ -909,7 +1100,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       💡 SUGESTÃO 5: Última geração
+       ÚLTIMA GERAÇÃO
     ═══════════════════════════════════════════════ */
     function updateLastGen() {
       const last = lsGet(LAST_GEN_KEY, null);
@@ -944,7 +1135,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       LOAD MODELS — 💡 FIX: valida se marca tem dados
+       LOAD MODELS
     ═══════════════════════════════════════════════ */
     function loadModels() {
       const b = brandSelect.value;
@@ -963,6 +1154,8 @@
         modelSelect.disabled = true;
         showToast('⚠️ Marca sem dados ainda. Em breve!', 'warning');
       }
+      // atualiza o custom select do modelo
+      if (modelSelect._customUpdate) modelSelect._customUpdate();
     }
 
     function randInt(min, max) { return Math.floor(Math.random()*(max-min+1))+min; }
@@ -985,7 +1178,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       💡 SUGESTÃO 7: Animação nos números
+       ANIMAÇÃO NOS NÚMEROS
     ═══════════════════════════════════════════════ */
     function animateValue(elId, newVal) {
       const el = document.getElementById(elId);
@@ -1051,11 +1244,10 @@
           awm: clamp(Math.round(base.awm * mult + randInt(-8,8)),   28,  78),
           cam: clamp(Math.round(base.cam * mult + randInt(-12,12)), 128, 192),
           dpi: base.dpi > 0
-               ? Math.round((base.dpi * mult + randInt(-40,40)) / 10) * 10
+               ? Math.max(540, Math.round((base.dpi * mult + randInt(-40,40)) / 5) * 5)
                : 0
         };
 
-        // 💡 FIX: tamBotao para iPhone (dpi=0) usa faixa correta
         const tamBotao = brand === 'iphone'
           ? randInt(38, 44)
           : v.dpi > 800
@@ -1064,7 +1256,6 @@
               ? randInt(45, 52)
               : randInt(53, 60);
 
-        // Salva para comparação (SUGESTÃO 8)
         currentValues = {
           model, brand,
           g: v.g, r: v.r, m2: v.m2, m4: v.m4,
@@ -1082,7 +1273,6 @@
         nivelContainer.textContent = nc.label;
         nivelContainer.style.cssText = `display:block;background:${nc.bg};border:1px solid ${nc.border};color:${nc.color};`;
 
-        // 💡 SUGESTÃO 7: animar cada valor
         document.getElementById('res-model').textContent = '📱 ' + model;
         const delays = [0,80,160,240,320,400,480];
         [['res-g',v.g],['res-r',v.r],['res-2',v.m2],['res-4',v.m4],['res-a',v.awm],['res-c',v.cam]].forEach(([id,val],i) => {
@@ -1117,7 +1307,6 @@
           multilaser:['Velocidade do ponteiro: Máxima','Escala de animação: 0.5x','Forçar 4x MSAA: Ativado']
         };
         const devItems = suggestions[brand] || ['Velocidade do ponteiro: Máxima','Escala de animação: 0.5x','Forçar 4x MSAA: Ativado'];
-        // 💡 FIX XSS: usar textContent em vez de innerHTML direto com dados externos
         const ul = document.getElementById('dev-list');
         ul.innerHTML = '';
         devItems.forEach(s => {
@@ -1131,10 +1320,7 @@
 
         const total = lsGet(GENERATIONS_KEY, 0) + 1;
         lsSet(GENERATIONS_KEY, total);
-
-        // 💡 SUGESTÃO 5: salva última geração
         saveLastGen(model);
-
         updateStats();
         createParticles();
         showToast('✅ Sensibilidade gerada com sucesso!', 'success');
@@ -1181,7 +1367,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       💡 SUGESTÃO 3: COMPARTILHAR (Web Share API)
+       COMPARTILHAR
     ═══════════════════════════════════════════════ */
     function shareConfig() {
       const model = modelSelect.value || 'Aparelho';
@@ -1282,7 +1468,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       💡 SUGESTÃO 4: BUSCA NO HISTÓRICO
+       BUSCA NO HISTÓRICO
     ═══════════════════════════════════════════════ */
     function renderHistoryList(filter='') {
       const h = getSafeHistory();
@@ -1302,7 +1488,6 @@
 
       const frag = document.createDocumentFragment();
       filtered.forEach((item, idx) => {
-        // índice real no array original
         const realIdx = h.indexOf(item);
         const div = document.createElement('div');
         div.className = 'history-item' + (item.fav ? ' is-fav' : '');
@@ -1312,7 +1497,6 @@
           ? `G:${item.values.g} | R:${item.values.r} | 2x:${item.values.m2} | 4x:${item.values.m4} | AWM:${item.values.awm} | CAM:${item.values.cam} | TIRO:${item.values.bt}`
           : '';
 
-        // 💡 FIX XSS: construir DOM manualmente
         const star = document.createElement('span');
         star.className = 'fav-star';
         star.title = 'Favoritar';
@@ -1398,7 +1582,10 @@
       if (item.brand && database[item.brand]) {
         brandSelect.value = item.brand;
         loadModels();
-        if (item.model) modelSelect.value = item.model;
+        if (item.model) {
+          modelSelect.value = item.model;
+          if (modelSelect._customUpdate) modelSelect._customUpdate();
+        }
       }
       if (item.values) {
         document.getElementById('res-model').textContent = '📱 ' + (item.model || '');
@@ -1414,7 +1601,6 @@
         document.getElementById('dev-suggestions').style.display = 'none';
         document.getElementById('compareBox').classList.remove('show');
         resultBox.classList.add('show');
-        // atualiza currentValues para permitir nova comparação
         currentValues = {
           model: item.model, brand: item.brand,
           g: item.values.g, r: item.values.r,
@@ -1445,7 +1631,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       💡 SUGESTÃO 8: COMPARAÇÃO DE CONFIGURAÇÕES
+       COMPARAÇÃO
     ═══════════════════════════════════════════════ */
     function openCompareSelect() {
       if (!currentValues) return showToast('⚠️ Gere uma config primeiro!', 'warning');
@@ -1530,14 +1716,12 @@
       const grid = document.getElementById('compareGrid');
       grid.innerHTML = '';
 
-      // Coluna A — atual
       const colA = document.createElement('div');
       colA.className = 'compare-col';
       const hA = document.createElement('h4');
       hA.textContent = '📱 ' + (currentValues.model || 'Atual');
       colA.appendChild(hA);
 
-      // Coluna B — salva
       const colB = document.createElement('div');
       colB.className = 'compare-col';
       const hB = document.createElement('h4');
@@ -1593,6 +1777,7 @@
       brandSelect.value = '';
       modelSelect.innerHTML = '<option value="">Selecione o modelo...</option>';
       modelSelect.disabled = true;
+      if (modelSelect._customUpdate) modelSelect._customUpdate();
       resultBox.classList.remove('show');
       document.getElementById('nivel-container').style.display = 'none';
       document.getElementById('dev-suggestions').style.display = 'none';
@@ -1655,7 +1840,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       💡 SUGESTÃO 6: PWA — Service Worker inline
+       SERVICE WORKER
     ═══════════════════════════════════════════════ */
     function registerSW() {
       if ('serviceWorker' in navigator) {
@@ -1671,7 +1856,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       KEYBOARD SUPPORT
+       KEYBOARD
     ═══════════════════════════════════════════════ */
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
@@ -1679,6 +1864,7 @@
         closeHistory();
         closeCompareModal();
         closeTutorial();
+        document.querySelectorAll('.custom-select-wrapper.open').forEach(w => w.classList.remove('open'));
       }
       if (e.key === 'Enter') {
         if (document.getElementById('nameModal').classList.contains('show')) saveWithName();
@@ -1690,7 +1876,7 @@
     document.getElementById('compareModal').addEventListener('click', function(e) { if(e.target===this) closeCompareModal(); });
 
     /* ═══════════════════════════════════════════════
-       ENTRY SCREEN
+       ENTRY SCREEN + INIT
     ═══════════════════════════════════════════════ */
     document.getElementById('enter-btn').addEventListener('click', () => {
       entryScreen.classList.add('hidden');
@@ -1712,6 +1898,10 @@
       updateLastGen();
       checkCooldown();
       registerSW();
+      // Inicializa os custom selects
+      buildCustomSelect(brandSelect);
+      buildCustomSelect(modelSelect);
+      buildCustomSelect(document.getElementById('dpi-level'));
     });
 
   </script>
