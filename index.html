@@ -3,12 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:;" />
+
+  <!-- 🔐 INÍCIO DO SCRIPT DE SEGURANÇA -->
+  <script>
+    document.documentElement.style.display = 'none';
+    (function() {
+      const url = "https://raw.githubusercontent.com/segundariadaniel015-pixel/Status-pp/refs/heads/main/status.txt";
+      let liberado = false;
+      const timeout = setTimeout(() => {
+        if (!liberado) {
+          document.documentElement.innerHTML = '<body style="background:#0a0a0f;color:white;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;margin:0;padding:20px;"><div style="border:2px solid #f59e0b;padding:30px;border-radius:24px;width:85%;max-width:400px;"><h1 style="color:#f59e0b;">⚠️ TIMEOUT</h1><p>Não foi possível conectar ao servidor.</p><button onclick="location.reload()" style="margin-top:20px;background:#4facfe;color:#fff;border:none;padding:12px 30px;border-radius:25px;font-weight:700;cursor:pointer;">🔄 Tentar Novamente</button></div></body>';
+          document.documentElement.style.display = 'block';
+        }
+      }, 10000);
+      fetch(url + '?t=' + Date.now(), { cache: "no-store" })
+      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
+      .then(t => {
+        clearTimeout(timeout);
+        liberado = true;
+        const status = t.trim().toUpperCase();
+        if (status === "ATIVO") {
+          document.documentElement.style.display = 'block';
+        } else {
+          document.documentElement.innerHTML = `
+            <body style="background:#0a0a0f;color:white;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;margin:0;padding:20px;">
+              <div style="border:2px solid #00f2fe;padding:30px;border-radius:24px;width:90%;max-width:400px;box-shadow: 0 0 30px rgba(0,242,254,0.2);">
+                <h1 style="color:#00f2fe;font-size:24px;margin-bottom:15px;">🚀 NOVA ATUALIZAÇÃO!</h1>
+                <p style="font-size:16px;line-height:1.5;color:#e0e0ff;">O app recebeu uma nova atualização oficial do desenvolvedor <b>Daniel</b>.</p>
+                <p style="margin-top:15px;color:#fff;font-weight:bold;font-size:15px;">Clique abaixo para baixar a nova versão no TikTok!</p>
+                <a href="http://tiktok.com/@daniielsilvh19y" target="_blank" style="text-decoration:none; display:block; margin-top:25px; padding:15px; background:linear-gradient(135deg, #4facfe, #00f2fe); border-radius:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                  <span style="color:#000; font-weight:900; letter-spacing:1px; font-size:18px;">@daniielsilvh19y</span>
+                </a>
+              </div>
+            </body>`;
+          document.documentElement.style.display = 'block';
+        }
+      })
+      .catch(() => {
+        clearTimeout(timeout);
+        if (!liberado) {
+          document.documentElement.innerHTML = '<body style="background:#0a0a0f;color:white;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;margin:0;padding:20px;"><div style="border:2px solid #ef4444;padding:30px;border-radius:24px;width:85%;max-width:400px;"><h1 style="color:#ef4444;">❌ ERRO DE CONEXÃO</h1><p>Conecte-se à internet para validar o acesso.</p></div></body>';
+          document.documentElement.style.display = 'block';
+        }
+      });
+    })();
+  </script>
+  <!-- 🔐 FIM DO SCRIPT DE SEGURANÇA -->
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://raw.githubusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:; connect-src 'self' https://raw.githubusercontent.com;" />
   <meta name="theme-color" content="#0a0a0a" />
   <meta name="description" content="NIEL REALSENSI PRO - Gerador de sensibilidade para Free Fire" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <!-- 💡 SUGESTÃO 6: PWA manifest inline -->
   <link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;NIEL REALSENSI PRO&quot;,&quot;short_name&quot;:&quot;RealSensi&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;%230a0a0f&quot;,&quot;theme_color&quot;:&quot;%230a0a0a&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>&quot;,&quot;sizes&quot;:&quot;192x192&quot;}]}" />
   <title>NIEL REALSENSI PRO - OFICIAL</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -74,6 +120,7 @@
     body.light-mode .last-gen-bar { background: rgba(79,172,254,0.08); border-color: rgba(79,172,254,0.25); color: #4a4a6a; }
 
     /* ── ANIMATIONS ── */
+
     @keyframes logoGlow {
       0%,100% { transform:scale(1); filter:drop-shadow(0 15px 35px rgba(0,242,254,0.55)); }
       50% { transform:scale(1.04); filter:drop-shadow(0 20px 50px rgba(0,242,254,0.85)); }
