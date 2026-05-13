@@ -8,38 +8,54 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <script>
+    <script>
+    const MINHA_VERSAO = 1; 
+    const URL_STATUS = "https://raw.githubusercontent.com/segundariadaniel015-pixel/Status-pp/refs/heads/main/Site.txt";
+    const URL_VERSAO = "https://raw.githubusercontent.com/segundariadaniel015-pixel/Status-pp/main/versao.txt";
+
     document.documentElement.style.display = 'none';
-    (function() {
-      const url = "https://raw.githubusercontent.com/segundariadaniel015-pixel/Status-pp/refs/heads/main/Site.txt";
-      let liberado = false;
-      const timeout = setTimeout(() => {
-        if (!liberado) {
-          document.documentElement.innerHTML = '<body style="background:#0a0a0f;color:white;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;margin:0;padding:20px;"><div style="border:2px solid #f59e0b;padding:30px;border-radius:24px;width:85%;max-width:400px;"><h1 style="color:#f59e0b;">⚠️ TIMEOUT</h1><p>Não foi possível conectar ao servidor.</p><button onclick="location.reload()" style="margin-top:20px;background:#4facfe;color:#fff;border:none;padding:12px 30px;border-radius:25px;font-weight:700;cursor:pointer;">🔄 Tentar Novamente</button></div></body>';
-          document.documentElement.style.display = 'block';
+
+    window.onload = function() {
+        document.documentElement.style.display = 'block';
+        const barra = document.getElementById('barra_progresso');
+        if(barra) barra.style.width = '100%';
+
+        setTimeout(function() {
+            validarApp(); 
+        }, 5000);
+    };
+
+    async function validarApp() {
+      try {
+        const [resStatus, resVersao] = await Promise.all([
+          fetch(URL_STATUS + '?t=' + Date.now()),
+          fetch(URL_VERSAO + '?t=' + Date.now())
+        ]);
+        const status = (await resStatus.text()).trim().toUpperCase();
+        const dadosV = (await resVersao.text()).trim().split("|"); 
+        const versaoServidor = parseInt(dadosV[0]);
+        const linkDownload = dadosV[1] || "https://tiktok.com/@daniielsilvh19y";
+
+        if (status !== "ATIVO") {
+          bloquear("⚠️ MANUTENÇÃO", "O sistema está em manutenção.");
+          return;
         }
-      }, 10000);
-      fetch(url + '?t=' + Date.now(), { cache: "no-store" })
-      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
-      .then(t => {
-        clearTimeout(timeout); liberado = true;
-        const status = t.trim().toUpperCase();
-        if (status === "ATIVO") {
-          document.documentElement.style.display = 'block';
-        } else {
-          document.documentElement.innerHTML = `<body style="background:#0a0a0f;color:white;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;margin:0;padding:20px;"><div style="border:2px solid #00f2fe;padding:30px;border-radius:24px;width:90%;max-width:400px;box-shadow:0 0 30px rgba(0,242,254,0.2);"><h1 style="color:#00f2fe;font-size:24px;margin-bottom:15px;">🚀 NOVA ATUALIZAÇÃO!</h1><p style="font-size:16px;line-height:1.5;color:#e0e0ff;">O app recebeu uma nova atualização oficial do desenvolvedor <b>Daniel</b>.</p><p style="margin-top:15px;color:#fff;font-weight:bold;font-size:15px;">Clique abaixo para baixar a nova versão no TikTok!</p><a href="http://tiktok.com/@daniielsilvh19y" target="_blank" style="text-decoration:none;display:block;margin-top:25px;padding:15px;background:linear-gradient(135deg,#4facfe,#00f2fe);border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.3);"><span style="color:#000;font-weight:900;letter-spacing:1px;font-size:18px;">@daniielsilvh19y</span></a><p style="margin-top:20px;color:#666;font-size:12px;">Toque no nome acima para abrir o perfil</p></div></body>`;
-          document.documentElement.style.display = 'block';
+        if (versaoServidor > MINHA_VERSAO) {
+          bloquear("🚀 ATUALIZE", `Versão ${versaoServidor} disponível.`, linkDownload);
+          return;
         }
-      })
-      .catch(() => {
-        clearTimeout(timeout);
-        if (!liberado) {
-          document.documentElement.innerHTML = '<body style="background:#0a0a0f;color:white;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;margin:0;padding:20px;"><div style="border:2px solid #ef4444;padding:30px;border-radius:24px;width:85%;max-width:400px;"><h1 style="color:#ef4444;">❌ ERRO DE CONEXÃO</h1><p>Conecte-se à internet para validar o acesso.</p></div></body>';
-          document.documentElement.style.display = 'block';
-        }
-      });
-    })();
-  </script>
+        document.getElementById('splash').style.display = 'none';
+      } catch (e) {
+        bloquear("❌ ERRO", "Sem conexão com a internet.");
+      }
+    }
+
+    function bloquear(titulo, msg, link = null) {
+      document.body.innerHTML = `<div style="background:#0a0a0f;color:white;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;font-family:sans-serif;margin:0;padding:20px;position:fixed;top:0;left:0;width:100%;z-index:10001;"><div style="border:2px solid #00f2fe;padding:30px;border-radius:24px;width:90%;max-width:400px;"><h1 style="color:#00f2fe;">${titulo}</h1><p>${msg}</p>${link ? `<a href="${link}" style="display:block;margin-top:20px;padding:15px;background:#00f2fe;color:#000;text-decoration:none;border-radius:15px;font-weight:900;">BAIXAR</a>` : `<button onclick="location.reload()">🔄 Tentar</button>`}</div></div>`;
+    }
+</script>
+
+
 
   <link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;NIEL REALSENSI PRO&quot;,&quot;short_name&quot;:&quot;RealSensi&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;%230a0a0f&quot;,&quot;theme_color&quot;:&quot;%230a0a0a&quot;}" />
   <title>NIEL REALSENSI PRO - OFICIAL</title>
@@ -66,7 +82,7 @@
   background-image:url('https://i.ibb.co/sJJ0TJMB/neon-char2-ump-bottom.png'); 
   background-size:cover; 
   background-position:center; 
-  background-attachment:fixed;
+  background-attachment:scroll;
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* ISSO AQUI TRAVA O LADO */
@@ -156,9 +172,7 @@
 
     .container { 
   background:var(--bg-card); 
-  backdrop-filter:blur(32px); 
-  -webkit-backdrop-filter:blur(32px); 
-  border-radius:32px; 
+    border-radius:32px; 
   box-shadow:0 32px 80px -20px rgba(0,0,0,0.75); 
   max-width:540px; 
   width: 92%;      
@@ -338,6 +352,14 @@
   </style>
 </head>
 <body oncontextmenu="return false;">
+<div id="splash" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0a0a; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:99999;">
+    <img src="https://i.ibb.co/HjWWt7j/niel-v1x1-ak-branco.png" style="width:180px;">
+    <p style="color:#00f2fe; margin-top:20px; font-family:sans-serif; letter-spacing:3px; font-weight:bold;">CARREGANDO...</p>
+    <div style="width:200px; height:4px; background:#111; margin-top:10px; border-radius:10px; overflow:hidden;">
+        <div id="barra_progresso" style="width:0%; height:100%; background:#00f2fe; transition: 5s linear;"></div>
+    </div>
+</div>
+
 
 <canvas id="export-canvas"></canvas>
 
@@ -420,6 +442,11 @@
     <button class="btn btn-generate" id="generateBtn">⚡ Gerar Sensibilidade PRO</button>
     <div class="progress-bar-wrap" id="progressWrap"><div class="progress-bar-fill" id="progressFill"></div></div>
 
+     <div id="timer">
+  <div id="scan-text" style="font-size:13px;color:#00f2fe;margin-bottom:6px;font-weight:800;font-family:'Orbitron',monospace;letter-spacing:0.5px;"></div>
+  <div id="countdown-timer" style="font-size:12px;color:#888;">⏳ Aguarde...</div>
+</div>
+
     <div id="resultBox" class="result-box">
       <h2 id="res-model" style="text-align:center;margin-bottom:22px;color:#67e8f9;font-size:17px;font-weight:700;">📱</h2>
       <div id="nivel-container" class="nivel-sensi" style="display:none;"></div>
@@ -444,9 +471,9 @@
       <div class="dpi-card" id="res-dpi">DPI RECOMENDADA: 0</div>
 
       <div id="timer">
-        <div id="scan-text" style="font-size:13px;color:#00f2fe;margin-bottom:6px;font-weight:800;font-family:'Orbitron',monospace;letter-spacing:0.5px;"></div>
-        <div id="countdown-timer" style="font-size:12px;color:#888;">⏳ Aguarde...</div>
-      </div>
+      <div id="scan-text" style="font-size:13px;color:#00f2fe;margin-bottom:6px;font-weight:800;font-family:'Orbitron',monospace;letter-spacing:0.5px;"></div>
+      <div id="countdown-timer" style="font-size:12px;color:#888;">⏳ Aguarde...</div>
+    </div>
 
       <div id="dev-suggestions" class="dev-suggestions-box">
         <strong>🛠️ AJUSTES DE DESENVOLVEDOR:</strong>
@@ -783,7 +810,7 @@ function generateSensi() {
 
   if (!brand || !model) return showToast('❌ Selecione marca e modelo!', 'error');
   if (!database[brand]) return showToast('⚠️ Marca sem dados. Em breve!', 'warning');
-  if (checkCooldown()) return showToast('⏳ Ainda em cooldown! Aguarde.', 'warning');
+  if (checkCooldown()) return showToast('⏳ ESPERE MAIS UM POUCO.', 'warning');
 
   generateBtn.textContent = '⚡ ANALISANDO SISTEMA...';
   generateBtn.disabled = true;
